@@ -1,0 +1,4 @@
+reflow: batch program ~/reflow-workflows/sourmash.rf runsfile samples.csv
+reflow: batch program ~/reflow-workflows/sourmash.rf runsfile samples.csv
+open /home/ubuntu/.reflow/runs/12f9a53350fa89e25c121c2b56c2e22a92ce923c55656dbe776432c974ff3f38.json: too many open files
+open /home/ubuntu/.reflow/runs/12f9a53350fa89e25c121c2b56c2e22a92ce923c55656dbe776432c974ff3f38.json: too many open files
