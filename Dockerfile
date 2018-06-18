@@ -1,15 +1,15 @@
 # for binder
 # FROM andrewosh/binder-base
-# FROM continuumio/anaconda3
-FROM debian:stable
+FROM continuumio/anaconda3
+# FROM debian:stable
 MAINTAINER khmer-project@idyll.org
 
-ENV PACKAGES python3-dev zlib1g-dev libbz2-dev gcc git python3-setuptools g++ \
-             make ca-certificates python3-pip python3-wheel
+# ENV PACKAGES python3-dev zlib1g-dev libbz2-dev gcc git python3-setuptools g++ \
+#              make ca-certificates python3-pip python3-wheel libc6-dev
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends ${PACKAGES} && \
-    apt-get clean
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends ${PACKAGES} && \
+#     apt-get clean
 
 WORKDIR /home
 
@@ -26,7 +26,7 @@ USER root
 RUN useradd -ms /bin/bash main
 
 
-# ENV PACKAGES python3 python3-setuptools zlib1g git g++ make ca-certificates
+ENV PACKAGES zlib1g git g++ make ca-certificates gcc zlib1g-dev libc6-dev 
 # ENV PACKAGES git g++ make ca-certificates zlib1g -y python3.5-dev python3.5-venv make \
 #     libc6-dev g++ zlib1g-dev
 ENV SOURMASH_VERSION master
@@ -35,25 +35,31 @@ ENV SOURMASH_VERSION master
 
 WORKDIR /home
 
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends ${PACKAGES} && \
-#     apt-get clean
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ${PACKAGES} && \
+    apt-get clean
 
-# RUN conda install --yes Cython bz2file pytest numpy matplotlib scipy sphinx alabaster
+RUN conda install --yes Cython bz2file pytest numpy matplotlib scipy sphinx alabaster
 
 
 RUN cd /home && \
-    git clone https://github.com/czbiohub/khmer.git -b olgabot/trim_tmp_filename && \
+    git clone https://github.com/dib-lab/khmer.git -b master && \
     cd khmer && \
     python3 setup.py install
 
-RUN cd /home && \
-    git clone https://github.com/dib-lab/sourmash.git -b ${SOURMASH_VERSION} && \
-    cd sourmash && \
-    python3 setup.py install
+# Check that khmer was installed properly
+RUN trim-low-abund.py --help
+
+# RUN cd /home && \
+#     git clone https://github.com/dib-lab/sourmash.git -b ${SOURMASH_VERSION} && \
+#     cd sourmash && \
+#     python3 setup.py install
+
+RUN conda install --channel bioconda --yes sourmash
 
 RUN which -a python3
 RUN python3 --version
+RUN sourmash --help
 
 
 
