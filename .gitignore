@@ -1,6 +1,9 @@
 # Reflow log files
 log*
 
+# Reflow state files
+state*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
