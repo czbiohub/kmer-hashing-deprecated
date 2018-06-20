@@ -29,7 +29,6 @@ RUN useradd -ms /bin/bash main
 ENV PACKAGES zlib1g git g++ make ca-certificates gcc zlib1g-dev libc6-dev 
 # ENV PACKAGES git g++ make ca-certificates zlib1g -y python3.5-dev python3.5-venv make \
 #     libc6-dev g++ zlib1g-dev
-ENV SOURMASH_VERSION master
 
 ### don't modify things below here for version updates etc.
 
@@ -49,17 +48,22 @@ RUN cd /home && \
 
 # Check that khmer was installed properly
 RUN trim-low-abund.py --help
-
-# RUN cd /home && \
-#     git clone https://github.com/dib-lab/sourmash.git -b ${SOURMASH_VERSION} && \
-#     cd sourmash && \
-#     python3 setup.py install
+RUN trim-low-abund.py --version
 
 RUN conda install --channel bioconda --yes sourmash
 
+# ENV SOURMASH_VERSION master
+RUN cd /home && \
+    git clone https://github.com/dib-lab/sourmash.git && \
+    cd sourmash && \
+    python3 setup.py install
+
 RUN which -a python3
 RUN python3 --version
-RUN sourmash --help
+RUN sourmash info
+RUN sourmash compute --help
+RUN sourmash compare --help
+RUN sourmash index --help
 
 
 
