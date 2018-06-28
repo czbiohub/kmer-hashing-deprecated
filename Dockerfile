@@ -2,7 +2,7 @@
 # FROM andrewosh/binder-base
 FROM continuumio/anaconda3
 # FROM debian:stable
-MAINTAINER khmer-project@idyll.org
+MAINTAINER olga.botvinnik@czbiohub.org
 
 # ENV PACKAGES python3-dev zlib1g-dev libbz2-dev gcc git python3-setuptools g++ \
 #              make ca-certificates python3-pip python3-wheel libc6-dev
