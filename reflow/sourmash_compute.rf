@@ -1,0 +1,115 @@
+param (
+    // S3 path to read1 of the fastq/fasta file. If multiple files, 
+    // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
+    read1 string
+
+    // S3 path to read2 of the fastq/fasta file. If multiple files, 
+    // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
+    read2 string
+
+    // Identifier of the sample
+    name string
+
+    // Full s3 file location to put the sourmash signature
+    output string
+
+    // Size of kmer(s) to use
+    ksizes = "21,33,51"
+
+    // If true, remove low abundance (probably erroneous) kmers before computing signature
+    // Usually good practice
+    trim_low_abundance_kmers = true
+
+    // choose number of hashes as 1 in FRACTION of input k-mers
+    scaled = 500
+
+    // Calculate protein signature
+    protein = true
+
+    // Calculate DNA signature
+    dna = true
+)
+
+
+val kmer_hashing = "czbiohub/kmer-hashing"
+// val sourmash = "quay.io/biocontainers/sourmash:2.0.0a7--py27_0"
+
+
+val protein_flag = if protein { "--protein" } else { "--no-protein" }
+val dna_flag = if dna { "--dna" } else { "--no-dna" }
+
+// Trim low-abundance kmers (probably erroneous)
+// This is safe to use on genomes, metagenomes, and transcriptomes. If you are 
+// working with large genomes or diverse metagenomes, you may need to increase 
+// the -M parameter to use more memory.
+func Trim(r1, r2 [file]) =
+    // Use kmer-hashing image which has latest khmer to avoid bug with basenames in reflow
+    exec(image := kmer_hashing, mem := 4*GiB) (trimmed file) {"
+        /opt/conda/bin/trim-low-abund.py \
+            --cutoff 3 \
+            --trim-at-coverage 18 \
+            --variable-coverage \
+            --max-memory-usage 4e9 \
+            --output {{trimmed}} \
+            {{r1}} {{r2}}
+"}
+
+
+
+// Compute a minhash signature for a sample
+func ComputeTrimmed(trimmed file, name, ksizes string) = 
+	exec(image := kmer_hashing) (signature file) {"
+		/opt/conda/bin/sourmash compute \
+            --track-abundance \
+            {{protein_flag}} \
+            {{dna_flag}} \
+            --scaled {{scaled}} \
+            --ksizes {{ksizes}} \
+            --merge '{{name}}' \
+            --output {{signature}} \
+            {{trimmed}}
+"}
+
+@requires()
+func ComputeUntrimmed(r1, r2 [file], name, ksizes string) = 
+    exec(image := kmer_hashing) (signature file) {"
+        /opt/conda/bin/sourmash compute \
+            --track-abundance \
+            {{protein_flag}} \
+            {{dna_flag}} \
+            --scaled {{scaled}} \
+            --ksizes {{ksizes}} \
+            --merge '{{name}}' \
+            --output {{signature}} \
+            {{r1}} {{r2}}
+"}
+
+
+
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+
+// Instantiate Go system module "strings"
+val strings = make("$/strings")
+
+// Split each read string by the pipe "|" to get individual s3 paths
+val read1s = strings.Split(read1, "|")
+val read2s = strings.Split(read2, "|")
+
+// Create a file for each element in the `read1s`, `read2s` string array
+// Now `r1`, `r1` are arrays of files
+val r1 = [file(read1) | read1 <- read1s]
+val r2 = [file(read2) | read2 <- read2s]
+
+val signature = if trim_low_abundance_kmers {
+    trimmed := Trim(r1, r2)
+    ComputeTrimmed(trimmed, name, ksizes)
+} else {
+    ComputeUntrimmed(r1, r2, name, ksizes)
+}
+
+@requires(cpu := 2, mem := 4*GiB)
+val Main = files.Copy(signature, output)
