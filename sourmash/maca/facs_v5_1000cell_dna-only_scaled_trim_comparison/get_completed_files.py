@@ -1,17 +1,11 @@
 # coding: utf-8
-import pandas as pd
-samples = pd.read_csv('samples.csv')
-samples.head()
-pd.options.display.max_columns = 20
-samples.head()
-samples.output.head()
-pd.options.display.max_colwidth = 100
-samples.output.head()
 import os
-samples.output.map(os.path.basename)
-samples.output.map(os.path.dirname)
+import pandas as pd
+
+samples = pd.read_csv('samples.csv')
+
 prefixes = samples.output.map(os.path.dirname).unique()
-prefixes
+
 def get_completed_files():
     total_files = 0
     for prefix in prefixes:
@@ -19,4 +13,8 @@ def get_completed_files():
         n_files = int(line_count[0])
         total_files += n_files
     return total_files
-get_completed_files()
+
+n_files = get_completed_files()
+n_total = samples.shape[0]
+percentage = 100 * n_files/n_total
+print(f'\tNumber of signatures computed: {n_files:,} ({percentage:.2f}% of total {n_total:,})')
