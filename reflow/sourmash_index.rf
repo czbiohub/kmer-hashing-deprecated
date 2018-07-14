@@ -1,0 +1,71 @@
+param (
+    // S3 path to directory containing computed signatures
+    signatures string
+
+    // Full s3 file location to put the sourmash signature
+    output string
+
+    // Size of kmer to use (can only use one for index)
+    ksize = "21"
+
+    // What to compare, could be either "protein" or "dna"
+    sequence_to_compare = "dna"
+)
+
+
+val kmer_hashing = "czbiohub/kmer-hashing"
+
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+
+
+// Create a sequence bloom tree (SBT) database for fast lookups of sequences
+// ubuntu@olgabot-reflow  sourmash index --help
+// usage: sourmash [-h] [-q] [-k KSIZE] [-d N_CHILDREN] [--traverse-directory]
+//                 [--append] [-x BF_SIZE] [-f] [-s SPARSENESS] [--protein]
+//                 [--no-protein] [--dna] [--no-dna]
+//                 sbt_name signatures [signatures ...]
+
+// positional arguments:
+//   sbt_name              name to save SBT into
+//   signatures            signatures to load into SBT
+
+// optional arguments:
+//   -h, --help            show this help message and exit
+//   -q, --quiet           suppress non-error output
+//   -k KSIZE, --ksize KSIZE
+//                         k-mer size for which to build the SBT.
+//   -d N_CHILDREN, --n_children N_CHILDREN
+//                         Number of children for internal nodes
+//   --traverse-directory  load all signatures underneath this directory.
+//   --append              add signatures to an existing SBT.
+//   -x BF_SIZE, --bf-size BF_SIZE
+//                         Bloom filter size used for internal nodes.
+//   -f, --force           Try loading all files with --traverse-directory
+//   -s SPARSENESS, --sparseness SPARSENESS
+//                         What percentage of internal nodes will not be saved.
+//                         Ranges from 0.0 (save all nodes) to 1.0 (no nodes
+//                         saved)
+//   --protein             choose a protein signature (default: False)
+//   --no-protein          do not choose a protein signature
+//   --dna                 choose a DNA signature (default: True)
+//   --no-dna              do not choose a DNA signature
+func Index(signatures dir, ksize string) = 
+	exec(image := kmer_hashing, mem := 16*GiB) (ksize_database file) {"
+        cd {{signatures}}
+		/opt/conda/bin/sourmash index \
+            --ksize {{ksize}} \
+            --traverse-directory \
+            {{ksize_database}} \
+            .
+"}
+
+
+val signatures_dir = dir(signatures)
+
+val database = Index(signatures_dir, ksize)
+
+val Main = files.Copy(database, output)

@@ -1,0 +1,65 @@
+
+param (
+    // S3 path to directory containing computed signatures
+    signatures string
+
+    // Full s3 file location to put the output comparison
+    output string
+
+    // Size of kmer to use (can only use one for index)
+    ksize = "21"
+
+    // What to compare, could be either "protein" or "dna"
+    sequence_to_compare = "dna"
+)
+
+
+val kmer_hashing = "czbiohub/kmer-hashing"
+
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+
+
+// Instantiate system module "strings"
+val strings = make("$/strings")
+
+
+// Compute a minhash signature for a sample
+// ubuntu@olgabot-reflow  sourmash compare --help
+// usage: sourmash [-h] [-o OUTPUT] [--ignore-abundance] [-k KSIZE] [--protein]
+//                 [--no-protein] [--dna] [--no-dna] [--csv CSV] [-q]
+//                 signatures [signatures ...]
+
+// positional arguments:
+//   signatures            list of signatures
+
+// optional arguments:
+//   -h, --help            show this help message and exit
+//   -o OUTPUT, --output OUTPUT
+//   --ignore-abundance    do NOT use k-mer abundances if present
+//   -k KSIZE, --ksize KSIZE
+//                         k-mer size (default: 31)
+//   --protein             choose a protein signature (default: False)
+//   --no-protein          do not choose a protein signature
+//   --dna                 choose a DNA signature (default: True)
+//   --no-dna              do not choose a DNA signature
+//   --csv CSV             save matrix in CSV format (with column headers)
+//   -q, --quiet           suppress non-error output
+func Compare(signatures dir, ksize, sequence_to_compare string) = 
+	exec(image := kmer_hashing, mem := GiB) (comparison file) {"
+        cd {{signatures}} 
+		/opt/conda/bin/sourmash compare \
+            --ksize {{ksize}} \
+            --output {{comparison}} \
+            --traverse-directory \
+            .
+"}
+
+val signatures_dir = dir(signatures)
+
+val comparison = Compare(signatures_dir, ksize, sequence_to_compare)
+
+val Main = files.Copy(comparison, output)
