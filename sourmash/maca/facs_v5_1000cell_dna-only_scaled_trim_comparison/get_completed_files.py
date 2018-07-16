@@ -14,7 +14,7 @@ def get_completed_files():
         total_files += n_files
     return total_files
 
-n_files = get_completed_files()
+get_ipython().run_line_magic('time', 'n_files = get_completed_files()')
 n_total = samples.shape[0]
 percentage = 100 * n_files/n_total
 print(f'\tNumber of signatures computed: {n_files:,} ({percentage:.2f}% of total {n_total:,})')
