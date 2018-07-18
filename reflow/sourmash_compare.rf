@@ -51,6 +51,9 @@ val strings = make("$/strings")
 func Compare(signatures dir, ksize, sequence_to_compare string) = 
 	exec(image := kmer_hashing, mem := GiB) (comparison file) {"
         cd {{signatures}} 
+        # sourmash expects signatures to be named .sig but we name them .signature
+        for f in $(ls *signature) ; do g=$(echo $f | cut -f 1 -d '.').sig ; echo $g ; mv $f $g ; done
+
 		/opt/conda/bin/sourmash compare \
             --ksize {{ksize}} \
             --output {{comparison}} \

@@ -56,11 +56,16 @@ val files = make("$/files")
 func Index(signatures dir, ksize string) = 
 	exec(image := kmer_hashing, mem := 16*GiB) (ksize_database file) {"
         cd {{signatures}}
+        # sourmash expects signatures to be named .sig but we name them .signature
+        for f in $(ls *signature) ; do g=$(echo $f | cut -f 1 -d '.').sig ; echo $g ; mv $f $g ; done
+
 		/opt/conda/bin/sourmash index \
+            --force \
+            --{{sequence_to_compare}} \
             --ksize {{ksize}} \
             --traverse-directory \
             {{ksize_database}} \
-            .
+            {{signatures}}
 "}
 
 
