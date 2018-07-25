@@ -26,6 +26,8 @@ val files = make("$/files")
 // Instantiate system module "strings"
 val strings = make("$/strings")
 
+val dirs = make("$/dirs")
+
 
 // Compute a minhash signature for a sample
 // ubuntu@olgabot-reflow  sourmash compare --help
@@ -48,18 +50,23 @@ val strings = make("$/strings")
 //   --no-dna              do not choose a DNA signature
 //   --csv CSV             save matrix in CSV format (with column headers)
 //   -q, --quiet           suppress non-error output
-func Compare(signatures dir, ksize, sequence_to_compare string) = 
-	exec(image := kmer_hashing, mem := GiB) (comparison file) {"
-        cd {{signatures}} 
-        # sourmash expects signatures to be named .sig but we name them .signature
-        for f in $(ls *signature) ; do g=$(echo $f | cut -f 1 -d '.').sig ; echo $g ; mv $f $g ; done
+func Compare(signatures dir, ksize, sequence_to_compare string) = {
+    val filenames = dirs.Files(signatures)
 
+    // sourmash expects signatures to be named .sig
+    val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
+    val d = dirs.Make(map(renamed))
+
+	exec(image := kmer_hashing, mem := GiB) (comparison file) {"
 		/opt/conda/bin/sourmash compare \
             --ksize {{ksize}} \
+            --force \
+            --{{sequence_to_compare}} \
             --output {{comparison}} \
             --traverse-directory \
-            .
-"}
+            {{d}}
+    "}
+}
 
 val signatures_dir = dir(signatures)
 
