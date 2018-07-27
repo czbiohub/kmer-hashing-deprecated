@@ -60,7 +60,6 @@ func Compare(signatures dir, ksize, sequence_to_compare string) = {
 	exec(image := kmer_hashing, mem := GiB) (comparison file) {"
 		/opt/conda/bin/sourmash compare \
             --ksize {{ksize}} \
-            --force \
             --{{sequence_to_compare}} \
             --output {{comparison}} \
             --traverse-directory \
