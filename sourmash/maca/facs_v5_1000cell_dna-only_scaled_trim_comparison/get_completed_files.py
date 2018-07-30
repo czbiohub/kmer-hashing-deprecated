@@ -9,7 +9,7 @@ prefixes = samples.output.map(os.path.dirname).unique()
 def get_completed_files():
     total_files = 0
     for prefix in prefixes:
-        line_count = get_ipython().getoutput('aws s3 ls --recursive $prefix | wc -l')
+        line_count = get_ipython().getoutput('aws s3 ls --recursive $prefix/ | wc -l')
         n_files = int(line_count[0])
         total_files += n_files
     return total_files
