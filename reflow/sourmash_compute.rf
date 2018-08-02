@@ -57,6 +57,7 @@ func Trim(r1, r2 [file]) =
 
 
 // Compute a minhash signature for a sample
+@requires(cpu := 2, mem := 8*GiB)
 func ComputeTrimmed(trimmed file, name, ksizes string) = 
 	exec(image := kmer_hashing) (signature file) {"
 		/opt/conda/bin/sourmash compute \
@@ -70,7 +71,7 @@ func ComputeTrimmed(trimmed file, name, ksizes string) =
             {{trimmed}}
 "}
 
-@requires()
+@requires(cpu := 2, mem := 16*GiB)
 func ComputeUntrimmed(r1, r2 [file], name, ksizes string) = 
     exec(image := kmer_hashing) (signature file) {"
         /opt/conda/bin/sourmash compute \
