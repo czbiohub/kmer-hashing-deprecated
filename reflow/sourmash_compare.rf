@@ -57,12 +57,12 @@ func Compare(signatures dir, ksize, sequence_to_compare string) = {
     val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
     val d = dirs.Make(map(renamed))
 
-	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (comparison file) {"
+	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (csv file) {"
         ls -lha {{d}}
 		/opt/conda/bin/sourmash compare \
             --ksize {{ksize}} \
             --{{sequence_to_compare}} \
-            --output {{comparison}} \
+            --csv {{csv}} \
             --traverse-directory \
             {{d}}
     "}
