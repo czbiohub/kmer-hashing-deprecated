@@ -1,4 +1,4 @@
-ksize,signatures,output
-21,s3://olgabot-maca/lung_cancer/sourmash_v3/,s3://olgabot-maca/lung_cancer/sourmash_v3_compare/k21.csv
-33,s3://olgabot-maca/lung_cancer/sourmash_v3/,s3://olgabot-maca/lung_cancer/sourmash_v3_compare/k33.csv
-51,s3://olgabot-maca/lung_cancer/sourmash_v3/,s3://olgabot-maca/lung_cancer/sourmash_v3_compare/k51.csv
+id,ksize,signatures,output
+k21,21,s3://olgabot-maca/lung_cancer/sourmash_v3/,s3://olgabot-maca/lung_cancer/sourmash_v3_compare/k21.csv
+k33,33,s3://olgabot-maca/lung_cancer/sourmash_v3/,s3://olgabot-maca/lung_cancer/sourmash_v3_compare/k33.csv
+k51,51,s3://olgabot-maca/lung_cancer/sourmash_v3/,s3://olgabot-maca/lung_cancer/sourmash_v3_compare/k51.csv
