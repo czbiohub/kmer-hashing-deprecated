@@ -54,7 +54,7 @@ RUN conda install --channel bioconda --yes sourmash
 
 # ENV SOURMASH_VERSION master
 RUN cd /home && \
-    git clone https://github.com/dib-lab/sourmash.git && \
+    git clone https://github.com/czbiohub/sourmash.git && \
     cd sourmash && \
     python3 setup.py install
 
