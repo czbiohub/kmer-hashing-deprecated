@@ -54,7 +54,7 @@ RUN conda install --channel bioconda --yes sourmash
 
 # ENV SOURMASH_VERSION master
 RUN cd /home && \
-    git clone https://github.com/czbiohub/sourmash.git && \
+    git clone -b olgabot/use-x-if-codon-not-found https://github.com/czbiohub/sourmash.git && \
     cd sourmash && \
     python3 setup.py install
 
