@@ -6,7 +6,7 @@ param (
     output string
 
     // Size of kmer to use (can only use one for index)
-    ksize = "21"
+    ksize = 21
 
     // What to compare, could be either "protein" or "dna"
     sequence_to_compare = "dna"
@@ -20,6 +20,10 @@ val kmer_hashing = "czbiohub/kmer-hashing"
 // view the documentation for this module, run "reflow doc
 // $/files".
 val files = make("$/files")
+val dirs = make("$/dirs")
+
+// Instantiate system module "strings"
+val strings = make("$/strings")
 
 
 // Create a sequence bloom tree (SBT) database for fast lookups of sequences
@@ -53,11 +57,15 @@ val files = make("$/files")
 //   --no-protein          do not choose a protein signature
 //   --dna                 choose a DNA signature (default: True)
 //   --no-dna              do not choose a DNA signature
-func Index(signatures dir, ksize string) = 
-	exec(image := kmer_hashing, mem := 16*GiB) (ksize_database file) {"
-        cd {{signatures}}
-        # sourmash expects signatures to be named .sig but we name them .signature
-        for f in $(ls *signature) ; do g=$(echo $f | cut -f 1 -d '.').sig ; echo $g ; mv $f $g ; done
+func Index(signatures dir, ksize int) = {
+    val filenames = dirs.Files(signatures)
+
+    // sourmash expects signatures to be named .sig
+    val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
+    val d = dirs.Make(map(renamed))
+
+	exec(image := kmer_hashing, mem := 64*GiB) (ksize_database file) {"
+        ls -lha {{d}}
 
 		/opt/conda/bin/sourmash index \
             --force \
@@ -65,8 +73,9 @@ func Index(signatures dir, ksize string) =
             --ksize {{ksize}} \
             --traverse-directory \
             {{ksize_database}} \
-            {{signatures}}
-"}
+            {{d}}
+    "}
+}
 
 
 val signatures_dir = dir(signatures)
