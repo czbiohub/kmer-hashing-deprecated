@@ -65,8 +65,7 @@ func Index(signatures dir, ksize int) = {
     val d = dirs.Make(map(renamed))
 
 	exec(image := kmer_hashing, mem := 64*GiB) (ksize_database file) {"
-        ls -lha {{d}}
-
+        cd {{d}}
 		/opt/conda/bin/sourmash index \
             --force \
             --{{sequence_to_compare}} \
