@@ -60,7 +60,6 @@ func Compare(signatures dir, ksize, sequence_to_compare string) = {
 	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (csv file) {"
         ls -lha {{d}}
 		/opt/conda/bin/sourmash compare \
-            --ignore-abundance
             --ksize {{ksize}} \
             --{{sequence_to_compare}} \
             --csv {{csv}} \
