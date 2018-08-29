@@ -1,0 +1,4 @@
+id,ksize,signatures,output
+k21,21,s3://czbiohub-mosquito/references/sourmash/signatures/,s3://czbiohub-mosquito/references/sourmash/comparison/k21abun.csv
+k31,31,s3://czbiohub-mosquito/references/sourmash/signatures/,s3://czbiohub-mosquito/references/sourmash/comparison/k31abun.csv
+k51,51,s3://czbiohub-mosquito/references/sourmash/signatures/,s3://czbiohub-mosquito/references/sourmash/comparison/k51abun.csv
