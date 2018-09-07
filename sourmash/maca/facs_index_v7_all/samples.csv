@@ -1,3 +1,9 @@
-id,sequence_to_compare,ksize,signatures,output
-k27_protein,protein,27,s3://olgabot-maca/facs/sourmash_compute_all,s3://olgabot-maca/facs/sourmash_index_all/k27_protein.sbt.json
-k27_dna,dna,27,s3://olgabot-maca/facs/sourmash_compute_all,s3://olgabot-maca/facs/sourmash_index_all/k27_dna.sbt.json
+,ksize,sequence_to_compare,id,database_name,signatures,output
+0,21,protein,tabula-muris-k21-protein,tabula-muris-k21-protein,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-protein
+1,21,dna,tabula-muris-k21-dna,tabula-muris-k21-dna,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-dna
+2,27,protein,tabula-muris-k27-protein,tabula-muris-k27-protein,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k27-protein
+3,27,dna,tabula-muris-k27-dna,tabula-muris-k27-dna,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k27-dna
+4,33,protein,tabula-muris-k33-protein,tabula-muris-k33-protein,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k33-protein
+5,33,dna,tabula-muris-k33-dna,tabula-muris-k33-dna,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k33-dna
+6,51,protein,tabula-muris-k51-protein,tabula-muris-k51-protein,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k51-protein
+7,51,dna,tabula-muris-k51-dna,tabula-muris-k51-dna,s3://olgabot-maca/facs/sourmash_compute_all/,s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k51-dna
