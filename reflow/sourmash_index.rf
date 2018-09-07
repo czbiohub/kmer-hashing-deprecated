@@ -2,8 +2,13 @@ param (
     // S3 path to directory containing computed signatures
     signatures string
 
-    // Full s3 file location to put the sourmash signature
+    // S3 prefix to put the sourmash index folder. Best if matches "database_name"
+    // e.g.: s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-protein
     output string
+
+    // Name of the database
+    // e.g.: tabula-muris-k21-protein
+    database_name string
 
     // Size of kmer to use (can only use one for index)
     ksize = 21
@@ -21,6 +26,8 @@ val kmer_hashing = "czbiohub/kmer-hashing"
 // $/files".
 val files = make("$/files")
 val dirs = make("$/dirs")
+val path = make("$/path")
+
 
 // Instantiate system module "strings"
 val strings = make("$/strings")
@@ -57,21 +64,21 @@ val strings = make("$/strings")
 //   --no-protein          do not choose a protein signature
 //   --dna                 choose a DNA signature (default: True)
 //   --no-dna              do not choose a DNA signature
-func Index(signatures dir, ksize int) = {
+func Index(signatures dir, ksize int, database_name string) = {
     val filenames = dirs.Files(signatures)
 
     // sourmash expects signatures to be named .sig
     val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
     val d = dirs.Make(map(renamed))
 
-	exec(image := kmer_hashing, mem := 64*GiB) (ksize_database file) {"
-        cd {{d}}
+	exec(image := kmer_hashing, mem := 2*GiB) (output dir) {"
+        cd {{output}}
 		/opt/conda/bin/sourmash index \
             --force \
             --{{sequence_to_compare}} \
             --ksize {{ksize}} \
             --traverse-directory \
-            {{ksize_database}} \
+            {{database_name}} \
             {{d}}
     "}
 }
@@ -79,6 +86,7 @@ func Index(signatures dir, ksize int) = {
 
 val signatures_dir = dir(signatures)
 
-val database = Index(signatures_dir, ksize)
+val database = Index(signatures_dir, ksize, database_name)
+val output_database = path.Join([output, database_name])
 
-val Main = files.Copy(database, output)
+val Main = dirs.Copy(database, output_database)
