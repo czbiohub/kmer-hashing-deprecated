@@ -1,0 +1,3 @@
+id,sequence_to_compare,ksize,signatures,output
+k27_protein,protein,27,s3://olgabot-maca/facs/sourmash_compute_all,s3://olgabot-maca/facs/sourmash_index_all/k27_protein.sbt.json
+k27_dna,dna,27,s3://olgabot-maca/facs/sourmash_compute_all,s3://olgabot-maca/facs/sourmash_index_all/k27_dna.sbt.json
