@@ -4,6 +4,8 @@ param (
 
     // S3 prefix to put the sourmash index folder. Best if matches "database_name"
     // e.g.: s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-protein
+    // Need to output a folder because "sourmash index" produces hidden 
+    // files in the folder that must be transferred as well
     output string
 
     // Name of the database
