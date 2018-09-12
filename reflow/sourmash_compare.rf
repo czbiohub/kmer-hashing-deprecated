@@ -11,6 +11,9 @@ param (
 
     // What to compare, could be either "protein" or "dna"
     sequence_to_compare = "dna"
+
+    // Whether or not to include the abundance of kmers in the comparison
+    ignore_abundance = false
 )
 
 
@@ -57,9 +60,12 @@ func Compare(signatures dir, ksize, sequence_to_compare string) = {
     val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
     val d = dirs.Make(map(renamed))
 
+    val abundance_flag = "--ignore-abundance" if ignore_abundance else ""
+
 	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (csv file) {"
         ls -lha {{d}}
 		/opt/conda/bin/sourmash compare \
+            {{abundance_flag}} \
             --ksize {{ksize}} \
             --{{sequence_to_compare}} \
             --csv {{csv}} \
