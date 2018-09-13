@@ -89,6 +89,5 @@ func Index(signatures dir, ksize int, database_name string) = {
 val signatures_dir = dir(signatures)
 
 val database = Index(signatures_dir, ksize, database_name)
-val output_database = path.Join([output, database_name])
 
-val Main = dirs.Copy(database, output_database)
+val Main = dirs.Copy(database, output)
