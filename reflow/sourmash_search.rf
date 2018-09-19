@@ -3,8 +3,9 @@ param (
     // e.g. s3://olgabot-maca/facs/sourmash_compute_all/A1-B000610-3_56_F-1-1.sig
     signature string
 
-    // S3 full path to the sourmash database
-    // e.g. s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-protein/tabula-muris-k21-protein/tabula-muris-k21-protein.sbt.json
+    // S3 full path to the sourmash database folder containing the database folder
+    // e.g. s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-protein/tabula-muris-k21-protein/
+    // Note: this folder contains tabula-muris-k21-protein.sbt.json and a bunch of hidden files
     database string
 
     // Name of the database
@@ -26,7 +27,7 @@ param (
 )
 
 
-val kmer_hashing = "czbiohub/kmer-hashing"
+val kmer_hashing = "czbiohub/kmer-hashing:latest"
 
 // Instantiate the system modules "files" (system modules begin
 // with $), assigning its instance to the "files" identifier. To
