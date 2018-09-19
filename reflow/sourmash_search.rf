@@ -1,0 +1,65 @@
+param (
+    // S3 path to single signature file
+    // e.g. s3://olgabot-maca/facs/sourmash_compute_all/A1-B000610-3_56_F-1-1.sig
+    signature string
+
+    // S3 full path to the sourmash database
+    // e.g. s3://olgabot-maca/facs/sourmash_index_all/tabula-muris-k21-protein/tabula-muris-k21-protein/tabula-muris-k21-protein.sbt.json
+    database string
+
+    // Name of the database
+    // e.g.: tabula-muris-k21-protein
+    database_name string
+
+    // CSV file to write with search results
+    // e.g s3://olgabot-maca/facs/sourmash_search/A1-B000610-3_56_F-1-1_tabula-muris-k21-protein.csv
+    output string
+
+    // Size of kmer to use (can only use one for index)
+    ksize = 21
+
+    // What to compare, could be either "protein" or "dna"
+    sequence_to_compare = "dna"
+
+    // Whether or not to include the abundance of kmers in the comparison
+    ignore_abundance = false
+)
+
+
+val kmer_hashing = "czbiohub/kmer-hashing"
+
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+val dirs = make("$/dirs")
+val path = make("$/path")
+
+
+// Instantiate system module "strings"
+val strings = make("$/strings")
+
+
+func Search(signature file, ksize int, database dir, database_name string) = {
+
+    val abundance_flag =  if ignore_abundance { "--ignore-abundance" } else { "" }
+
+	exec(image := kmer_hashing, mem := 24*GiB) (csv file) {"
+        cd {{database}}
+        /opt/conda/bin/sourmash search \
+            --output {{csv}} \
+            {{abundance_flag}} \
+            --ksize {{ksize}} \
+            --{{sequence_to_compare}} \
+            {{signature}} {{database_name}}
+    "}
+}
+
+
+val sig = file(signature)
+val db = dir(database)
+
+val csv = Search(sig, ksize, db, database_name)
+
+val Main = files.Copy(csv, output)
