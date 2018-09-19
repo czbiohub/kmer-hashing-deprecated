@@ -27,7 +27,7 @@ param (
 )
 
 
-val kmer_hashing = "czbiohub/kmer-hashing:latest"
+val kmer_hashing = "czbiohub/kmer-hashing:olgabot_search-compare-ignore-abundance"
 
 // Instantiate the system modules "files" (system modules begin
 // with $), assigning its instance to the "files" identifier. To
