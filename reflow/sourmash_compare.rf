@@ -11,6 +11,9 @@ param (
 
     // What to compare, could be either "protein" or "dna"
     sequence_to_compare = "dna"
+
+    // Whether or not to include the abundance of kmers in the comparison
+    ignore_abundance = false
 )
 
 
@@ -50,16 +53,19 @@ val dirs = make("$/dirs")
 //   --no-dna              do not choose a DNA signature
 //   --csv CSV             save matrix in CSV format (with column headers)
 //   -q, --quiet           suppress non-error output
-func Compare(signatures dir, ksize, sequence_to_compare string) = {
+func Compare(signatures dir, ksize, sequence_to_compare string, ignore_abundance bool) = {
     val filenames = dirs.Files(signatures)
 
     // sourmash expects signatures to be named .sig
     val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
     val d = dirs.Make(map(renamed))
 
+    val abundance_flag =  if ignore_abundance { "--ignore-abundance" } else { "" }
+
 	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (csv file) {"
         ls -lha {{d}}
 		/opt/conda/bin/sourmash compare \
+            {{abundance_flag}} \
             --ksize {{ksize}} \
             --{{sequence_to_compare}} \
             --csv {{csv}} \
@@ -70,6 +76,6 @@ func Compare(signatures dir, ksize, sequence_to_compare string) = {
 
 val signatures_dir = dir(signatures)
 
-val comparison = Compare(signatures_dir, ksize, sequence_to_compare)
+val comparison = Compare(signatures_dir, ksize, sequence_to_compare, ignore_abundance)
 
 val Main = files.Copy(comparison, output)
