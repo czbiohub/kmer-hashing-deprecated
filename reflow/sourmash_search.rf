@@ -49,7 +49,7 @@ func Search(signature file, ksize int, database dir, database_name string) = {
 	exec(image := kmer_hashing, mem := 24*GiB) (csv file) {"
         cd {{database}}
         /opt/conda/bin/sourmash search \
-            --threshold 0.001 \
+            --threshold 0 \
             --output {{csv}} \
             {{abundance_flag}} \
             --ksize {{ksize}} \
