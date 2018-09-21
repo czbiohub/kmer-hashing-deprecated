@@ -1,35 +1,55 @@
 channels:
+  - pyviz
   - bioconda
   - conda-forge
   - defaults
-  - r
 dependencies:
   - bcftools=1.9=h4da6232_0
   - bleach=1.4.2=py36_0
   - htslib=1.9=h57f8fdf_0
   - khmer=3.0.0a1=py36hfc679d8_0
   - libdeflate=1.0=h470a237_0
+  - pronto=0.10.2=py_1
   - pyasn1-modules=0.0.5=py36_0
   - pysam=0.15.0.1=py36hdfb72b2_1
   - samtools=1.9=h46bd0b3_0
   - screed=1.0=py_1
   - sourmash=2.0.0a9=py36hfc679d8_0
+  - altair=2.2.2=py36_1
   - appdirs=1.4.3=py_1
+  - arrow-cpp=0.10.0=py36h70250a7_0
+  - atomicwrites=1.2.1=py_0
   - attrs=18.1.0=py_1
   - automat=0.7.0=py36_0
   - backcall=0.1.0=py_0
+  - bokeh=0.13.0=py36_0
+  - boost-cpp=1.67.0=h3a22d5f_0
+  - boto3=1.9.4=py_0
+  - botocore=1.12.5=py_0
+  - bottleneck=1.2.1=py36h7eb728f_1
   - bzip2=1.0.6=h470a237_2
   - ca-certificates=2018.8.24=ha4d7672_0
+  - cairo=1.14.10=0
   - certifi=2018.8.24=py36_1
+  - cftime=1.0.1=py36h7eb728f_0
+  - click=6.7=py_1
+  - cloudpickle=0.5.6=py_0
   - conda=4.5.11=py36_0
   - conda-env=2.6.0=0
   - constantly=15.1.0=py_0
   - curl=7.61.0=h93b3f91_2
   - cycler=0.10.0=py_1
+  - cython=0.28.5=py36hfc679d8_0
+  - cytoolz=0.9.0.1=py36h470a237_0
+  - dask=0.19.2=py_0
+  - dask-core=0.19.2=py_0
   - dbus=1.13.0=h3a4f0e9_0
   - decorator=4.3.0=py_0
+  - distributed=1.23.2=py36_0
+  - docutils=0.14=py36_1
   - entrypoints=0.2.3=py36_1
   - expat=2.2.5=hfc679d8_1
+  - fastparquet=0.1.6=py36_0
   - fontconfig=2.12.6=0
   - freetype=2.8.1=0
   - gettext=0.19.8.1=0
@@ -37,9 +57,16 @@ dependencies:
   - gmp=6.1.2=hfc679d8_0
   - gst-plugins-base=1.8.0=0
   - gstreamer=1.8.0=1
+  - h5netcdf=0.6.2=py_0
+  - h5py=2.8.0=py36hb794570_1
+  - hdf4=4.2.13=h951d187_2
+  - hdf5=1.10.2=hc401514_2
+  - heapdict=1.0.0=py36_0
+  - holoviews=1.10.7=py_0
   - html5lib=1.0.1=py_0
   - hyperlink=17.3.1=py_0
   - icu=58.2=hfc679d8_0
+  - igraph=0.7.1=hcc8e21d_5
   - ijson=2.3=py36_0
   - incremental=17.5.0=py_0
   - ipykernel=4.8.2=py36_0
@@ -48,6 +75,7 @@ dependencies:
   - ipywidgets=7.3.1=py_0
   - jedi=0.12.1=py36_0
   - jinja2=2.10=py_1
+  - jmespath=0.9.3=py_1
   - jpeg=9c=h470a237_0
   - jsonschema=2.6.0=py36_1
   - jupyter=1.0.0=py_1
@@ -57,59 +85,94 @@ dependencies:
   - kiwisolver=1.0.1=py36h2d50403_2
   - krb5=1.14.6=0
   - libedit=3.1.20170329=0
+  - libgfortran=3.0.0=1
   - libgfortran-ng=7.2.0=hdf63c60_3
   - libiconv=1.15=h470a237_1
+  - libnetcdf=4.6.1=he6cff42_8
   - libpng=1.6.34=ha92aebf_1
   - libsodium=1.0.16=0
   - libssh2=1.8.0=h5b517e9_2
   - libxcb=1.13=h470a237_2
   - libxml2=2.9.8=h422b904_2
+  - llvmlite=0.23.0=py36_1
+  - locket=0.2.0=py_2
+  - louvain=0.6.1=py36hfc679d8_1
   - markupsafe=1.0=py36_0
   - matplotlib=2.2.2=py36_1
   - mistune=0.8.3=py36h470a237_2
+  - mkl_fft=1.0.6=py36_0
+  - mkl_random=1.0.1=py36_0
+  - more-itertools=4.3.0=py36_0
+  - msgpack-python=0.5.6=py36h2d50403_2
   - nbconvert=5.3.1=py_1
   - nbformat=4.4.0=py_1
   - ncurses=5.9=10
+  - netcdf4=1.4.1=py36h62672b6_0
   - notebook=5.6.0=py36_0
+  - numba=0.38.1=py36_0
+  - openblas=0.2.20=8
   - openssl=1.0.2p=h470a237_0
+  - packaging=17.1=py_0
   - pandas=0.23.4=py36hf8a1672_0
   - pandoc=2.2.2=1
   - pandocfilters=1.4.2=py_1
+  - parquet-cpp=1.5.0.pre=h83d4a3d_0
   - parso=0.3.1=py_0
+  - partd=0.3.8=py_1
+  - patsy=0.5.0=py_1
   - pcre=8.41=h470a237_2
   - pexpect=4.6.0=py36_0
   - pickleshare=0.7.4=py36_0
+  - pixman=0.34.0=h470a237_3
+  - pluggy=0.7.1=py_0
   - prometheus_client=0.3.0=py_0
   - prompt_toolkit=1.0.15=py36_0
+  - psutil=5.4.7=py36h470a237_1
   - pthread-stubs=0.4=h470a237_1
   - ptyprocess=0.6.0=py36_0
+  - py=1.6.0=py_0
+  - pyarrow=0.10.0=py36hfc679d8_0
   - pyasn1=0.4.3=py_0
+  - pycairo=1.16.3=py36h4d1f301_0
   - pygments=2.2.0=py_1
   - pyhamcrest=1.9.0=py_2
   - pyparsing=2.2.0=py_1
   - pyqt=5.6.0=py36h8210e8a_6
+  - pytest=3.8.0=py36_0
   - python=3.6.5=1
   - python-dateutil=2.7.3=py_0
+  - python-igraph=0.7.1.post6=py36h470a237_5
   - pytz=2018.5=py_0
+  - pyyaml=3.13=py36h470a237_1
   - pyzmq=17.1.0=py36hae99301_0
   - qt=5.6.2=7
   - qtconsole=4.3.1=py36_0
   - readline=7.0=0
+  - s3fs=0.1.6=py_0
+  - s3transfer=0.1.13=py36_1
+  - seaborn=0.9.0=py_0
   - send2trash=1.5.0=py_0
   - service_identity=17.0.0=py_0
   - simplegeneric=0.8.1=py_1
   - sip=4.18=py36_1
+  - sortedcontainers=2.0.4=py_1
+  - statsmodels=0.9.0=py36_0
+  - tblib=1.3.2=py_1
   - terminado=0.8.1=py36_0
   - testpath=0.3.1=py36_0
+  - thrift=0.11.0=py36hfc679d8_1
+  - toolz=0.9.0=py_0
   - tornado=5.1=py36_0
   - traitlets=4.3.2=py36_0
   - twisted=18.7.0=py36h470a237_0
   - wcwidth=0.1.7=py_1
   - webencodings=0.5=py36_0
   - widgetsnbextension=3.3.1=py36_0
+  - xarray=0.10.8=py36_0
   - xorg-libxau=1.0.8=h470a237_6
   - xorg-libxdmcp=1.1.2=h470a237_7
   - zeromq=4.2.5=hfc679d8_5
+  - zict=0.1.3=py_0
   - zope.interface=4.5.0=py36h470a237_0
   - _license=1.1=py36_1
   - asn1crypto=0.23.0=py36h4639342_0
@@ -125,8 +188,8 @@ dependencies:
   - libopenblas=0.2.20=h9ac9557_7
   - libstdcxx-ng=7.2.0=h7a57d05_2
   - mkl=2018.0.3=1
-  - numpy=1.14.3=py36h28100ab_1
-  - numpy-base=1.14.3=py36h0ea5e3f_1
+  - numpy=1.15.0=py36h1b885b7_0
+  - numpy-base=1.15.0=py36h3dfced4_0
   - pip=9.0.1=py36h6c6f9ce_4
   - pycosat=0.6.3=py36h0a5515d_0
   - pycparser=2.18=py36hf9f622e_1
@@ -134,6 +197,7 @@ dependencies:
   - pysocks=1.6.7=py36hd97a5b1_1
   - requests=2.18.4=py36he2e5f8d_1
   - ruamel_yaml=0.11.14=py36ha2fb22d_2
+  - scikit-learn=0.19.1=py36hedc7406_0
   - scipy=1.1.0=py36hc49cb51_0
   - setuptools=36.5.0=py36he42e2e1_0
   - six=1.11.0=py36h372c433_1
@@ -144,8 +208,18 @@ dependencies:
   - xz=5.2.3=h55aa19d_2
   - yaml=0.1.7=had09818_2
   - zlib=1.2.11=ha838bed_2
+  - param=1.7.0=py_0
+  - pyviz_comms=0.6.0=py_0
   - pip:
-    - cython==0.28.5
+    - anndata==0.6.10
+    - joblib==0.12.5
     - line-profiler==2.1.2
+    - msgpack==0.5.6
+    - natsort==5.4.1
+    - networkx==2.1
+    - numexpr==2.6.8
+    - py-spy==0.1.5
+    - scanpy==1.3.1
+    - tables==3.4.4
     - tqdm==4.25.0
 
