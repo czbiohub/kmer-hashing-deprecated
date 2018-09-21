@@ -1,12 +1,19 @@
 import pandas as pd
 
+def combine_cell_ontology_free_annotation(row):
+    if pd.notnull(row['free_annotation']):
+        return '{cell_ontology_class} ({free_annotation})'.format(**row)
+    else:
+        return row['cell_ontology_class']
 
-def extract_cell_metadata(columns,  pattern='(?P<column>\w+):(?P<value>[\w-]+)'):
-    extracted = pd.Series(columns).str.extractall(pattern)
-    cell_metadata = extracted.reset_index().pivot(
-        index='level_0', columns='column', values='value')
-    return cell_metadata
 
+def extract_cell_metadata(name_column, pattern='(?P<column>\w+):(?P<value>[\w-]+)'):
+    expanded = name_column.str.extractall(pattern)
+    expanded_index = expanded.reset_index()
+    annotations = expanded_index.pivot(columns='column', values='value', index='level_0')
+    annotations['cell_ontology_free_annotation'] = annotations.apply(
+        combine_cell_ontology_free_annotation, axis=1)
+    return annotations 
 
 def to_key_value_pair(attribute):
     if len(attribute) > 1:
