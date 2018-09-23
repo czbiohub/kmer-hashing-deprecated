@@ -1,4 +1,3 @@
-name: base
 channels:
   - bioconda
   - conda-forge
@@ -149,5 +148,4 @@ dependencies:
     - cython==0.28.5
     - line-profiler==2.1.2
     - tqdm==4.25.0
-prefix: /home/ubuntu/anaconda
 
