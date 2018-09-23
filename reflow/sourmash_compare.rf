@@ -62,7 +62,7 @@ func Compare(signatures dir, ksize, sequence_to_compare string, ignore_abundance
 
     val abundance_flag =  if ignore_abundance { "--ignore-abundance" } else { "" }
 
-	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (csv file) {"
+	exec(image := kmer_hashing, mem := 64*GiB, cpu := 4) (csv file) {"
         ls -lha {{d}}
 		/opt/conda/bin/sourmash compare \
             {{abundance_flag}} \
