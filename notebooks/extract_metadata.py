@@ -15,6 +15,7 @@ def extract_cell_metadata(name_column, pattern='(?P<column>\w+):(?P<value>[\w-]+
         combine_cell_ontology_free_annotation, axis=1)
     return annotations 
 
+
 def to_key_value_pair(attribute):
     if len(attribute) > 1:
         try:
@@ -23,7 +24,6 @@ def to_key_value_pair(attribute):
             return attribute[0], attribute[1] 
     else:
         return 'comparison_sequence', attribute[0]
-
 
 
 def extract_experiment_metadata(basename):
