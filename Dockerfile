@@ -26,7 +26,7 @@ USER root
 RUN useradd -ms /bin/bash main
 
 
-ENV PACKAGES zlib1g git g++ make ca-certificates gcc zlib1g-dev libc6-dev 
+ENV PACKAGES zlib1g git g++ make ca-certificates gcc zlib1g-dev libc6-dev
 # ENV PACKAGES git g++ make ca-certificates zlib1g -y python3.5-dev python3.5-venv make \
 #     libc6-dev g++ zlib1g-dev
 
