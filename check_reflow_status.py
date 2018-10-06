@@ -16,11 +16,11 @@ for reflow_dir in reflow_dirs:
         n_others[other] = sum(1 for x in listbatch if x.endswith(other))
     n_total = len(listbatch)
     
-    for status, n in n_statuses.items():
+    for status, n in sorted(n_statuses.items()):
         print(f'\t{status}: {n}/{n_total}')
 
     print(f'\tOther statuses:')
-    for other, n in n_others.items():
+    for other, n in sorted(n_others.items()):
         print(f'\t\t{other}: {n}/{n_total}')
 
             
