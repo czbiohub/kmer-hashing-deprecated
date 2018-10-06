@@ -1,0 +1,16 @@
+---
+title: "Extract melanocyte metadata"
+output: html_notebook
+---
+
+```{r}
+library(Seurat)
+library(tidyverse)
+
+load("~/Downloads/mel3.rObj")
+```
+
+```{r}
+write_csv(so.mel3_filtered@meta.data, "~/code/kmer-hashing/data/000_original/melanocyte_metadata.csv")
+```
+
