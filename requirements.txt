@@ -10,7 +10,7 @@ cffi==1.11.2
 chardet==3.0.4
 conda==4.5.11
 constantly==15.1.0
-cryptography==2.1.4
+cryptography ~> 2.3
 cycler==0.10.0
 Cython==0.28.5
 decorator==4.3.0
