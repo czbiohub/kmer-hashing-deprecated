@@ -1,0 +1,8 @@
+                           PRE tabula-muris-k21-dna/
+                           PRE tabula-muris-k21-protein/
+                           PRE tabula-muris-k27-dna/
+                           PRE tabula-muris-k27-protein/
+                           PRE tabula-muris-k33-dna/
+                           PRE tabula-muris-k33-protein/
+                           PRE tabula-muris-k51-dna/
+                           PRE tabula-muris-k51-protein/
