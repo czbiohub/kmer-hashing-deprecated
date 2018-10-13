@@ -1,5 +1,4 @@
 
-
 keys_for_length = ('mins',)
 
 keys_for_values = ('ksize', 'molecule')
@@ -23,3 +22,12 @@ def summarize(signature):
             d[k] = v
         data.append(d)
     return data
+
+
+def get_single_cell(cell_id, matrix, metadata):
+    cell = matrix.loc[:, cell_id].to_frame()
+    cell.columns = ['similarity']
+    cell.index = metadata.index
+    cell = cell.join(metadata)
+    cell = cell.sort_values('similarity', ascending=False)
+    return cell
