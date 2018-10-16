@@ -1,0 +1,9 @@
+id,ksize,sequence_to_compare,signatures,output
+scaled=1000_num_hashes=0_dna_ksize=21.csv,21,dna,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_dna_ksize=21.csv.csv
+scaled=1000_num_hashes=0_protein_ksize=21.csv,21,protein,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_protein_ksize=21.csv.csv
+scaled=1000_num_hashes=0_dna_ksize=27.csv,27,dna,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_dna_ksize=27.csv.csv
+scaled=1000_num_hashes=0_protein_ksize=27.csv,27,protein,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_protein_ksize=27.csv.csv
+scaled=1000_num_hashes=0_dna_ksize=33.csv,33,dna,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_dna_ksize=33.csv.csv
+scaled=1000_num_hashes=0_protein_ksize=33.csv,33,protein,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_protein_ksize=33.csv.csv
+scaled=1000_num_hashes=0_dna_ksize=51.csv,51,dna,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_dna_ksize=51.csv.csv
+scaled=1000_num_hashes=0_protein_ksize=51.csv,51,protein,s3://olgabot-maca/10x/10X_P7_8/scaled=1000_num_hashes=0/,s3://olgabot-maca/10x/sourmash_compare/10X_P7_8/scaled=1000_num_hashes=0_protein_ksize=51.csv.csv
