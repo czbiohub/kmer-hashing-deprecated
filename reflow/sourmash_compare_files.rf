@@ -1,0 +1,88 @@
+
+param (
+    // Pipe-separated list of .sig files
+    signatures string
+
+    // Full s3 file location to put the output comparison
+    output string
+
+    // Size of kmer to use (can only use one for index)
+    ksize = "21"
+
+    // What to compare, could be either "protein" or "dna"
+    sequence_to_compare = "dna"
+
+    // Whether or not to include the abundance of kmers in the comparison
+    ignore_abundance = false
+)
+
+
+val kmer_hashing = "czbiohub/kmer-hashing"
+
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+
+
+// Instantiate system module "strings"
+val strings = make("$/strings")
+
+val dirs = make("$/dirs")
+
+
+// Compute a minhash signature for a sample
+// ubuntu@olgabot-reflow  sourmash compare --help
+// usage: sourmash [-h] [-o OUTPUT] [--ignore-abundance] [-k KSIZE] [--protein]
+//                 [--no-protein] [--dna] [--no-dna] [--csv CSV] [-q]
+//                 signatures [signatures ...]
+
+// positional arguments:
+//   signatures            list of signatures
+
+// optional arguments:
+//   -h, --help            show this help message and exit
+//   -o OUTPUT, --output OUTPUT
+//   --ignore-abundance    do NOT use k-mer abundances if present
+//   -k KSIZE, --ksize KSIZE
+//                         k-mer size (default: 31)
+//   --protein             choose a protein signature (default: False)
+//   --no-protein          do not choose a protein signature
+//   --dna                 choose a DNA signature (default: True)
+//   --no-dna              do not choose a DNA signature
+//   --csv CSV             save matrix in CSV format (with column headers)
+//   -q, --quiet           suppress non-error output
+func Compare(signatures [file], ksize, sequence_to_compare string, ignore_abundance bool) = {
+
+    // sourmash expects signatures to be named .sig
+    val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(signatures)), signatures)]
+    val d = dirs.Make(map(renamed))
+
+    val abundance_flag =  if ignore_abundance { "--ignore-abundance" } else { "" }
+
+	exec(image := kmer_hashing, mem := 64*GiB, cpu := 4) (csv file) {"
+        ls -lha {{d}}
+		/opt/conda/bin/sourmash compare \
+            {{abundance_flag}} \
+            --ksize {{ksize}} \
+            --{{sequence_to_compare}} \
+            --csv {{csv}} \
+            --traverse-directory \
+            {{d}}
+    "}
+}
+
+// Instantiate Go system module "strings"
+val strings = make("$/strings")
+
+// Split each signature string by the pipe "|" to get individual s3 paths
+val sigs = strings.Split(signatures, "|")
+
+// Create a file for each element in the `read1s`, `read2s` string array
+// Now `r1`, `r1` are arrays of files
+val sigs_files = [file(sig) | sig <- sigs]
+
+val comparison = Compare(sigs_files, ksize, sequence_to_compare, ignore_abundance)
+
+val Main = files.Copy(comparison, output)
