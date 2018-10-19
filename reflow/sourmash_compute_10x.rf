@@ -2,9 +2,6 @@ param (
     // S3 path to 10x folder
     tenx string
 
-    // Identifier of the sample
-    name string
-
     // Full s3 file location to put the sourmash signature
     output string
 
