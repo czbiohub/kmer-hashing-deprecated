@@ -1,1 +1,1 @@
-{"program": "../../../reflow/sourmash_compare_files.rf", "runs_file": "samples.csv"}
+{"program": "../../../reflow/sourmash_compute_10x.rf", "runs_file": "samples.csv"}
