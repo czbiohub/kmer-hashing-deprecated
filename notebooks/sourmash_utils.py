@@ -56,6 +56,7 @@ def get_single_cell(cell_id, matrix, metadata):
 
 def single_category_colors(categories, palette):
     """Convert a series of categories to colors"""
+    categories = categories.astype(str)
     unique = sorted(categories.unique(), 
                     key=lambda x: x.lower() if isinstance(x, str) else x)
     n_unique = len(unique)
@@ -67,6 +68,7 @@ def single_category_colors(categories, palette):
     item_to_color = pd.Series(data, index=categories.index)
     item_to_color[pd.isnull(categories)] = '#262626'
     return item_to_color
+
 
 def category_colors(categories, palette):
     """Convert a dataframe of categories to colors
@@ -108,7 +110,7 @@ def calculate_linkage(data, metric, method, between='cols'):
 
 def plaidplot(data, row_categories=None, col_categories=None, row_palette=None, 
               col_palette=None, metric='euclidean', method='ward', xticklabels=[],
-              yticklabels=[], **kwargs):
+              yticklabels=[], cmap='GnBu', **kwargs):
     
     col_linkage = calculate_linkage(data, metric, method, between='cols')
     row_linkage = calculate_linkage(data, metric, method, between='rows')
@@ -118,18 +120,19 @@ def plaidplot(data, row_categories=None, col_categories=None, row_palette=None,
     
     g = sns.clustermap(data, col_linkage=col_linkage, row_linkage=row_linkage, 
                        row_colors=row_colors, col_colors=col_colors, 
+                       cmap=cmap,
                        xticklabels=xticklabels, yticklabels=yticklabels,
                        **kwargs)
     return g
 
-def plaidplot_square(data, metadata, metadata_col='cell_ontology_class'):
+def plaidplot_square(data, metadata, metadata_col='cell_ontology_class', **kwargs):
     categories = metadata[metadata_col]
 
     vmax = data.replace(1, np.nan).max().max()
 
     return plaidplot(data, 
               col_categories=categories,
-              row_categories=categories, vmax=vmax)
+              row_categories=categories, vmax=vmax, **kwargs)
 
 
 def facet_distplot(df, x='similarity', hue='cell_ontology_class'):
@@ -148,8 +151,8 @@ def facet_distplot(df, x='similarity', hue='cell_ontology_class'):
 def plaidplot_and_distplot(data, metadata, name, ksize, ignore_abundance, 
                            molecule, metadata_col=METADATA_COL, 
                            cell_id=BLADDER_CELL_ID, 
-                           tissue_channel=TISSUE_CHANNEL):
-    plaidplot_grid = plaidplot_square(data, metadata, metadata_col=metadata_col)
+                           tissue_channel=TISSUE_CHANNEL, **kwargs):
+    plaidplot_grid = plaidplot_square(data, metadata, metadata_col=metadata_col, **kwargs)
     fig_prefix = f'{tissue_channel}_{name}_k{ksize}_{molecule}_ignore-abundance={ignore_abundance}'
     png = f'../figures/{fig_prefix}_clustermap.png'
     plaidplot_grid.ax_col_dendrogram.set(title=fig_prefix)
@@ -175,19 +178,34 @@ def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)',
 
     cell_ids = compare.columns.str.split('|').str[-1]
     cell_ids = cell_ids.str.split(':').str[-1]
+    
+    colon_separated = compare.columns.str.contains(":")
 
-    try:
-        metadata = extract_cell_metadata(
-            compare.columns, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)')
-        metadata.index = cell_ids
-    except ValueError:
-        # metadata is pipe-separated
-        # 'leukocyte|Lung|3-F-56|10X_P7_8_GAACATCTCTTGAGGT'
-        
-        # input data has to be a list of lists
-        data = list(compare.columns.str.split('|').values)
-        metadata = pd.DataFrame(data, columns=metadata_cols)
-        metadata = metadata.set_index('cell_id')
+    if colon_separated.sum() > 0:
+        metadata_colon_separated = extract_cell_metadata(
+            compare.columns[colon_separated], pattern='(?P<column>\\w+):(?P<value>[\\w-]+)')
+        metadata_colon_separated = metadata_colon_separated.drop(columns=['cell'])
+        metadata_colon_separated.index = cell_ids[colon_separated]
+    else:
+        colon_separated = pd.DataFrame()
 
+    # metadata is pipe-separated
+    # 'leukocyte|Lung|3-F-56|10X_P7_8_GAACATCTCTTGAGGT'
+
+    # input data has to be a list of lists
+    data = list(compare.columns[~colon_separated].str.split('|').values)
+    metadata_not_colon_separated = pd.DataFrame(data, columns=metadata_cols)
+    metadata_not_colon_separated = metadata_not_colon_separated.dropna(subset=['cell_id'])
+    metadata_not_colon_separated = metadata_not_colon_separated.set_index('cell_id')
+    
+    metadata = pd.concat([metadata_not_colon_separated, metadata_colon_separated], 
+                         sort=False, ignore_index=False)
+    metadata = metadata.reindex(index=cell_ids)
+
+    
+    # Rename to valid cell ids
     compare.index = compare.columns = cell_ids
+    
+    compare = compare.reindex(index=metadata.index, columns=metadata.index)
+    
     return compare, metadata
