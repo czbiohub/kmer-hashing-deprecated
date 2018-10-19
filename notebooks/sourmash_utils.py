@@ -51,21 +51,23 @@ def get_single_cell(cell_id, matrix, metadata):
     return cell
 
 
-
+def get_unique_ordered_categories(categories):
+    unique = sorted(categories.dropna().unique(), 
+                    key=lambda x: x.lower() if isinstance(x, str) else x)
+    return unique
 
 
 def single_category_colors(categories, palette):
     """Convert a series of categories to colors"""
-    categories = categories.astype(str)
-    unique = sorted(categories.unique(), 
-                    key=lambda x: x.lower() if isinstance(x, str) else x)
+    no_na = categories.dropna()
+    
+    unique = get_unique_ordered_categories(no_na)
     n_unique = len(unique)
     colors = [rgb2hex(x) for x in sns.color_palette(palette, n_colors=n_unique)]
-    
     category_to_color = dict(zip(unique, colors))
     
-    data = [category_to_color[c] for c in categories]
-    item_to_color = pd.Series(data, index=categories.index)
+    data = [category_to_color[c] for c in no_na]
+    item_to_color = pd.Series(data, index=no_na.index)
     item_to_color[pd.isnull(categories)] = '#262626'
     return item_to_color
 
@@ -135,8 +137,9 @@ def plaidplot_square(data, metadata, metadata_col='cell_ontology_class', **kwarg
               row_categories=categories, vmax=vmax, **kwargs)
 
 
-def facet_distplot(df, x='similarity', hue='cell_ontology_class'):
-    g = sns.FacetGrid(df, hue=hue)
+def facet_distplot(df, x='similarity', hue='cell_ontology_class', palette='tab20'):
+    hue_order = get_unique_ordered_categories(df[hue])
+    g = sns.FacetGrid(df, hue=hue, hue_order=hue_order, palette=palette, height=3)
 
     vmax = df[x].replace(1, np.nan).max().max()
     # add a bit of left and right padding so it looks nice
@@ -151,19 +154,23 @@ def facet_distplot(df, x='similarity', hue='cell_ontology_class'):
 def plaidplot_and_distplot(data, metadata, name, ksize, ignore_abundance, 
                            molecule, metadata_col=METADATA_COL, 
                            cell_id=BLADDER_CELL_ID, 
-                           tissue_channel=TISSUE_CHANNEL, **kwargs):
+                           tissue_channel=TISSUE_CHANNEL, palette='tab20', **kwargs):
     plaidplot_grid = plaidplot_square(data, metadata, metadata_col=metadata_col, **kwargs)
     fig_prefix = f'{tissue_channel}_{name}_k{ksize}_{molecule}_ignore-abundance={ignore_abundance}'
     png = f'../figures/{fig_prefix}_clustermap.png'
     plaidplot_grid.ax_col_dendrogram.set(title=fig_prefix)
     plaidplot_grid.savefig(png, dpi=300)
+    
+    if 'row_palette' in kwargs:
+        if 'cell_ontology_class' in kwargs['row_palette']:
+            palette = kwargs['row_palette']['cell_ontology_class']
 
     df = get_single_cell(cell_id, data, metadata)
     df['name'] = name
     df['ksize'] = ksize
     df['ignore_abundance'] = ignore_abundance
 
-    distplot_grid = facet_distplot(df)
+    distplot_grid = facet_distplot(df, palette=palette)
     pdf = f'../figures/{fig_prefix}_cell={cell_id}_distplot.pdf'
     distplot_grid.ax.set(title=fig_prefix)
     distplot_grid.savefig(pdf)
@@ -178,18 +185,19 @@ def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)',
 
     cell_ids = compare.columns.str.split('|').str[-1]
     cell_ids = cell_ids.str.split(':').str[-1]
+    cell_ids = pd.Index(cell_ids, name='cell_id')
     
     colon_separated = compare.columns.str.contains(":")
 
     if colon_separated.sum() > 0:
         metadata_colon_separated = extract_cell_metadata(
             compare.columns[colon_separated], pattern='(?P<column>\\w+):(?P<value>[\\w-]+)')
-        metadata_colon_separated = metadata_colon_separated.drop(columns=['cell'])
+        metadata_colon_separated = metadata_colon_separated.drop(columns=['cell'], errors='ignore')
         metadata_colon_separated.index = cell_ids[colon_separated]
     else:
         metadata_colon_separated = pd.DataFrame()
 
-    if len(colon_separated) > 0:
+    if len(colon_separated) > 0 and not colon_separated.all():
         # metadata is pipe-separated
         # 'leukocyte|Lung|3-F-56|10X_P7_8_GAACATCTCTTGAGGT'
 
@@ -203,6 +211,7 @@ def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)',
     
     metadata = pd.concat([metadata_not_colon_separated, metadata_colon_separated], 
                          sort=False, ignore_index=False)
+    metadata = metadata.drop(columns=['cell_id'], errors='ignore')
     metadata = metadata.reindex(index=cell_ids)
 
     
