@@ -187,16 +187,19 @@ def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)',
         metadata_colon_separated = metadata_colon_separated.drop(columns=['cell'])
         metadata_colon_separated.index = cell_ids[colon_separated]
     else:
-        colon_separated = pd.DataFrame()
+        metadata_colon_separated = pd.DataFrame()
 
-    # metadata is pipe-separated
-    # 'leukocyte|Lung|3-F-56|10X_P7_8_GAACATCTCTTGAGGT'
+    if len(colon_separated) > 0:
+        # metadata is pipe-separated
+        # 'leukocyte|Lung|3-F-56|10X_P7_8_GAACATCTCTTGAGGT'
 
-    # input data has to be a list of lists
-    data = list(compare.columns[~colon_separated].str.split('|').values)
-    metadata_not_colon_separated = pd.DataFrame(data, columns=metadata_cols)
-    metadata_not_colon_separated = metadata_not_colon_separated.dropna(subset=['cell_id'])
-    metadata_not_colon_separated = metadata_not_colon_separated.set_index('cell_id')
+        # input data has to be a list of lists
+        data = list(compare.columns[~colon_separated].str.split('|').values)
+        metadata_not_colon_separated = pd.DataFrame(data, columns=metadata_cols)
+        metadata_not_colon_separated = metadata_not_colon_separated.dropna(subset=['cell_id'])
+        metadata_not_colon_separated = metadata_not_colon_separated.set_index('cell_id')
+    else:
+        metadata_not_colon_separated = pd.DataFrame()
     
     metadata = pd.concat([metadata_not_colon_separated, metadata_colon_separated], 
                          sort=False, ignore_index=False)
