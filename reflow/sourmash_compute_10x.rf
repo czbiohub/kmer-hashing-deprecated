@@ -16,6 +16,9 @@ param (
 
     // Calculate DNA signature
     dna = true
+
+    // Number of processes
+    processes = 8
 )
 
 BAM_FILENAME := "possorted_genome_bam.bam"
@@ -30,7 +33,7 @@ val dna_flag = if dna { "--dna" } else { "--no-dna" }
 
 
 // Compute a minhash signature for a sample
-@requires(cpu := 4, mem := 32*GiB, disk := 4*GiB)
+@requires(cpu := processes, mem := 32*GiB, disk := 4*GiB)
 func Compute(tenx dir, ksizes string) = 
 	exec(image := kmer_hashing) (signature file) {"
 		/opt/conda/bin/sourmash compute \
@@ -38,6 +41,7 @@ func Compute(tenx dir, ksizes string) =
             {{protein_flag}} \
             {{dna_flag}} \
             --input-is-10x \
+            --processes {{processes}} \
             --num-hashes {{num_hashes}} \
             --ksizes {{ksizes}} \
             --output {{signature}} \
