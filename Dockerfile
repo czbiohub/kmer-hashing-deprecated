@@ -52,6 +52,9 @@ RUN trim-low-abund.py --version
 
 RUN conda install --channel bioconda --yes sourmash
 
+# Required for multiprocessing of 10x bam file
+RUN pip install pathos
+
 # ENV SOURMASH_VERSION master
 RUN cd /home && \
     git clone https://github.com/dib-lab/sourmash.git && \
