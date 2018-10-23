@@ -21,11 +21,18 @@ param (
     processes = 8
 )
 
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+val dirs = make("$/dirs")
+
+
 BAM_FILENAME := "possorted_genome_bam.bam"
 BARCODES := "barcodes.tsv"
 
 val kmer_hashing = "czbiohub/kmer-hashing"
-// val sourmash = "quay.io/biocontainers/sourmash:2.0.0a7--py27_0"
 
 
 val protein_flag = if protein { "--protein" } else { "--no-protein" }
@@ -34,9 +41,11 @@ val dna_flag = if dna { "--dna" } else { "--no-dna" }
 
 // Compute a minhash signature for a sample
 @requires(cpu := processes, disk := GiB)
-func Compute(tenx dir, ksizes string) = 
-    val (bam, _) = dirs.Pick(tenx_folder, "*.bam")
+func Compute(tenx dir, ksizes string) = {
+
+    val (bam, _) = dirs.Pick(tenx, "*.bam")
     val memory = len(bam)
+
 	exec(image := kmer_hashing, mem := memory) (signature file) {"
 		/opt/conda/bin/sourmash compute \
             {{protein_flag}} \
@@ -47,14 +56,9 @@ func Compute(tenx dir, ksizes string) =
             --ksizes {{ksizes}} \
             --output {{signature}} \
             {{tenx}}
-"}
+    "}
+}
 
-// Instantiate the system modules "files" (system modules begin
-// with $), assigning its instance to the "files" identifier. To
-// view the documentation for this module, run "reflow doc
-// $/files".
-val files = make("$/files")
-val dirs = make("$/dirs")
 
 // Instantiate Go system module "strings"
 val strings = make("$/strings")
