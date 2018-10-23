@@ -3,6 +3,7 @@ param (
     // Full s3 file location to put the output comparison
     output string
 
+    // Either signatures_dir or signatures_files must be specified
     // S3 path to directory containing computed signatures
     signatures_dir = "empty"
 
