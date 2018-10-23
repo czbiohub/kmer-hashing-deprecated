@@ -33,7 +33,7 @@ val dna_flag = if dna { "--dna" } else { "--no-dna" }
 
 
 // Compute a minhash signature for a sample
-@requires(cpu := processes, mem := 32*GiB, disk := 60*GiB)
+@requires(cpu := processes, mem := 64*GiB, disk := 60*GiB)
 func Compute(tenx dir, ksizes string) = 
 	exec(image := kmer_hashing) (signature file) {"
 		/opt/conda/bin/sourmash compute \
