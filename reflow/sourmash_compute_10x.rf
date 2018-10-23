@@ -37,7 +37,6 @@ val dna_flag = if dna { "--dna" } else { "--no-dna" }
 func Compute(tenx dir, ksizes string) = 
 	exec(image := kmer_hashing) (signature file) {"
 		/opt/conda/bin/sourmash compute \
-            --track-abundance \
             {{protein_flag}} \
             {{dna_flag}} \
             --input-is-10x \

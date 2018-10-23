@@ -1,7 +1,7 @@
 param (
     // S3 path to read1 of the fastq/fasta file. If multiple files, 
     // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
-    read1 string
+    read1 = "empty"
 
     // S3 path to read2 of the fastq/fasta file. If multiple files, 
     // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
@@ -13,11 +13,14 @@ param (
     // Full s3 file location to put the sourmash signature
     output string
 
+    // S3 path to 10x folder
+    tenx = "empty"
+
     // Size of kmer(s) to use
     ksizes = "21,33,51"
 
     // If true, remove low abundance (probably erroneous) kmers before computing signature
-    // Usually good practice
+    // Usually good practice for non-single cell RNA-seq
     trim_low_abundance_kmers = true
 
     // choose number of hashes as 1 in FRACTION of input k-mers
@@ -30,6 +33,10 @@ param (
     dna = true
 )
 
+
+
+BAM_FILENAME := "possorted_genome_bam.bam"
+BARCODES := "barcodes.tsv"
 
 val kmer_hashing = "czbiohub/kmer-hashing"
 // val sourmash = "quay.io/biocontainers/sourmash:2.0.0a7--py27_0"
