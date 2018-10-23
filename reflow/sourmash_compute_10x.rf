@@ -19,6 +19,12 @@ param (
 
     // Number of processes
     processes = 8
+
+    // Name of the bam file in the tenx folder
+    BAM_FILENAME := "possorted_genome_bam.bam"
+
+    // Name of the single-column barcodes file in the tenx folder
+    BARCODES = "barcodes.tsv"
 )
 
 // Instantiate the system modules "files" (system modules begin
@@ -29,8 +35,7 @@ val files = make("$/files")
 val dirs = make("$/dirs")
 
 
-BAM_FILENAME := "possorted_genome_bam.bam"
-BARCODES := "barcodes.tsv"
+
 
 val kmer_hashing = "czbiohub/kmer-hashing"
 
@@ -43,13 +48,13 @@ val dna_flag = if dna { "--dna" } else { "--no-dna" }
 @requires(cpu := processes, disk := GiB)
 func Compute(tenx dir, ksizes string) = {
 
-    val (bam, _) = dirs.Pick(tenx, "*.bam")
-    val memory = len(bam)
-    v := trace(memory)
-    u := trace(tenx)
+    // val (bam, _) = dirs.Pick(tenx, "*.bam")
+    // val memory = 2*len(bam)
+    // v := trace(memory)
+    // u := trace(tenx)
 
 
-	exec(image := kmer_hashing, mem := memory) (signature file) {"
+	exec(image := kmer_hashing, mem := 32*GiB) (signature file) {"
 		/opt/conda/bin/sourmash compute \
             {{protein_flag}} \
             {{dna_flag}} \
