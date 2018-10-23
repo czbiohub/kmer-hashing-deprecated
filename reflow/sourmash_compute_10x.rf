@@ -45,6 +45,9 @@ func Compute(tenx dir, ksizes string) = {
 
     val (bam, _) = dirs.Pick(tenx, "*.bam")
     val memory = len(bam)
+    v := trace(memory)
+    u := trace(tenx)
+
 
 	exec(image := kmer_hashing, mem := memory) (signature file) {"
 		/opt/conda/bin/sourmash compute \
