@@ -1,16 +1,19 @@
 
 param (
-    // S3 path to directory containing computed signatures
-    signatures string
-
     // Full s3 file location to put the output comparison
     output string
 
-    // Size of kmer to use (can only use one for index)
-    ksize = "21"
+    // S3 path to directory containing computed signatures
+    signatures_dir = "empty"
+
+    // S3 path to pipe-separated singature files
+    signatures_files = "empty"
+
+    // Size of kmer to use (can only use one for comparison)
+    ksize = 21
 
     // What to compare, could be either "protein" or "dna"
-    sequence_to_compare = "dna"
+    molecule = "dna"
 
     // Whether or not to include the abundance of kmers in the comparison
     ignore_abundance = false
@@ -53,11 +56,10 @@ val dirs = make("$/dirs")
 //   --no-dna              do not choose a DNA signature
 //   --csv CSV             save matrix in CSV format (with column headers)
 //   -q, --quiet           suppress non-error output
-func Compare(signatures dir, ksize, sequence_to_compare string, ignore_abundance bool) = {
-    val filenames = dirs.Files(signatures)
+func Compare(signatures [file], ksize int, molecule string, ignore_abundance bool) = {
 
     // sourmash expects signatures to be named .sig
-    val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(filenames)), filenames)]
+    val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(signatures)), signatures)]
     val d = dirs.Make(map(renamed))
 
     val abundance_flag =  if ignore_abundance { "--ignore-abundance" } else { "" }
@@ -67,15 +69,28 @@ func Compare(signatures dir, ksize, sequence_to_compare string, ignore_abundance
 		/opt/conda/bin/sourmash compare \
             {{abundance_flag}} \
             --ksize {{ksize}} \
-            --{{sequence_to_compare}} \
+            --{{molecule}} \
             --csv {{csv}} \
             --traverse-directory \
             {{d}}
     "}
 }
 
-val signatures_dir = dir(signatures)
 
-val comparison = Compare(signatures_dir, ksize, sequence_to_compare, ignore_abundance)
+sigs_files := if signatures_files != "empty" {
+  sigs := strings.Split(signatures_files, "|")
+  v := trace(sigs)
+  sigs_files := [file(sig) | sig <- sigs]
+  sigs_files
+} else {
+  if signatures_dir != "empty" {
+    dirs.Files(dir(signatures_dir))
+  } else {
+    panic("one of signatures_dir or signatures_files has to be specified")
+  }
+}
+
+
+val comparison = Compare(sigs_files, ksize, molecule, ignore_abundance)
 
 val Main = files.Copy(comparison, output)
