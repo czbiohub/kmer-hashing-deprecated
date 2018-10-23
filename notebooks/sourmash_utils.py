@@ -88,9 +88,12 @@ def category_colors(categories, palette):
             palette = dict(zip(categories.columns, PALETTE_NAMES))
         data = [single_category_colors(categories[col], palette[col]) for col in categories]
         item_to_color = pd.concat(data, axis=1)
+        item_to_color.columns = categories.columns
     elif isinstance(categories, pd.Series):
         item_to_color = single_category_colors(categories, palette)
-        
+        item_to_color.name = categories.name
+    
+    item_to_color = item_to_color.fillna("#262626")
     return item_to_color
 
 
@@ -100,7 +103,7 @@ BETWEENS = ('rows', 'cols')
 def calculate_linkage(data, metric, method, between='cols'):
     assert between in BETWEENS
 
-    if between == 'rows':
+    if between == 'cols':
         data = data.T
 
     D = pdist(data, metric)
@@ -117,8 +120,11 @@ def plaidplot(data, row_categories=None, col_categories=None, row_palette=None,
     col_linkage = calculate_linkage(data, metric, method, between='cols')
     row_linkage = calculate_linkage(data, metric, method, between='rows')
     
-    row_colors = category_colors(row_categories, row_palette)
-    col_colors = category_colors(col_categories, col_palette)
+    row_colors = category_colors(row_categories, row_palette) if 'row_colors' not in kwargs else kwargs.pop('row_colors')
+    col_colors = category_colors(col_categories, col_palette) if 'col_colors' not in kwargs else kwargs.pop('col_colors')
+    
+    if 'vmax' not in kwargs:
+        kwargs['vmax'] = data.replace(1, np.nan).max().max()
     
     g = sns.clustermap(data, col_linkage=col_linkage, row_linkage=row_linkage, 
                        row_colors=row_colors, col_colors=col_colors, 
@@ -129,9 +135,9 @@ def plaidplot(data, row_categories=None, col_categories=None, row_palette=None,
 
 def plaidplot_square(data, metadata, metadata_col='cell_ontology_class', **kwargs):
     categories = metadata[metadata_col]
-
+    
     vmax = data.replace(1, np.nan).max().max()
-
+    
     return plaidplot(data, 
               col_categories=categories,
               row_categories=categories, vmax=vmax, **kwargs)
