@@ -18,6 +18,10 @@ param (
 
     // Whether or not to include the abundance of kmers in the comparison
     ignore_abundance = false
+
+    // GiB of memory for compare 
+    // For > 100 samples, increase
+    memory = 8
 )
 
 
@@ -65,9 +69,9 @@ func Compare(signatures [file], ksize int, molecule string, ignore_abundance boo
 
     val abundance_flag =  if ignore_abundance { "--ignore-abundance" } else { "" }
 
-	exec(image := kmer_hashing, mem := 32*GiB, cpu := 4) (csv file) {"
+	exec(image := kmer_hashing, mem := memory*GiB, cpu := 4) (csv file) {"
         ls -lha {{d}}
-		/opt/conda/bin/sourmash compare \
+    		/opt/conda/bin/sourmash compare \
             {{abundance_flag}} \
             --ksize {{ksize}} \
             --{{molecule}} \
