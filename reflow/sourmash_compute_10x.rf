@@ -52,7 +52,7 @@ func Compute(tenx dir, ksizes string) = {
     v := trace(memory)
     u := trace(tenx)
 
-	exec(image := kmer_hashing, mem := 80*GiB) (signature file) {"
+	exec(image := kmer_hashing, mem := 128*GiB) (signature file) {"
 		/opt/conda/bin/sourmash compute \
             {{protein_flag}} \
             {{dna_flag}} \
