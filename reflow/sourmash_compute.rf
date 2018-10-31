@@ -5,7 +5,7 @@ param (
 
     // S3 path to read2 of the fastq/fasta file. If multiple files, 
     // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
-    read2 string
+    read2 = "empty"
 
     // Identifier of the sample
     name string
@@ -17,14 +17,17 @@ param (
     tenx = "empty"
 
     // Size of kmer(s) to use
-    ksizes = "21,33,51"
+    ksizes = "21,27,33,51"
 
     // If true, remove low abundance (probably erroneous) kmers before computing signature
     // Usually good practice for non-single cell RNA-seq
-    trim_low_abundance_kmers = true
+    trim_low_abundance_kmers = false
 
-    // choose number of hashes as 1 in FRACTION of input k-mers
-    scaled = 500
+    // choose number of hashes as 1/scaled of input k-mers
+    scaled = 0
+
+    // Choose a fixed number of k-mers to hash
+    num_hashes = 500
 
     // Calculate protein signature
     protein = true
@@ -66,8 +69,8 @@ func Trim(r1, r2 [file]) =
 // Compute a minhash signature for a sample
 @requires(cpu := 4, mem := 32*GiB, disk := 4*GiB)
 func ComputeTrimmed(trimmed file, name, ksizes string) = 
-	exec(image := kmer_hashing) (signature file) {"
-		/opt/conda/bin/sourmash compute \
+    exec(image := kmer_hashing) (signature file) {"
+        /opt/conda/bin/sourmash compute \
             --track-abundance \
             {{protein_flag}} \
             {{dna_flag}} \
