@@ -1,0 +1,6 @@
+id,channel,tissue,ksizes,num_hashes,tenx,output
+Spleen_10X_P4_7,10X_P4_7,Spleen,"21,27,33,51",1000,s3://czbiohub-maca/10x_data/10X_P4_7,"s3://olgabot-maca/10x/sourmash_compute/ksizes=21,27,33,51_num_hashes=1000/Spleen_10X_P4_7.sig"
+Spleen_10X_P7_6,10X_P7_6,Spleen,"21,27,33,51",1000,s3://czbiohub-maca/10x_data/10X_P7_6,"s3://olgabot-maca/10x/sourmash_compute/ksizes=21,27,33,51_num_hashes=1000/Spleen_10X_P7_6.sig"
+Kidney_10X_P4_5,10X_P4_5,Kidney,"21,27,33,51",1000,s3://czbiohub-maca/10x_data/10X_P4_5,"s3://olgabot-maca/10x/sourmash_compute/ksizes=21,27,33,51_num_hashes=1000/Kidney_10X_P4_5.sig"
+Kidney_10X_P4_6,10X_P4_6,Kidney,"21,27,33,51",1000,s3://czbiohub-maca/10x_data/10X_P4_6,"s3://olgabot-maca/10x/sourmash_compute/ksizes=21,27,33,51_num_hashes=1000/Kidney_10X_P4_6.sig"
+Kidney_10X_P7_5,10X_P7_5,Kidney,"21,27,33,51",1000,s3://czbiohub-maca/10x_data/10X_P7_5,"s3://olgabot-maca/10x/sourmash_compute/ksizes=21,27,33,51_num_hashes=1000/Kidney_10X_P7_5.sig"

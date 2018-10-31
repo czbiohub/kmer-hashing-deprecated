@@ -1,5 +1,5 @@
 # coding: utf-8
-reflow_dirs = '/home/olga/code/kmer-hashing/sourmash/compare_no_track_abundance', '/home/olga/code/kmer-hashing/sourmash/compare', '/home/olga/code/tick-genome/pre_assembly_qc/full_workflow', '/home/olga/code/kmer-hashing/sourmash/search', '/home/olga/code/kmer-hashing/sourmash/lung_cancer_v4/search_protein_databases'
+reflow_dirs = "/home/olga/code/kmer-hashing/sourmash/maca/10x_spleen_kidney", '/home/olga/code/tick-genome/pre_assembly_qc/full_workflow', "/home/olga/code/merge-s3-bams/merge_sample_pairs"
 
 statuses = 'done', 'running', 'waiting', 'canceled'
 
