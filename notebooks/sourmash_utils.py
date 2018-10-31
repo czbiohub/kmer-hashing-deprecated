@@ -1,3 +1,6 @@
+import itertools
+import json
+
 from fastcluster import linkage
 from matplotlib.colors import rgb2hex
 import numpy as np
@@ -23,7 +26,7 @@ PALETTE_NAMES = 'tab10',  'Set2',  'tab20', 'Set3',  'tab20b', 'Accent', 'tab20c
 METADATA_COL = ['cell_ontology_class', 'free_annotation']
 
 
-def summarize(signature):
+def _describe_single(signature):
     data = []
     for sig in signature['signatures']:
         d = dict(name=signature['name'])
@@ -42,12 +45,26 @@ def summarize(signature):
     return data
 
 
-def get_single_cell(cell_id, matrix, metadata):
+def describe(filename):
+    with open(filename) as f:
+        signature = json.load(f)
+    data = itertools.chain(*map(_describe_single, signature))
+
+    description = pd.DataFrame(list(data))
+    return description
+
+
+def get_single_cell(cell_id, matrix, metadata, name, ksize, ignore_abundance):
     cell = matrix.loc[:, cell_id].to_frame()
     cell.columns = ['similarity']
     cell.index = metadata.index
     cell = cell.join(metadata)
     cell = cell.sort_values('similarity', ascending=False)
+    
+    cell['name'] = name
+    cell['ksize'] = ksize
+    cell['ignore_abundance'] = ignore_abundance
+
     return cell
 
 
@@ -60,6 +77,7 @@ def get_unique_ordered_categories(categories):
 def single_category_colors(categories, palette):
     """Convert a series of categories to colors"""
     no_na = categories.dropna()
+    item_to_color = pd.Series(index=categories.index)
     
     unique = get_unique_ordered_categories(no_na)
     n_unique = len(unique)
@@ -67,8 +85,7 @@ def single_category_colors(categories, palette):
     category_to_color = dict(zip(unique, colors))
     
     data = [category_to_color[c] for c in no_na]
-    item_to_color = pd.Series(data, index=no_na.index)
-    item_to_color[pd.isnull(categories)] = '#262626'
+    item_to_color[no_na.index] = data
     return item_to_color
 
 
@@ -171,10 +188,7 @@ def plaidplot_and_distplot(data, metadata, name, ksize, ignore_abundance,
         if 'cell_ontology_class' in kwargs['row_palette']:
             palette = kwargs['row_palette']['cell_ontology_class']
 
-    df = get_single_cell(cell_id, data, metadata)
-    df['name'] = name
-    df['ksize'] = ksize
-    df['ignore_abundance'] = ignore_abundance
+    df = get_single_cell(cell_id, data, metadata, ksize, name, ignore_abundance)
 
     distplot_grid = facet_distplot(df, palette=palette)
     pdf = f'../figures/{fig_prefix}_cell={cell_id}_distplot.pdf'
@@ -183,16 +197,7 @@ def plaidplot_and_distplot(data, metadata, name, ksize, ignore_abundance,
     return df
 
 
-def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)', 
-                 metadata_cols=['cell_ontology_class', 'tissue', 
-                                'mouse_id', 'cell_id']):
-
-    compare = pd.read_csv(csv)
-
-    cell_ids = compare.columns.str.split('|').str[-1]
-    cell_ids = cell_ids.str.split(':').str[-1]
-    cell_ids = pd.Index(cell_ids, name='cell_id')
-    
+def _assemble_metadata(compare, cell_ids, metadata_cols):
     colon_separated = compare.columns.str.contains(":")
 
     if colon_separated.sum() > 0:
@@ -219,6 +224,24 @@ def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)',
                          sort=False, ignore_index=False)
     metadata = metadata.drop(columns=['cell_id'], errors='ignore')
     metadata = metadata.reindex(index=cell_ids)
+    metadata['method'] = metadata.index.map(lambda x: '10x' if '10X' in x else 'FACS')
+    # Replace underscores with spaces for cell ontology names for consistency
+    metadata['cell_ontology_class'] = metadata['cell_ontology_class'].str.replace("_", " ")
+    return metadata
+    
+
+
+def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)', 
+                 metadata_cols=['cell_ontology_class', 'tissue', 
+                                'mouse_id', 'cell_id']):
+
+    compare = pd.read_csv(csv)
+
+    cell_ids = compare.columns.str.split('|').str[-1]
+    cell_ids = cell_ids.str.split(':').str[-1]
+    cell_ids = pd.Index(cell_ids, name='cell_id')
+    
+    metadata = _assemble_metadata(compare, cell_ids, metadata_cols)
 
     
     # Rename to valid cell ids

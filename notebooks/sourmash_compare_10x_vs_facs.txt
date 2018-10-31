@@ -1,3 +1,5 @@
+2018-10-24 21:18:34   16671841 tenx=Bladder-Lung_facs=Bladder-Lung_molecule=dna_ksize=27_ignore-abundance=True.csv
+2018-10-19 17:41:44    1813690 tenx=Bladder_facs=Bladder_molecule=dna_ksize=27_ignore_abundance=False.csv
 2018-10-19 01:10:27    1839267 tenx=Bladder_facs=Bladder_molecule=dna_ksize=27_ignore_abundance=True.csv
 2018-10-19 00:53:47    1802709 tenx=Bladder_facs=Bladder_molecule=protein_ksize=27_ignore_abundance=False.csv
 2018-10-19 00:55:12    1837171 tenx=Bladder_facs=Bladder_molecule=protein_ksize=27_ignore_abundance=True.csv
