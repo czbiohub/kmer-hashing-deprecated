@@ -51,6 +51,8 @@ def describe(filename):
     data = itertools.chain(*map(_describe_single, signature))
 
     description = pd.DataFrame(list(data))
+    description['log10_n_mins'] = np.log10(description.n_mins)
+
     return description
 
 
