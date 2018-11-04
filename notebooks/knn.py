@@ -1,3 +1,5 @@
+from matplotlib.lines import Line2D
+import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
@@ -47,10 +49,30 @@ def nearest_neighbor_graph(data, metadata, n_neighbors=5,
     G.add_edges_from(neighbor_adjacencies)
     return G
 
-def draw_graph(G, color_col='cell_ontology_class_color', edge_color='black', 
+def _add_legend(colors, labels, title):
+    label_color_df = pd.DataFrame(dict(colors=colors, labels=labels))
+    label_color_df = label_color_df.drop_duplicates()
+    label_color_df = label_color_df.sort_values('labels')
+
+    legend_elements = [Line2D([0], [0], color='w', marker='o', markersize=10,
+                              markerfacecolor=color, label=label, alpha=0.5)
+                       for i, (color, label) in label_color_df.iterrows()]
+
+    ax = plt.gca()
+    ax.legend(handles=legend_elements, title=title, frameon=False)
+    return ax
+
+
+def draw_graph(G, label_col='cell_ontology_class', edge_color='black', legend=True,
                **kwargs):
+    label_color_col = f"{label_col}_color"
+
+    colors = [d[label_color_col] for v, d in G.nodes(data=True)]
+    labels = [d[label_col] for v, d in G.nodes(data=True)]
+    
     if 'pos' not in kwargs:
         kwargs['pos'] = nx.spring_layout(G)
+    nx.draw(G, node_color=colors, alpha=0.5, **kwargs)
     
-    return nx.draw(G, node_color=[d[color_col] for v, d in G.nodes(data=True)], 
-                   alpha=0.5, **kwargs)
+    if legend:
+        _add_legend(colors, labels, label_col)
