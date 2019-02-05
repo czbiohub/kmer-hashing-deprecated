@@ -52,7 +52,12 @@ def nearest_neighbor_graph(data, metadata, n_neighbors=5,
 def _add_legend(colors, labels, title):
     label_color_df = pd.DataFrame(dict(colors=colors, labels=labels))
     label_color_df = label_color_df.drop_duplicates()
-    label_color_df = label_color_df.sort_values('labels')
+    
+    # Sort by lowercase version of the labels
+    label_color_df['labels_lower'] = label_color_df['labels'].str.lower()
+    label_color_df = label_color_df.sort_values('labels_lower')
+    # Remove the sorting column
+    label_color_df.drop('labels_lower', inplace=True, axis=1)
 
     legend_elements = [Line2D([0], [0], color='w', marker='o', markersize=10,
                               markerfacecolor=color, label=label, alpha=0.5)
