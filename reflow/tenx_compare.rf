@@ -1,0 +1,63 @@
+param (
+    // S3 path to 10x output folder containing possorted_genome_bam.bam 
+    // and barcodes.tsv files
+    tenx string 
+
+    // Identifier of the sample
+    name string
+
+    // Full s3 file location to put the sourmash signature
+    output string
+
+    // Size of kmer(s) to use
+    ksizes = "15,21,27,33,51"
+
+    // If true, remove low abundance (probably erroneous) kmers before computing signature
+    // Usually good practice for non-single cell RNA-seq
+    trim_low_abundance_kmers = false
+
+    // choose number of hashes as 1/scaled of input k-mers
+    scaled = 0
+
+    // Choose a fixed number of k-mers to hash
+    num_hashes = 5000
+
+    // Calculate protein signature
+    protein = true
+
+    // Calculate DNA signature
+    dna = true
+)
+
+// Parse flags
+val protein_flag = if protein { "--protein" } else { "--no-protein" }
+val dna_flag = if dna { "--dna" } else { "--no-dna" }
+
+sourmash_compute := make("./sourmash_compute.rf")
+sourmash_compare := make("./sourmash_compare.rf")
+
+// bam2fastx Docker image
+bam2fastx := "czbiohub/bam2fastx"
+
+
+
+// Compute a minhash signature for a sample
+@requires(cpu := 4, mem := 16*GiB, disk := 4*GiB)
+func TenXBamToFasta(tenx dir) = {
+    outdir := exec(image := bam2fastx) (output dir) {"
+            bam2fastx fasta {{tenx}} --output {{output}}
+    "}
+    // Return all files as a list
+    dirs.Files(outdir)
+}
+
+
+
+
+
+val Main = {
+    fastas := TenXBamToFasta(tenx)
+
+    sourmash_sketches := [sourmash_compute.ComputeSingleEnd(f) | f <- fastas]
+    dashing_sketches := []
+}

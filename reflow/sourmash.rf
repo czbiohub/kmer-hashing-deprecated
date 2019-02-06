@@ -1,0 +1,47 @@
+val dirs = make("$/dirs")
+val strings = make("$/strings")
+
+val kmer_hashing = "czbiohub/kmer-hashing"
+
+@requires(cpu := 2, mem := 8*GiB)
+func Compute(reads [file], scaled int, ksizes string, protein, dna, 
+    singleton bool) = {
+
+    val protein_flag = if protein { "--protein" } else { "--no-protein" }
+    val dna_flag = if dna { "--dna" } else { "--no-dna" }
+    val singleton_flag = if singleton { "--singleton" } else { "" }
+
+    exec(image := kmer_hashing) (signature file) {"
+        /opt/conda/bin/sourmash compute \
+            --track-abundance \
+            {{protein_flag}} \
+            {{dna_flag}} \
+            {{singleton_flag}} \
+            --scaled {{scaled}} \
+            --ksizes {{ksizes}} \
+            --output {{signature}} \
+            {{reads}}
+    "}
+}
+
+func Index(signatures dir, ksize string, molecule string) = {
+    val filenames = dirs.Files(signatures)
+
+    // sourmash expects signatures to be named .sig
+    val renamed = [(strings.FromInt(i)+".sig", f) | 
+        (i, f) <- zip(range(0, len(filenames)), filenames)]
+    val d = dirs.Make(map(renamed))
+
+    exec(image := kmer_hashing, mem := 16*GiB) (ksize_database file) {"
+        cd {{signatures}}
+        # sourmash expects signatures to be named .sig but we name them .signature
+
+        /opt/conda/bin/sourmash index \
+            --force \
+            --{{molecule}} \
+            --ksize {{ksize}} \
+            --traverse-directory \
+            {{ksize_database}} \
+            {{signatures}}
+    "}
+}
