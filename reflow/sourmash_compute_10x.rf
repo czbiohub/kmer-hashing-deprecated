@@ -65,7 +65,7 @@ val strings = make("$/strings")
 
 
 
-
+@requires(cpu := 1, mem := 16*GiB)
 val Main = {
     val tenx_folder = dir(tenx)
     val (bam, _) = dirs.Pick(tenx_folder, "*.bam")
