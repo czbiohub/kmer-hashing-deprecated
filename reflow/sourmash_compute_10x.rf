@@ -8,6 +8,9 @@ param (
     // Size of kmer(s) to use
     ksizes = "21,33,51"
 
+    // choose number of hashes as 1/scaled of input k-mers
+    scaled = 0
+
     // Number of kmer hashes to use
     num_hashes = 1000
 
@@ -35,50 +38,51 @@ val files = make("$/files")
 val dirs = make("$/dirs")
 
 
+sourmash := make("./sourmash.rf")
 
 
-val kmer_hashing = "czbiohub/kmer-hashing"
-
-
-val protein_flag = if protein { "--protein" } else { "--no-protein" }
-val dna_flag = if dna { "--dna" } else { "--no-dna" }
+// bam2fastx Docker image
+val bam2fastx = "czbiohub/bam2fastx"
 
 
 // Compute a minhash signature for a sample
-@requires(cpu := processes, disk := GiB)
-func Compute(tenx dir, ksizes string) = {
-    val (bam, _) = dirs.Pick(tenx, "*.bam")
-    val memory = len(bam)
-    v := trace(memory)
-    u := trace(tenx)
-
-	exec(image := kmer_hashing, mem := 128*GiB) (signature file) {"
-		/opt/conda/bin/sourmash compute \
-            {{protein_flag}} \
-            {{dna_flag}} \
-            --input-is-10x \
-            --processes {{processes}} \
-            --num-hashes {{num_hashes}} \
-            --ksizes {{ksizes}} \
-            --output {{signature}} \
-            {{tenx}}
+@requires(cpu := 4, mem := 16*GiB, disk := 4*GiB)
+func TenXBamToFasta(tenx dir) = {
+    outdir := exec(image := bam2fastx) (output dir) {"
+            bam2fastx fasta {{tenx}} --all-cells-in-one-file --output {{output}}
     "}
+
+    val (fasta, _) = dirs.Pick(outdir, "*.fasta")
+
+    // Return single fasta
+    fasta
 }
+
 
 
 // Instantiate Go system module "strings"
 val strings = make("$/strings")
 
-val tenx_folder = dir(tenx)
-val (bam, _) = dirs.Pick(tenx_folder, "*.bam")
-val (bai, _) = dirs.Pick(tenx_folder, "*.bai")
-val (barcodes, _) = dirs.Pick(tenx_folder, BARCODES)
 
-val renamed = map([(BAM_FILENAME, bam), 
-    (BAM_FILENAME + ".bai", bai), 
-    (BARCODES, barcodes)])
-val minimal_tenx_dir = dirs.Make(renamed)
 
-val signature = Compute(minimal_tenx_dir, ksizes)
 
-val Main = files.Copy(signature, output)
+val Main = {
+    val tenx_folder = dir(tenx)
+    val (bam, _) = dirs.Pick(tenx_folder, "*.bam")
+    val (bai, _) = dirs.Pick(tenx_folder, "*.bai")
+    val (barcodes, _) = dirs.Pick(tenx_folder, BARCODES)
+
+    val renamed = map([(BAM_FILENAME, bam), 
+        (BAM_FILENAME + ".bai", bai), 
+        (BARCODES, barcodes)])
+    val minimal_tenx_dir = dirs.Make(renamed)
+
+    fasta := TenXBamToFasta(minimal_tenx_dir)
+    reads := [fasta]
+
+    singleton := false
+
+    sourmash_sketch := sourmash.Compute(reads, scaled, ksizes, protein, 
+        dna, singleton)
+    files.Copy(sourmash_sketch, output)
+}

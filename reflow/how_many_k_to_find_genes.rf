@@ -1,0 +1,43 @@
+param (
+	transcriptome_fasta string
+
+	transcriptome_name string
+
+	cell_read1 string
+
+	cell_read2 string
+
+	cell_name string
+
+	scaled int
+
+    // Size of kmer(s) to use
+    ksizes = "21,33,51"
+
+    // calculate protein signature
+    protein = true
+
+    // calculate DNA signature
+    dna = true
+)
+
+
+sourmash = make("./sourmash.rf")
+
+transcriptome := file(transcriptome_fasta)
+
+transcriptome_sig := sourmash.Compute(transcriptome, scaled, transcriptome_name, 
+	ksizes, protein, dna)
+
+ksizes_array := strings.Split(ksizes, ",")
+ksizes_int := [int(k) | k <- ksizes_array]
+transcriptome_indexes := [sourmash.Index(transcriptome_sig, k) | k <- ksizes_array]
+
+cell_reads := [file(cell_read1), file(cell_read2)]
+
+cell_sig := sourmash.Compute(cell_reads, scaled, cell_name, 
+	ksizes, protein, dna)
+
+searches := [sourmash.Search(cell_sig, transcriptome_index, k) containment=true) | 
+	(k, transcriptome_index) <- zip(ksizes_int, transcriptome_indexes)]
+

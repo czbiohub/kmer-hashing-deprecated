@@ -1,0 +1,71 @@
+
+// dashing Docker image
+dashing := "czbiohub/dashing"
+
+func Sketch(reads [file], ksize int, threads int) =
+    // Use kmer-hashing image which has latest khmer to avoid bug with basenames in reflow
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
+        cd {{outdir}}
+        dashing sketch -k {{ksize}} -p {{threads}} {{reads}}
+"}
+
+
+
+// Compute a minhash signature for a sample
+@requires(cpu := 4, mem := 32*GiB, disk := 4*GiB)
+func ComputeSingleEnd(trimmed file, name, ksizes string) = 
+    exec(image := kmer_hashing) (signature file) {"
+        /opt/conda/bin/sourmash compute \
+            --track-abundance \
+            {{protein_flag}} \
+            {{dna_flag}} \
+            --scaled {{scaled}} \
+            --ksizes {{ksizes}} \
+            --merge '{{name}}' \
+            --output {{signature}} \
+            {{trimmed}}
+"}
+
+@requires(cpu := 4, mem := 64*GiB, disk := 4*GiB)
+func ComputePairedEnd(r1, r2 [file], name, ksizes string) = 
+    exec(image := kmer_hashing) (signature file) {"
+        /opt/conda/bin/sourmash compute \
+            --track-abundance \
+            {{protein_flag}} \
+            {{dna_flag}} \
+            --scaled {{scaled}} \
+            --ksizes {{ksizes}} \
+            --merge '{{name}}' \
+            --output {{signature}} \
+            {{r1}} {{r2}}
+"}
+
+
+
+// Instantiate the system modules "files" (system modules begin
+// with $), assigning its instance to the "files" identifier. To
+// view the documentation for this module, run "reflow doc
+// $/files".
+val files = make("$/files")
+
+// Instantiate Go system module "strings"
+val strings = make("$/strings")
+
+// Split each read string by the pipe "|" to get individual s3 paths
+val read1s = strings.Split(read1, "|")
+val read2s = strings.Split(read2, "|")
+
+// Create a file for each element in the `read1s`, `read2s` string array
+// Now `r1`, `r1` are arrays of files
+val r1 = [file(read1) | read1 <- read1s]
+val r2 = [file(read2) | read2 <- read2s]
+
+val signature = if trim_low_abundance_kmers {
+    trimmed := Trim(r1, r2)
+    ComputeTrimmed(trimmed, name, ksizes)
+} else {
+    ComputeUntrimmed(r1, r2, name, ksizes)
+}
+
+@requires(cpu := 2, mem := 4*GiB)
+val Main = files.Copy(signature, output)
