@@ -115,3 +115,7 @@ def cli(filenames, num_hashes=NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
         click.echo("Writing {csv} ...")
         df.to_csv(csv)
         click.echo("\tDone.")
+
+
+if __name__ == "__main__":
+    cli(sys.argv[1:])
