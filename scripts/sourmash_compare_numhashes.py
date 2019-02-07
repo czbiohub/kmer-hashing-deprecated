@@ -1,6 +1,7 @@
 import glob
 import itertools
 
+import click
 from scipy.spatial.distance import squareform
 from sourmash import signature as sig
 from tqdm import tqdm
