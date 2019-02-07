@@ -1,5 +1,6 @@
 import glob
 import itertools
+import sys
 
 import click
 from scipy.spatial.distance import squareform
