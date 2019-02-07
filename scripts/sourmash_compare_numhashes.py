@@ -5,8 +5,6 @@ from scipy.spatial.distance import squareform
 from sourmash import signature as sig
 from tqdm import tqdm
 
-import jaccard_utils
-
 
 KSIZES = 21, 27, 33, 51
 MOLECULES = 'dna', 'protein'
@@ -37,7 +35,7 @@ def _compare_serial(siglist, iterator):
     values = np.ones((n, n))
 
     for i, j in iterator:
-        jaccard = jaccard_utils.jaccard_sigs(i, j, siglist)
+        jaccard = siglist[i].jaccard(siglist[j])
 
         values[i, j] = jaccard
         values[j, i] = jaccard
@@ -98,7 +96,7 @@ def downsample_and_compare(signatures, num_hash, molecule, ksize):
               help=f"Output directory for csvs",
               default=".")
 def cli(filenames, num_hashes=NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
-        outdir):
+        outdir="."):
     signatures = load_signatures(filenames)
 
     iterable = itertools.product(num_hashes, molecules, ksizes)
