@@ -97,8 +97,10 @@ def downsample_and_compare(signatures, num_hash, molecule, ksize):
 @click.option("--outdir",
               help=f"Output directory for csvs",
               default=".")
+@click.option("--n-jobs", help=f"Number of processes to use",
+              default=8)
 def cli(filenames, num_hashes=NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
-        outdir="."):
+        outdir=".", n_jobs=8):
     click.echo("Loading {len(filenames)} signature files ...")
     signatures = load_signatures(filenames)
 
@@ -110,7 +112,7 @@ def cli(filenames, num_hashes=NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
 
     iterable = itertools.product(num_hashes, molecules, ksizes)
 
-    for (num_hash, molecule, ksize), values in zip(iterable, similarities):
+    for (num_hash, molecule, ksize), df in zip(iterable, similarities):
         filename = f"molecule-{molecule}_ksize-{ksize}_numhash-{num_hash}.csv"
         csv = os.path.join(outdir, filename)
         click.echo("Writing {csv} ...")
