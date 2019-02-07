@@ -84,7 +84,7 @@ def downsample_and_compare(signatures, num_hash, molecule, ksize):
 
 
 @click.command()
-@click.argument("filenames")
+@click.argument("filenames", nargs=-1)
 @click.option("--num-hashes",
               help=f"Which hash values to compare. Default: {NUM_HASHES}",
               default=NUM_HASHES)
