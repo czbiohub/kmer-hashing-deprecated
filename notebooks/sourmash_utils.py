@@ -51,6 +51,8 @@ def describe(filename):
     data = itertools.chain(*map(_describe_single, signature))
 
     description = pd.DataFrame(list(data))
+    description['log10_n_mins'] = np.log10(description.n_mins)
+
     return description
 
 
@@ -150,12 +152,16 @@ def plaidplot(data, row_categories=None, col_categories=None, row_palette=None,
                        **kwargs)
     return g
 
-def plaidplot_square(data, metadata, metadata_col='cell_ontology_class', **kwargs):
+def plaidplot_square(data, metadata, metadata_col='cell_ontology_class', palette='tab20', 
+                     **kwargs):
     categories = metadata[metadata_col]
+#     palette = category_colors(categories, palette)
     
     vmax = data.replace(1, np.nan).max().max()
     
     return plaidplot(data, 
+                     col_palette=palette,
+                     row_palette=palette,
               col_categories=categories,
               row_categories=categories, vmax=vmax, **kwargs)
 
@@ -250,3 +256,12 @@ def read_compare(csv, pattern='(?P<column>\\w+):(?P<value>[\\w-]+)',
     compare = compare.reindex(index=metadata.index, columns=metadata.index)
     
     return compare, metadata
+
+
+def filter_siglist(siglist, ksize, moltype):
+    if moltype == 'protein':
+        molfilter = lambda x: x.minhash.is_protein
+    else:
+        molfilter = lambda x: not x.minhash.is_protein
+    
+    return [s for s in siglist if molfilter(s) and (s.minhash.ksize == ksize)]
