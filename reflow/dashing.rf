@@ -10,62 +10,85 @@ func Sketch(reads [file], ksize int, threads int) =
 "}
 
 
-
-// Compute a minhash signature for a sample
-@requires(cpu := 4, mem := 32*GiB, disk := 4*GiB)
-func ComputeSingleEnd(trimmed file, name, ksizes string) = 
-    exec(image := kmer_hashing) (signature file) {"
-        /opt/conda/bin/sourmash compute \
-            --track-abundance \
-            {{protein_flag}} \
-            {{dna_flag}} \
-            --scaled {{scaled}} \
-            --ksizes {{ksizes}} \
-            --merge '{{name}}' \
-            --output {{signature}} \
-            {{trimmed}}
+// Estimate distances between sequencing samples
+//
+// Usage: dist <opts> [genomes if not provided from a file with -F]
+// Flags:
+// -h/-?   Usage
+// -k  Set kmer size [31]
+// -W  Cache sketches/use cached sketches
+// -p  Set number of threads [1]
+// -b  Emit distances in binary (default: human-readable, upper-triangular)
+// -U  Emit distances in PHYLIP upper triangular format(default: human-readable, upper-triangular)
+// -s  add a spacer of the format <int>x<int>,<int>x<int>,..., where the first integer corresponds to the space between bases repeated the second integer number of times
+// -w  Set window size [max(size of spaced kmer, [parameter])]
+// -S  Set sketch size [10, for 2**10 bytes each]
+// -H  Treat provided paths as pre-made sketches.
+// -C  Do not canonicalize. [Default: canonicalize]
+// -P  Set prefix for sketch file locations [empty]
+// -x  Set suffix in sketch file names [empty]
+// -o  Output for genome size estimates [stdout]
+// -I  Use Ertl's Improved Estimator
+// -E  Use Ertl's Original Estimator
+// -J  Use Ertl's JMLE Estimator [default  Uses Ertl-MLE]
+// -O  Output for genome distance matrix [stdout]
+// -L  Clamp estimates below expected variance to 0. [Default: do not clamp]
+// -e  Emit in scientific notation
+// -f  Report results as float. (Only important for binary format.) This halves the memory footprint at the cost of precision loss.
+// -F  Get paths to genomes from file rather than positional arguments
+// -M  Emit Mash distance (default: jaccard index)
+// -T  postprocess binary format to human-readable TSV (not upper triangular)
+// -Z  Emit genome sizes (default: jaccard index)
+// -N  Autodetect fastq or fasta data by filename (.fq or .fastq within filename).
+// -y  Filter all input data by count-min sketch.
+// -q  Set count-min number of hashes. Default: [4]
+// -c  Set minimum count for kmers to pass count-min filtering.
+// -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
+// -R  Set seed for seeds for count-min sketches
+func Dist(sketches [file], threads int) =
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing dist -H -TO {{matrix}} \
+            -p {{threads}} {{sketches}}
 "}
 
-@requires(cpu := 4, mem := 64*GiB, disk := 4*GiB)
-func ComputePairedEnd(r1, r2 [file], name, ksizes string) = 
-    exec(image := kmer_hashing) (signature file) {"
-        /opt/conda/bin/sourmash compute \
-            --track-abundance \
-            {{protein_flag}} \
-            {{dna_flag}} \
-            --scaled {{scaled}} \
-            --ksizes {{ksizes}} \
-            --merge '{{name}}' \
-            --output {{signature}} \
-            {{r1}} {{r2}}
+// Get absolute ground truth set size differences between samples
+// 
+// Usage: setdist <opts> [genomes if not provided from a file with -F]
+// Flags:
+// -h/-?   Usage
+// -k  Set kmer size [31]
+// -W  Cache sketches/use cached sketches
+// -p  Set number of threads [1]
+// -b  Emit distances in binary (default: human-readable, upper-triangular)
+// -U  Emit distances in PHYLIP upper triangular format(default: human-readable, upper-triangular)
+// -s  add a spacer of the format <int>x<int>,<int>x<int>,..., where the first integer corresponds to the space between bases repeated the second integer number of times
+// -w  Set window size [max(size of spaced kmer, [parameter])]
+// -S  Set sketch size [10, for 2**10 bytes each]
+// -H  Treat provided paths as pre-made sketches.
+// -C  Do not canonicalize. [Default: canonicalize]
+// -P  Set prefix for sketch file locations [empty]
+// -x  Set suffix in sketch file names [empty]
+// -o  Output for genome size estimates [stdout]
+// -I  Use Ertl's Improved Estimator
+// -E  Use Ertl's Original Estimator
+// -J  Use Ertl's JMLE Estimator [default  Uses Ertl-MLE]
+// -O  Output for genome distance matrix [stdout]
+// -L  Clamp estimates below expected variance to 0. [Default: do not clamp]
+// -e  Emit in scientific notation
+// -f  Report results as float. (Only important for binary format.) This halves the memory footprint at the cost of precision loss.
+// -F  Get paths to genomes from file rather than positional arguments
+// -M  Emit Mash distance (default: jaccard index)
+// -T  postprocess binary format to human-readable TSV (not upper triangular)
+// -Z  Emit genome sizes (default: jaccard index)
+// -N  Autodetect fastq or fasta data by filename (.fq or .fastq within filename).
+// -y  Filter all input data by count-min sketch.
+// -q  Set count-min number of hashes. Default: [4]
+// -c  Set minimum count for kmers to pass count-min filtering.
+// -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
+// -R  Set seed for seeds for count-min sketches
+func SetDist(sketches [file], threads int) = 
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing setdist -H -TO {{matrix}} \
+            -p {{threads}} {{sketches}}
 "}
 
-
-
-// Instantiate the system modules "files" (system modules begin
-// with $), assigning its instance to the "files" identifier. To
-// view the documentation for this module, run "reflow doc
-// $/files".
-val files = make("$/files")
-
-// Instantiate Go system module "strings"
-val strings = make("$/strings")
-
-// Split each read string by the pipe "|" to get individual s3 paths
-val read1s = strings.Split(read1, "|")
-val read2s = strings.Split(read2, "|")
-
-// Create a file for each element in the `read1s`, `read2s` string array
-// Now `r1`, `r1` are arrays of files
-val r1 = [file(read1) | read1 <- read1s]
-val r2 = [file(read2) | read2 <- read2s]
-
-val signature = if trim_low_abundance_kmers {
-    trimmed := Trim(r1, r2)
-    ComputeTrimmed(trimmed, name, ksizes)
-} else {
-    ComputeUntrimmed(r1, r2, name, ksizes)
-}
-
-@requires(cpu := 2, mem := 4*GiB)
-val Main = files.Copy(signature, output)
