@@ -80,7 +80,7 @@ def downsample_and_compare(signatures, num_hash, molecule, ksize):
     df = pd.DataFrame(values, index=names, columns=names)
 
     print(f"--- num_hash: {num_hash}, molecule: {molecule}, "
-          "ksize: {ksize} ---")
+          f"ks§ize: {ksize} ---")
     print(f"Time to filter on ksize and molecule: {t1-t0:.2}s")
     print(f"Time to downsample on num_hash: {t2-t1:.2}s")
     print(f"Time to compare all pairs: {t3-t2:.2}s")
