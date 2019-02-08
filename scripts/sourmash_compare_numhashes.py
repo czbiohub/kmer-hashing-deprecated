@@ -120,7 +120,7 @@ def cli(filenames, num_hashes=NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
     for (num_hash, molecule, ksize), df in zip(iterable, similarities):
         filename = f"molecule-{molecule}_ksize-{ksize}_numhash-{num_hash}.csv"
         csv = os.path.join(outdir, filename)
-        click.echo("Writing {csv} ...")
+        click.echo(f"Writing {csv} ...")
         df.to_csv(csv)
         click.echo("\tDone.")
 
