@@ -90,10 +90,9 @@ func Sketch(reads file, name string, ksize int,
 // -c  Set minimum count for kmers to pass count-min filtering.
 // -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
 // -R  Set seed for seeds for count-min sketches
-func Dist(sketches [file], ksize int, log2_sketch_size int, threads int) =
-    exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
-        cd {{outdir}}
-        dashing dist -H -k {{ksize}} -S {{log2_sketch_size}} \
+func Dist(sketches [file], threads int) =
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing dist -H -TO {{matrix}} \
             -p {{threads}} {{sketches}}
 "}
 
@@ -132,10 +131,9 @@ func Dist(sketches [file], ksize int, log2_sketch_size int, threads int) =
 // -c  Set minimum count for kmers to pass count-min filtering.
 // -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
 // -R  Set seed for seeds for count-min sketches
-func SetDist(reads [file], ksize int, log2_sketch_size int, threads int) =
-    exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
-        cd {{outdir}}
-        dashing sketch -k {{ksize}} -S {{log2_sketch_size}} \
-            -p {{threads}} {{reads}}
+func SetDist(sketches [file], threads int) = 
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing setdist -H -TO {{matrix}} \
+            -p {{threads}} {{sketches}}
 "}
 
