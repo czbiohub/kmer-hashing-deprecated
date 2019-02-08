@@ -106,7 +106,7 @@ def downsample_and_compare(signatures, num_hash, molecule, ksize):
               default=8)
 def cli(filenames, num_hashes=NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
         outdir=".", n_jobs=8):
-    click.echo("Loading {len(filenames)} signature files ...")
+    click.echo(f"Loading {len(filenames)} signature files ...")
     signatures = load_signatures(filenames)
 
     iterable = itertools.product(num_hashes, molecules, ksizes)
