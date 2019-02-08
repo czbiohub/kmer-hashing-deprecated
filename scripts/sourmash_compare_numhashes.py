@@ -3,6 +3,7 @@ import itertools
 import sys
 
 import click
+from joblib import Parallel, delayed
 from scipy.spatial.distance import squareform
 from sourmash import signature as sig
 from tqdm import tqdm
