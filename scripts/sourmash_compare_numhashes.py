@@ -5,6 +5,7 @@ import time
 
 import click
 from joblib import Parallel, delayed
+import numpy as np
 from scipy.spatial.distance import squareform
 from sourmash import signature as sig
 from tqdm import tqdm
