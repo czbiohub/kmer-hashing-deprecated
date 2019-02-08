@@ -1,0 +1,141 @@
+
+// dashing Docker image
+dashing := "czbiohub/dashing"
+
+dirs := make("$/dirs")
+
+
+// Subset k-mers from reads
+// 
+// Usage: sketch <opts> [genomes if not provided from a file with -F]
+// Flags:
+// -h/-?:  Emit usage
+
+// Sketch options --
+// -k  Set kmer size [31]
+// -s  add a spacer of the format <int>x<int>,<int>x<int>,..., where the first integer corresponds to the space between bases repeated the second integer number of times
+// -w  Set window size [max(size of spaced kmer, [parameter])]
+// -S  Set sketch size [10, for 2**10 bytes each]
+// -C  Do not canonicalize. [Default: canonicalize]
+// -L  Clamp estimates below expected variance to 0. [Default: do not clamp]
+// Run options --
+// -p  Set number of threads [1]
+// -P  Set prefix for sketch file locations [empty]
+// -x  Set suffix in sketch file names [empty]
+// -F  Get paths to genomes from file rather than positional arguments
+// -c  Cache sketches/use cached sketches (save sketches to disk in directory of the file [default] or in folder specified by -P
+// -z  Write gzip compressed. (Or zstd-compressed, if compiled with zlibWrapper.
+// Estimation methods --
+// -E  Use Flajolet with inclusion/exclusion quantitation method for hll. [Default: Ertl MLE]
+// -I  Use Ertl Improved estimator [Default: Ertl MLE]
+// -J  Use Ertl JMLE
+// Filtering Options --
+// Default: consume all kmers. Alternate options: 
+// -f  Autodetect fastq or fasta data by filename (.fq or .fastq within filename).
+// -B  Filter all input data by count-min sketch.
+// Options for count-min filtering --
+// -H  Set count-min number of hashes. Default: [4]
+// -q  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
+// -n  Provide minimum expected count for fastq data. If unspecified, all kmers are passed.
+// -R  Set seed for seeds for count-min sketches
+func Sketch(reads file, name string, ksize int, 
+        log2_sketch_size int, threads int) = {
+
+    // dashing expects input files to be named .fastq.gz, and for the 
+    // name to be informative
+    val renamed = [name + ".fastq.gz": reads]
+    val d = dirs.Make(renamed)
+
+    outdir := exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
+        cd {{outdir}}
+        dashing sketch -k {{ksize}} -S {{log2_sketch_size}} \
+            -p {{threads}} -P {{outdir}} {{d}}/*fastq.gz
+    "}
+    outdir
+}
+
+
+// Estimate distances between sequencing samples
+//
+// Usage: dist <opts> [genomes if not provided from a file with -F]
+// Flags:
+// -h/-?   Usage
+// -k  Set kmer size [31]
+// -W  Cache sketches/use cached sketches
+// -p  Set number of threads [1]
+// -b  Emit distances in binary (default: human-readable, upper-triangular)
+// -U  Emit distances in PHYLIP upper triangular format(default: human-readable, upper-triangular)
+// -s  add a spacer of the format <int>x<int>,<int>x<int>,..., where the first integer corresponds to the space between bases repeated the second integer number of times
+// -w  Set window size [max(size of spaced kmer, [parameter])]
+// -S  Set sketch size [10, for 2**10 bytes each]
+// -H  Treat provided paths as pre-made sketches.
+// -C  Do not canonicalize. [Default: canonicalize]
+// -P  Set prefix for sketch file locations [empty]
+// -x  Set suffix in sketch file names [empty]
+// -o  Output for genome size estimates [stdout]
+// -I  Use Ertl's Improved Estimator
+// -E  Use Ertl's Original Estimator
+// -J  Use Ertl's JMLE Estimator [default  Uses Ertl-MLE]
+// -O  Output for genome distance matrix [stdout]
+// -L  Clamp estimates below expected variance to 0. [Default: do not clamp]
+// -e  Emit in scientific notation
+// -f  Report results as float. (Only important for binary format.) This halves the memory footprint at the cost of precision loss.
+// -F  Get paths to genomes from file rather than positional arguments
+// -M  Emit Mash distance (default: jaccard index)
+// -T  postprocess binary format to human-readable TSV (not upper triangular)
+// -Z  Emit genome sizes (default: jaccard index)
+// -N  Autodetect fastq or fasta data by filename (.fq or .fastq within filename).
+// -y  Filter all input data by count-min sketch.
+// -q  Set count-min number of hashes. Default: [4]
+// -c  Set minimum count for kmers to pass count-min filtering.
+// -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
+// -R  Set seed for seeds for count-min sketches
+func Dist(sketches [file], ksize int, log2_sketch_size int, threads int) =
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
+        cd {{outdir}}
+        dashing dist -H -k {{ksize}} -S {{log2_sketch_size}} \
+            -p {{threads}} {{sketches}}
+"}
+
+// Get absolute ground truth set size differences between samples
+// 
+// Usage: setdist <opts> [genomes if not provided from a file with -F]
+// Flags:
+// -h/-?   Usage
+// -k  Set kmer size [31]
+// -W  Cache sketches/use cached sketches
+// -p  Set number of threads [1]
+// -b  Emit distances in binary (default: human-readable, upper-triangular)
+// -U  Emit distances in PHYLIP upper triangular format(default: human-readable, upper-triangular)
+// -s  add a spacer of the format <int>x<int>,<int>x<int>,..., where the first integer corresponds to the space between bases repeated the second integer number of times
+// -w  Set window size [max(size of spaced kmer, [parameter])]
+// -S  Set sketch size [10, for 2**10 bytes each]
+// -H  Treat provided paths as pre-made sketches.
+// -C  Do not canonicalize. [Default: canonicalize]
+// -P  Set prefix for sketch file locations [empty]
+// -x  Set suffix in sketch file names [empty]
+// -o  Output for genome size estimates [stdout]
+// -I  Use Ertl's Improved Estimator
+// -E  Use Ertl's Original Estimator
+// -J  Use Ertl's JMLE Estimator [default  Uses Ertl-MLE]
+// -O  Output for genome distance matrix [stdout]
+// -L  Clamp estimates below expected variance to 0. [Default: do not clamp]
+// -e  Emit in scientific notation
+// -f  Report results as float. (Only important for binary format.) This halves the memory footprint at the cost of precision loss.
+// -F  Get paths to genomes from file rather than positional arguments
+// -M  Emit Mash distance (default: jaccard index)
+// -T  postprocess binary format to human-readable TSV (not upper triangular)
+// -Z  Emit genome sizes (default: jaccard index)
+// -N  Autodetect fastq or fasta data by filename (.fq or .fastq within filename).
+// -y  Filter all input data by count-min sketch.
+// -q  Set count-min number of hashes. Default: [4]
+// -c  Set minimum count for kmers to pass count-min filtering.
+// -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
+// -R  Set seed for seeds for count-min sketches
+func SetDist(reads [file], ksize int, log2_sketch_size int, threads int) =
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
+        cd {{outdir}}
+        dashing sketch -k {{ksize}} -S {{log2_sketch_size}} \
+            -p {{threads}} {{reads}}
+"}
+
