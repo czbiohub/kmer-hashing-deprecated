@@ -1,14 +1,23 @@
 
+
+
+val dirs = make("$/dirs")
+
 // dashing Docker image
 dashing := "czbiohub/dashing"
 
-func Sketch(reads [file], ksize int, threads int) =
-    // Use kmer-hashing image which has latest khmer to avoid bug with basenames in reflow
+func Sketch(reads file, name string, log2_sketch_size int, 
+        ksize int, threads int) = {
+    d := dirs.Make([name + ".fastq.gz": reads])
     exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
         cd {{outdir}}
-        dashing sketch -k {{ksize}} -p {{threads}} {{reads}}
-"}
-
+        dashing sketch \
+            -S {{log2_sketch_size}} \
+            -k {{ksize}} \
+            -p {{threads}} \
+            {{d}}/{{name}}.fastq.gz
+    "}
+}
 
 // Estimate distances between sequencing samples
 //
@@ -45,11 +54,27 @@ func Sketch(reads [file], ksize int, threads int) =
 // -c  Set minimum count for kmers to pass count-min filtering.
 // -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
 // -R  Set seed for seeds for count-min sketches
-func Dist(sketches [file], threads int) =
+func DistSketches(sketches [file], threads int) =
     exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
         dashing dist -H -TO {{matrix}} \
             -p {{threads}} {{sketches}}
 "}
+
+func DistFastqs(fastq_gzs [file], names [string], threads, 
+        ksize, log2_sketch_size int) ={
+    // create fastqs with proper names
+    val renamed = [(strings.FromInt(i)+".fastq.gz", f) | 
+        (i, f) <- zip(names, fastq_gzs)]
+    val d = dirs.Make(map(renamed))
+
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing dist \
+            -k {{ksize}} \
+            -S {{log2_sketch_size}} \
+            -TO {{matrix}} \
+            -p {{threads}} {{d}}/*.fastq.gz
+"}
+}
 
 // Get absolute ground truth set size differences between samples
 // 
@@ -91,4 +116,22 @@ func SetDist(sketches [file], threads int) =
         dashing setdist -H -TO {{matrix}} \
             -p {{threads}} {{sketches}}
 "}
+
+
+
+func SetDistFastqs(fastqs [file], names [string], 
+        threads, ksize, log2_sketch_size int) = {
+    // create fastqs with proper names
+    val renamed = [(strings.FromInt(i)+".fastq.gz", f) | 
+        (i, f) <- zip(names, fastq_gzs)]
+    val d = dirs.Make(map(renamed))
+
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing setdist \
+            -k {{ksize}} \
+            -S {{log2_sketch_size}} \
+            -TO {{matrix}} \
+            -p {{threads}} {{d}}/*.fastq.gz
+"}
+}
 

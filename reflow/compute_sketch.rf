@@ -1,20 +1,17 @@
 param (
     // S3 path to read1 of the fastq/fasta file. If multiple files, 
     // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
-    read1 = "empty"
+    read1 string
 
     // S3 path to read2 of the fastq/fasta file. If multiple files, 
     // can be pipe-separated e.g. sample1_01.fastq|sample1_02.fastq
-    read2 = "empty"
+    read2 string
 
     // Identifier of the sample
     name string
 
     // Full s3 file location to put the sourmash signature
     output string
-
-    // S3 path to 10x folder
-    tenx = "empty"
 
     // Size of kmer to use
     ksize = 21
@@ -43,10 +40,14 @@ val read2s = strings.Split(read2, "|")
 val r1 = [file(read1) | read1 <- read1s]
 val r2 = [file(read2) | read2 <- read2s]
 
+
+func Cat(files [file]) = 
+    exec(image := "ubuntu") (catted file) {"
+        cat {{files}} > {{catted}}
+    "}
+
 // Concatenate all R1 and R2 into a single file for dashing
-reads := exec(image := "ubuntu") (catted file) {"
-    cat {{r1}} {{r1}} > {{catted}}
-"}
+reads := Cat(flatten([r1, r2]))
 
 sketch := dashing.Sketch(reads, name, log2_sketch_size, ksize, threads)
 
