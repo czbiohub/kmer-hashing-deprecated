@@ -3,45 +3,68 @@ val strings = make("$/strings")
 
 val kmer_hashing = "czbiohub/kmer-hashing"
 
-@requires(cpu := 2, mem := 8*GiB)
-func Compute(reads [file], scaled int, ksizes string, protein, dna, 
-    singleton bool) = {
 
-    val protein_flag = if protein { "--protein" } else { "--no-protein" }
-    val dna_flag = if dna { "--dna" } else { "--no-dna" }
-    val singleton_flag = if singleton { "--singleton" } else { "" }
-
+// Compute a minhash signature for a sample
+@requires(cpu := 2, mem := 500*MiB)
+func Sketch(fastqs [file], name, molecule string, log2_sketch_size, ksize int) = 
     exec(image := kmer_hashing) (signature file) {"
         /opt/conda/bin/sourmash compute \
-            --track-abundance \
-            {{protein_flag}} \
-            {{dna_flag}} \
-            {{singleton_flag}} \
-            --scaled {{scaled}} \
-            --ksizes {{ksizes}} \
+            --{{molecule}} \
+            --num-hashes $(python -c 'print(2**{{log2_sketch_size}})') \
+            --ksizes {{ksize}} \
+            --merge '{{name}}' \
             --output {{signature}} \
-            {{reads}}
+            {{fastqs}}
+"}
+
+
+
+// Compare many minhash signatures
+// ubuntu@olgabot-reflow  sourmash compare --help
+// usage: sourmash [-h] [-o OUTPUT] [--ignore-abundance] [-k KSIZE] [--protein]
+//                 [--no-protein] [--dna] [--no-dna] [--csv CSV] [-q]
+//                 signatures [signatures ...]
+
+// positional arguments:
+//   signatures            list of signatures
+
+// optional arguments:
+//   -h, --help            show this help message and exit
+//   -o OUTPUT, --output OUTPUT
+//   --ignore-abundance    do NOT use k-mer abundances if present
+//   -k KSIZE, --ksize KSIZE
+//                         k-mer size (default: 31)
+//   --protein             choose a protein signature (default: False)
+//   --no-protein          do not choose a protein signature
+//   --dna                 choose a DNA signature (default: True)
+//   --no-dna              do not choose a DNA signature
+//   --csv CSV             save matrix in CSV format (with column headers)
+//   -q, --quiet           suppress non-error output
+func Compare(signatures [file], ksize int, molecule string) = {
+
+    // sourmash expects signatures to be named .sig
+    val renamed = [(strings.FromInt(i)+".sig", f) | (i, f) <- zip(range(0, len(signatures)), signatures)]
+    val d = dirs.Make(map(renamed))
+
+    // Check the files here
+    val d = trace(d)
+
+    exec(image := kmer_hashing, mem := 16*GiB, cpu := 4) (csv file) {"
+        ls -lha {{d}}
+            /opt/conda/bin/sourmash compare \
+            --ksize {{ksize}} \
+            --{{molecule}} \
+            --csv {{csv}} \
+            --traverse-directory \
+            {{d}}
     "}
 }
 
-func Index(signatures dir, ksize string, molecule string) = {
-    val filenames = dirs.Files(signatures)
 
-    // sourmash expects signatures to be named .sig
-    val renamed = [(strings.FromInt(i)+".sig", f) | 
-        (i, f) <- zip(range(0, len(filenames)), filenames)]
-    val d = dirs.Make(map(renamed))
-
-    exec(image := kmer_hashing, mem := 16*GiB) (ksize_database file) {"
-        cd {{signatures}}
-        # sourmash expects signatures to be named .sig but we name them .signature
-
-        /opt/conda/bin/sourmash index \
-            --force \
-            --{{molecule}} \
-            --ksize {{ksize}} \
-            --traverse-directory \
-            {{ksize_database}} \
-            {{signatures}}
-    "}
+func CompareFastqs(fastqs [file], names [string], 
+        molecule string, log2_sketch_size, ksize, threads int) = {
+    // [f] below makes a list with a single file in it
+    sketches := [Sketch([f], n, molecule, log2_sketch_size, ksize) | (f, n) <- zip(fastqs, names)]
+    matrix := Compare(sketches, ksize, molecule)
+    matrix
 }
