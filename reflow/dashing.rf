@@ -9,7 +9,8 @@ dashing := "czbiohub/dashing"
 func Sketch(reads file, name string, log2_sketch_size int, 
         ksize int, threads int) = {
     d := dirs.Make([name + ".fastq.gz": reads])
-    exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
+    d := trace(d)
+    outdir := exec(image := dashing, mem := 4*GiB, cpu := threads) (outdir dir) {"
         cd {{outdir}}
         dashing sketch \
             -S {{log2_sketch_size}} \
@@ -17,6 +18,9 @@ func Sketch(reads file, name string, log2_sketch_size int,
             -p {{threads}} \
             {{d}}/{{name}}.fastq.gz
     "}
+    outdir := trace(outdir)
+    val (sketch, _) = dirs.Pick(outdir, "*.hll")
+    sketch
 }
 
 // Estimate distances between sequencing samples
@@ -60,11 +64,9 @@ func DistSketches(sketches [file], threads int) =
             -p {{threads}} {{sketches}}
 "}
 
-func DistFastqs(fastq_gzs [file], names [string], threads, 
-        ksize, log2_sketch_size int) ={
+func DistFastqs(fastq_gzs [file], names [string], threads, ksize, log2_sketch_size int) ={
     // create fastqs with proper names
-    val renamed = [(strings.FromInt(i)+".fastq.gz", f) | 
-        (i, f) <- zip(names, fastq_gzs)]
+    val renamed = [(name+".fastq.gz", f) | (name, f) <- zip(names, fastq_gzs)]
     val d = dirs.Make(map(renamed))
 
     exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
@@ -111,7 +113,13 @@ func DistFastqs(fastq_gzs [file], names [string], threads,
 // -c  Set minimum count for kmers to pass count-min filtering.
 // -t  Set count-min sketch size (log2). Default: ceil(log2(max_filesize)) + 2
 // -R  Set seed for seeds for count-min sketches
-func SetDist(sketches [file], threads int) = 
+func SetDistSketches(sketches [file], threads int) = 
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing setdist -H -TO {{matrix}} \
+            -p {{threads}} {{sketches}}
+"}
+
+func SetDistSketchesDir(sketches dir, threads int) = 
     exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
         dashing setdist -H -TO {{matrix}} \
             -p {{threads}} {{sketches}}
@@ -119,11 +127,17 @@ func SetDist(sketches [file], threads int) =
 
 
 
-func SetDistFastqs(fastqs [file], names [string], 
-        threads, ksize, log2_sketch_size int) = {
+func DistSketches(sketches [file], threads int) = 
+    exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
+        dashing dist -H -TO {{matrix}} \
+            -p {{threads}} {{sketches}}
+"}
+
+
+func SetDistFastqs(fastq_gzs [file], names [string], 
+        log2_sketch_size, ksize, threads int) = {
     // create fastqs with proper names
-    val renamed = [(strings.FromInt(i)+".fastq.gz", f) | 
-        (i, f) <- zip(names, fastq_gzs)]
+    val renamed = [(name + ".fastq.gz", f) | (name, f) <- zip(names, fastq_gzs)]
     val d = dirs.Make(map(renamed))
 
     exec(image := dashing, mem := 4*GiB, cpu := threads) (matrix file) {"
@@ -134,4 +148,17 @@ func SetDistFastqs(fastqs [file], names [string],
             -p {{threads}} {{d}}/*.fastq.gz
 "}
 }
+
+func CompareFastqs(fastqs [file], names [string], 
+        log2_sketch_size, ksize, threads int, distance string) = {
+    val matrix = if distance == "dist" {
+        sketches := [Sketch(f, n, log2_sketch_size, ksize, threads) | (f, n) <- zip(fastqs, names)]
+        DistSketches(sketches, threads)
+    } else {
+        SetDistFastqs(fastqs, names, threads, ksize, log2_sketch_size)
+    }
+    
+    matrix
+}
+
 
