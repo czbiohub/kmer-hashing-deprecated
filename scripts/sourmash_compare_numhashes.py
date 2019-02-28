@@ -62,7 +62,8 @@ def compare_all_pairs(siglist, n_jobs=None):
         values = _compare_serial(siglist, iterator)
     else:
         # This creates a condensed distance matrix
-        condensed = Parallel(n_jobs=n_jobs, require='sharedmem')(
+        condensed = Parallel(n_jobs=n_jobs, require='sharedmem',
+                             backend='threading')(
             delayed(sig1.jaccard)(sig2) for sig1, sig2 in sig_iterator)
         values = squareform(condensed)
 
@@ -122,17 +123,21 @@ def downsample_and_compare(signatures, log2_num_hash, molecule, ksize):
               default=".")
 @click.option("--n-jobs", help=f"Number of processes to use",
               default=8)
-def cli(filenames, log2_num_hashes=LOG2_NUM_HASHES, molecules=MOLECULES, ksizes=KSIZES,
-        outdir=".", n_jobs=8):
+def cli(filenames, log2_num_hashes=LOG2_NUM_HASHES, molecules=MOLECULES,
+        ksizes=KSIZES, outdir=".", n_jobs=8):
     click.echo(f"Loading {len(filenames)} signature files ...")
     signatures = load_signatures(filenames)
 
     iterable = itertools.product(log2_num_hashes, molecules, ksizes)
 
-    similarities = Parallel(n_jobs=n_jobs)(
-        delayed(downsample_and_compare)(signatures, log2_num_hash,
-                                        molecule, ksize)
-        for log2_num_hashes, molecule, ksize in iterable)
+    for log2_num_hashes, molecule, ksize in iterable:
+        similarity = downsample_and_compare(signatures, log2_num_hash, molecule, ksize)
+
+    # Parallelized version?
+    # similarities = Parallel(n_jobs=n_jobs)(
+    #     delayed(downsample_and_compare)(signatures, log2_num_hash,
+    #                                     molecule, ksize)
+    #     for log2_num_hashes, molecule, ksize in iterable)
 
     iterable = itertools.product(log2_num_hashes, molecules, ksizes)
 
