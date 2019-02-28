@@ -3,12 +3,12 @@ syntax = 'proto3';
 // Keep all of these within the 'kmermidon' namespace
 package kmermidon;
 
-message Signature {
-    // Human-friendly name of the sample
-    string name = 1;
+message Comparison {
+    // Name of sample 2
+    string name1 = 1;
 
-    // Email to contact about the signature
-    string email = 2;
+    // Name of sample 1
+    string name2 = 2;
 
     // Input filename for creating the signature
     string filename = 3;
@@ -20,22 +20,26 @@ message Signature {
     // How this signature can be shared, e.g. 'CC0'
     string license = 5;
 
-    // List of protein or DNA sketches in different k-mer sizes
-    repeated Sketch sketches = 6;
+    // List of similarity scores at different k-mer and sketch sizes, or
+    // molecules
+    repeated Similarity similarities = 6;
+
+    // Type of signature, e.g. 'sourmash_signature'
+    string class = 7;
 
     // Version of signature, e.g. '0.1'
     string version = 8;
 }
 
-message Sketch {
+message Similarity {
     // k-mer size used to grab signatures and generate hashes
     int ksize = 1;
 
     // Which molecule was used, either DNA or protein
     Molecule molecule = 2;
 
-    // Total number of hashes
-    int total_num_hashes = 3;
+    // Number of hashes used in this comparison
+    int num_hashes = 3;
 
     // Random seed used to generate hashes
     int seed = 4;
@@ -46,14 +50,12 @@ message Sketch {
     // Uniquely identifiable string ID of the signature
     string md5sum = 6;
 
-    // The actual hashes!!
-    repeated int hashes = 7;
+    // Estimated Jaccard similarity between samples at this 
+    // number of hashes, molecule and ksize
+    float similarity_score = 7;
 
-    // Optional field for abundance of each hash
-    repeated int abundances = 8;
-
-    // Type of signature, e.g. 'minhash'
-    Method method = 9;
+    // Type of simlarity, e.g. "minhash", "hyperloglog" or "exactjaccard"
+    Method method = 8;
 }
 
 
@@ -68,3 +70,4 @@ enum Method {
     HYPERLOGLOG = 1;
     EXACTJACCARD = 2;
 }
+
