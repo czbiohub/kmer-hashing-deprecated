@@ -1,0 +1,5 @@
+nextflow:
+	sudo nextflow run  czbiohub/sra-download  --cache  /mnt/pureScratch/olga/nextflow-cache/  --output /mnt/pureScratch/olga/sra-download/ --input /home/olga/code/kmer-hashing/data/200_download_species_data/human_zebrafish_kidney.tsv -with-trace -with-timeline -with-docker pbelmann/sra-download -with-dag -with-report -latest
+
+reflow:
+	reflow runbatch
