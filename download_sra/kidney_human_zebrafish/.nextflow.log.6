@@ -1,0 +1,119 @@
+Mar-01 16:58:39.725 [main] DEBUG nextflow.cli.Launcher - $> nextflow run czbiohub/sra-download --cache /mnt/pureScratch/olga/nextflow-cache/ --output /mnt/pureScratch/olga/sra-download/ --input /home/olga/code/kmer-hashing/data/200_download_species_data/human_zebrafish_kidney.tsv -with-trace -with-timeline -with-docker pbelmann/sra-download -with-dag -with-report
+Mar-01 16:58:39.894 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 19.01.0
+Mar-01 16:58:40.590 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/olga/.nextflow/assets/czbiohub/sra-download/.git/config; branch: master; remote: origin; url: https://github.com/czbiohub/sra-download.git
+Mar-01 16:58:40.602 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/olga/.nextflow/assets/czbiohub/sra-download/.git/config; branch: master; remote: origin; url: https://github.com/czbiohub/sra-download.git
+Mar-01 16:58:40.710 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/olga/.nextflow/assets/czbiohub/sra-download/.git/config; branch: master; remote: origin; url: https://github.com/czbiohub/sra-download.git
+Mar-01 16:58:40.710 [main] INFO  nextflow.cli.CmdRun - Launching `czbiohub/sra-download` [gigantic_allen] - revision: f3cce3e0cc [master]
+Mar-01 16:58:41.340 [main] INFO  nextflow.scm.AssetManager - NOTE: Your local project version looks outdated - a different revision is available in the remote repository [6080950469]
+Mar-01 16:58:41.358 [main] DEBUG nextflow.config.ConfigBuilder - Found config home: /home/olga/.nextflow/config
+Mar-01 16:58:41.358 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /home/olga/.nextflow/assets/czbiohub/sra-download/nextflow.config
+Mar-01 16:58:41.358 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/nextflow.config
+Mar-01 16:58:41.359 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/olga/.nextflow/config
+Mar-01 16:58:41.359 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/olga/.nextflow/assets/czbiohub/sra-download/nextflow.config
+Mar-01 16:58:41.359 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/nextflow.config
+Mar-01 16:58:41.373 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-01 16:58:41.422 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-01 16:58:41.490 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-01 16:58:41.524 [main] DEBUG nextflow.config.ConfigBuilder - Enabling execution in Docker container as requested by cli option `-with-docker pbelmann/sra-download`
+Mar-01 16:58:41.553 [main] DEBUG nextflow.Session - Session uuid: ae216a3e-5762-4745-a14a-d45f3af5d139
+Mar-01 16:58:41.553 [main] DEBUG nextflow.Session - Run name: gigantic_allen
+Mar-01 16:58:41.554 [main] DEBUG nextflow.Session - Executor pool size: 128
+Mar-01 16:58:41.565 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 19.01.0 build 5050
+  Modified: 22-01-2019 11:19 UTC (03:19 PDT)
+  System: Linux 4.4.0-87-generic
+  Runtime: Groovy 2.5.5 on OpenJDK 64-Bit Server VM 1.8.0_191-8u191-b12-2ubuntu0.16.04.1-b12
+  Encoding: UTF-8 (UTF-8)
+  Process: 115265@ndnd [192.168.99.28]
+  CPUs: 128 - Mem: 2 TB (1.6 TB) - Swap: 2 TB (2 TB)
+Mar-01 16:58:41.590 [main] DEBUG nextflow.Session - Work-dir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work [ext2/ext3]
+Mar-01 16:58:41.591 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/olga/.nextflow/assets/czbiohub/sra-download/bin
+Mar-01 16:58:41.758 [main] DEBUG nextflow.Session - Session start invoked
+Mar-01 16:58:41.762 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Mar-01 16:58:41.763 [main] DEBUG nextflow.trace.TraceFileObserver - Flow starting -- trace file: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/trace.txt
+Mar-01 16:58:41.773 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Mar-01 16:58:42.024 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-01 16:58:42.365 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: local
+Mar-01 16:58:42.365 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-01 16:58:42.374 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-01 16:58:42.376 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Mar-01 16:58:42.381 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=32; memory=2 TB; capacity=128; pollInterval=100ms; dumpInterval=5m
+Mar-01 16:58:42.386 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Mar-01 16:58:42.386 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Mar-01 16:58:42.389 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Mar-01 16:58:42.425 [main] DEBUG nextflow.Session - >>> barrier register (process: filter)
+Mar-01 16:58:42.430 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > filter -- maxForks: 128
+Mar-01 16:58:42.466 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: local
+Mar-01 16:58:42.467 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-01 16:58:42.468 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-01 16:58:42.469 [main] DEBUG nextflow.Session - >>> barrier register (process: fetchSRA)
+Mar-01 16:58:42.470 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > fetchSRA -- maxForks: 128
+Mar-01 16:58:42.485 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: local
+Mar-01 16:58:42.485 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-01 16:58:42.485 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-01 16:58:42.487 [main] DEBUG nextflow.Session - >>> barrier register (process: seqPurge)
+Mar-01 16:58:42.488 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > seqPurge -- maxForks: 128
+Mar-01 16:58:42.503 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Mar-01 16:58:42.504 [main] DEBUG nextflow.Session - Session await
+Mar-01 16:58:43.935 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:44.013 [Task submitter] INFO  nextflow.Session - [dd/2de724] Submitted process > filter (SRR5810748_filter)
+Mar-01 16:58:44.641 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 87; name: filter (SRR5810748_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/dd/2de724a229a798a6f3690045fcac4c]
+Mar-01 16:58:44.648 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:44.649 [Task submitter] INFO  nextflow.Session - [50/856bfa] Submitted process > filter (SRR5810768_filter)
+Mar-01 16:58:44.658 [Task monitor] INFO  nextflow.processor.TaskProcessor - [dd/2de724] NOTE: Process `filter (SRR5810748_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:44.872 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 107; name: filter (SRR5810768_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/50/856bfa9b45cc7b5d0b16e634ce3fa0]
+Mar-01 16:58:44.878 [Task monitor] INFO  nextflow.processor.TaskProcessor - [50/856bfa] NOTE: Process `filter (SRR5810768_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:44.880 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:44.881 [Task submitter] INFO  nextflow.Session - [9d/1b5117] Submitted process > filter (SRR5810765_filter)
+Mar-01 16:58:45.106 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 104; name: filter (SRR5810765_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/9d/1b51171baea5da65f9c65533109d03]
+Mar-01 16:58:45.108 [Task monitor] INFO  nextflow.processor.TaskProcessor - [9d/1b5117] NOTE: Process `filter (SRR5810765_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:45.112 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:45.113 [Task submitter] INFO  nextflow.Session - [2b/0a9902] Submitted process > filter (SRR5810758_filter)
+Mar-01 16:58:45.350 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 97; name: filter (SRR5810758_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/2b/0a9902a59039d2fbe35bdad05715f5]
+Mar-01 16:58:45.352 [Task monitor] INFO  nextflow.processor.TaskProcessor - [2b/0a9902] NOTE: Process `filter (SRR5810758_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:45.355 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:45.356 [Task submitter] INFO  nextflow.Session - [e9/78a32e] Submitted process > filter (SRR5810750_filter)
+Mar-01 16:58:45.585 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 89; name: filter (SRR5810750_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/e9/78a32e3e983192e6f3aab22605d701]
+Mar-01 16:58:45.587 [Task monitor] INFO  nextflow.processor.TaskProcessor - [e9/78a32e] NOTE: Process `filter (SRR5810750_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:45.589 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:45.590 [Task submitter] INFO  nextflow.Session - [7f/9c7c16] Submitted process > filter (SRR5810771_filter)
+Mar-01 16:58:45.811 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 110; name: filter (SRR5810771_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/7f/9c7c16fca4ab4246606d722518a0d3]
+Mar-01 16:58:45.812 [Task monitor] INFO  nextflow.processor.TaskProcessor - [7f/9c7c16] NOTE: Process `filter (SRR5810771_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:45.815 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:45.815 [Task submitter] INFO  nextflow.Session - [ad/e2ac36] Submitted process > filter (SRR5810720_filter)
+Mar-01 16:58:46.040 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 59; name: filter (SRR5810720_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ad/e2ac368e9db0f8d1d939c5b9c886b1]
+Mar-01 16:58:46.042 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ad/e2ac36] NOTE: Process `filter (SRR5810720_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:46.047 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:46.048 [Task submitter] INFO  nextflow.Session - [33/489022] Submitted process > filter (SRR5810729_filter)
+Mar-01 16:58:46.293 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 68; name: filter (SRR5810729_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/33/489022610b6bea0859f7ff5003d036]
+Mar-01 16:58:46.296 [Task monitor] INFO  nextflow.processor.TaskProcessor - [33/489022] NOTE: Process `filter (SRR5810729_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:46.298 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:46.299 [Task submitter] INFO  nextflow.Session - [42/85f598] Submitted process > filter (SRR5810685_filter)
+Mar-01 16:58:46.532 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 24; name: filter (SRR5810685_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/42/85f598e0b8d28194df9b2a6c0de14f]
+Mar-01 16:58:46.534 [Task monitor] INFO  nextflow.processor.TaskProcessor - [42/85f598] NOTE: Process `filter (SRR5810685_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:58:46.537 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:58:46.538 [Task submitter] INFO  nextflow.Session - [c6/182b04] Submitted process > filter (SRR5810763_filter)
+Mar-01 16:58:46.638 [SIGINT handler] DEBUG nextflow.Session - Session aborted -- Cause: SIGINT
+Mar-01 16:58:46.669 [SIGINT handler] DEBUG nextflow.Session - The following nodes are still active:
+[process] fetchSRA
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: id
+  port 1: (cntrl) -     ; channel: $
+
+[process] seqPurge
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: fileId
+  port 1: (cntrl) -     ; channel: $
+
+Mar-01 16:58:46.676 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Mar-01 16:58:46.678 [main] DEBUG nextflow.Session - Session await > all process finished
+Mar-01 16:58:46.678 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-01 16:58:46.689 [main] WARN  n.processor.TaskPollingMonitor - Killing pending tasks (1)
+Mar-01 16:58:46.709 [main] DEBUG nextflow.trace.StatsObserver - Workflow completed > WorkflowStats[succeedCount=0; failedCount=10; ignoredCount=0; cachedCount=0; succeedDuration=0ms; failedDuration=49.6s; cachedDuration=0ms]
+Mar-01 16:58:46.710 [main] DEBUG nextflow.trace.TraceFileObserver - Flow completing -- flushing trace file
+Mar-01 16:58:46.713 [main] DEBUG nextflow.trace.ReportObserver - Flow completing -- rendering html report
+Mar-01 16:58:46.776 [main] DEBUG nextflow.trace.ReportObserver - Execution report summary data:
+  {"filter":{"cpu":null,"mem":null,"time":{"mean":172.22,"min":127,"q1":134,"q2":140,"q3":144,"max":448,"minLabel":"filter (SRR5810771_filter)","maxLabel":"filter (SRR5810748_filter)","q1Label":"filter (SRR5810765_filter)","q2Label":"filter (SRR5810685_filter)","q3Label":"filter (SRR5810758_filter)"},"reads":null,"writes":null,"cpuUsage":null,"memUsage":null,"timeUsage":null}}
+Mar-01 16:58:47.465 [main] DEBUG nextflow.trace.TimelineObserver - Flow completing -- rendering html timeline
+Mar-01 16:58:47.520 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Mar-01 16:58:47.537 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

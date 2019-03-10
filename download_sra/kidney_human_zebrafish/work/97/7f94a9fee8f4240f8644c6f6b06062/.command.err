@@ -1,0 +1,2 @@
+2019-03-07T07:06:45 fastq-dump.2.8.0 err: no error - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra43/SRR/003957/SRR4052861'
+2019-03-07T07:06:45 fastq-dump.2.8.0 err: item not found while constructing within virtual database module - the path 'SRR4052861' cannot be opened as database or table

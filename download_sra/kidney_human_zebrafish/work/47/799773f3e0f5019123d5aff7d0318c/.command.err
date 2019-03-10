@@ -1,0 +1,13 @@
+2019-03-05T16:12:36 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-05T16:13:07 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-05T16:15:44 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-05T16:16:15 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-05T16:16:15 fastq-dump.2.8.0 err: connection failed while opening file within cryptographic module - failed SRR6506828
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/root/ncbi_error_report.xml'.
+If the problem persists, you may consider sending the file
+to 'sra@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+

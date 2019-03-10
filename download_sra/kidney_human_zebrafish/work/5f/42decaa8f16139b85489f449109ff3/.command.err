@@ -1,0 +1,2 @@
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.37/containers/create?name=nxf-4iRfd7uVt4QEHv9n1k1Y4HgS: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.

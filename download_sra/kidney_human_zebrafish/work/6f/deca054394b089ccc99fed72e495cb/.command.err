@@ -1,0 +1,16 @@
+2019-03-06T22:57:55 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:07:25 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:11:21 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:13:41 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:14:11 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:14:21 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:14:51 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:14:51 fastq-dump.2.8.0 err: connection failed while opening file within cryptographic module - failed SRR2965279
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/root/ncbi_error_report.xml'.
+If the problem persists, you may consider sending the file
+to 'sra@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+

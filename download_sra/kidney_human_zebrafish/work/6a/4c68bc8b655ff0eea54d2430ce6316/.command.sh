@@ -1,0 +1,2 @@
+#!/bin/bash -ue
+/ngs-bits/bin/SeqPurge -in1 '/mnt/pureScratch/olga/sra-download/SRR2964232_1.fastq.gz' -in2 '/mnt/pureScratch/olga/sra-download/SRR2964232_2.fastq.gz' -out1 '/mnt/pureScratch/olga/sra-download/SRR2964232_1.seqpurge.fastq.gz' -out2 '/mnt/pureScratch/olga/sra-download/SRR2964232_2.seqpurge.fastq.gz' -out3 '/mnt/pureScratch/olga/sra-download/SRR2964232_3.seqpurge'

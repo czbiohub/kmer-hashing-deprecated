@@ -1,0 +1,4 @@
+2019-03-07T07:19:02 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-07T07:19:02 fastq-dump.2.8.0 err: connection failed while opening file within cryptographic module - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra43/SRR/003957/SRR4052898'
+2019-03-07T07:19:32 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-07T07:19:32 fastq-dump.2.8.0 err: no error - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra43/SRR/003957/SRR4052898'

@@ -1,0 +1,8 @@
+2019-03-06T22:59:37 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:00:43 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:07:50 fastq-dump.2.8.0 sys: error unknown while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:09:57 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:12:22 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:15:00 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:20:46 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-06T23:21:16 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )

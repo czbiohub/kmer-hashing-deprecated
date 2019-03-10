@@ -1,0 +1,3 @@
+pid state %cpu %mem vmem rss peak_vmem peak_rss rchar wchar syscr syscw read_bytes write_bytes
+2 0 490 0 120792 14684 185816 14944 962762185 191508899 7461 3852 38146048 191672320
+159508

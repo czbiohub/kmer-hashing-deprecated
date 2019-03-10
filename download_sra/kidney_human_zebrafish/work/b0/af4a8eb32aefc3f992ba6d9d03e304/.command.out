@@ -1,0 +1,4 @@
+Rejected 530 READS because of filtering out non-biological READS
+Rejected 1415 READS because READLEN < 15
+Read 853077 spots for SRR4050593
+Written 853077 spots for SRR4050593

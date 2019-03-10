@@ -1,0 +1,3 @@
+2019-03-06T23:21:39 fastq-dump.2.8.0 err: timeout exhausted while creating file within network system module - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra36/SRR/002895/SRR2965384'
+2019-03-06T23:23:48 fastq-dump.2.8.0 err: no error - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra36/SRR/002895/SRR2965384'
+2019-03-06T23:23:48 fastq-dump.2.8.0 err: timeout exhausted while creating file within network system module - failed to open 'SRR2965384'

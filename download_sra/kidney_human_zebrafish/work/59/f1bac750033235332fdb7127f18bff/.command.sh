@@ -1,0 +1,7 @@
+#!/bin/bash
+READ_RUN=$(wget -qO- 'https://www.ncbi.nlm.nih.gov/sra/?term=SRR2965097' | tail -n +2)
+if [[ $READ_RUN == *SRR2965097* ]]; then
+     printf "SRR2965097"
+else
+     printf "not_found"
+fi

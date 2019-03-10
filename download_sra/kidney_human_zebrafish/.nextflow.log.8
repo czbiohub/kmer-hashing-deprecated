@@ -1,0 +1,425 @@
+Mar-01 16:43:02.439 [main] DEBUG nextflow.cli.Launcher - $> nextflow run czbiohub/sra-download --cache /home/olga/scratch-pure/nextflow-cache/ --output /home/olga/scratch-pure/sra-download/ --input /home/olga/code/kmer-hashing/data/200_download_species_data/human_zebrafish_kidney.tsv -with-trace -with-timeline -with-docker pbelmann/sra-download -with-dag -with-report
+Mar-01 16:43:02.602 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 19.01.0
+Mar-01 16:43:02.773 [main] INFO  nextflow.cli.CmdRun - Pulling czbiohub/sra-download ...
+Mar-01 16:43:02.774 [main] DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-] -> https://api.github.com/repos/czbiohub/sra-download/contents/nextflow.config
+Mar-01 16:43:04.155 [main] DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-] -> https://api.github.com/repos/czbiohub/sra-download/contents/main.nf
+Mar-01 16:43:04.491 [main] DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-] -> https://api.github.com/repos/czbiohub/sra-download
+Mar-01 16:43:04.666 [main] DEBUG nextflow.scm.AssetManager - Pulling czbiohub/sra-download -- Using remote clone url: https://github.com/czbiohub/sra-download.git
+Mar-01 16:43:05.255 [main] INFO  nextflow.cli.CmdRun -  downloaded from https://github.com/czbiohub/sra-download.git
+Mar-01 16:43:05.296 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/olga/.nextflow/assets/czbiohub/sra-download/.git/config; branch: master; remote: origin; url: https://github.com/czbiohub/sra-download.git
+Mar-01 16:43:05.296 [main] INFO  nextflow.cli.CmdRun - Launching `czbiohub/sra-download` [cheesy_mercator] - revision: f3cce3e0cc [master]
+Mar-01 16:43:05.311 [main] DEBUG nextflow.config.ConfigBuilder - Found config home: /home/olga/.nextflow/config
+Mar-01 16:43:05.311 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /home/olga/.nextflow/assets/czbiohub/sra-download/nextflow.config
+Mar-01 16:43:05.312 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/nextflow.config
+Mar-01 16:43:05.312 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/olga/.nextflow/config
+Mar-01 16:43:05.312 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/olga/.nextflow/assets/czbiohub/sra-download/nextflow.config
+Mar-01 16:43:05.312 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/nextflow.config
+Mar-01 16:43:05.323 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-01 16:43:05.374 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-01 16:43:05.443 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-01 16:43:05.486 [main] DEBUG nextflow.config.ConfigBuilder - Enabling execution in Docker container as requested by cli option `-with-docker pbelmann/sra-download`
+Mar-01 16:43:05.514 [main] DEBUG nextflow.Session - Session uuid: 265f94d3-f7af-43bf-999d-5159055f9c7e
+Mar-01 16:43:05.514 [main] DEBUG nextflow.Session - Run name: cheesy_mercator
+Mar-01 16:43:05.516 [main] DEBUG nextflow.Session - Executor pool size: 128
+Mar-01 16:43:05.528 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 19.01.0 build 5050
+  Modified: 22-01-2019 11:19 UTC (03:19 PDT)
+  System: Linux 4.4.0-87-generic
+  Runtime: Groovy 2.5.5 on OpenJDK 64-Bit Server VM 1.8.0_191-8u191-b12-2ubuntu0.16.04.1-b12
+  Encoding: UTF-8 (UTF-8)
+  Process: 63749@ndnd [192.168.99.28]
+  CPUs: 128 - Mem: 2 TB (1.6 TB) - Swap: 2 TB (2 TB)
+Mar-01 16:43:05.551 [main] DEBUG nextflow.Session - Work-dir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work [ext2/ext3]
+Mar-01 16:43:05.552 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/olga/.nextflow/assets/czbiohub/sra-download/bin
+Mar-01 16:43:05.704 [main] DEBUG nextflow.Session - Session start invoked
+Mar-01 16:43:05.710 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher > start
+Mar-01 16:43:05.711 [main] DEBUG nextflow.trace.TraceFileObserver - Flow starting -- trace file: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/trace.txt
+Mar-01 16:43:05.717 [main] DEBUG nextflow.script.ScriptRunner - > Script parsing
+Mar-01 16:43:05.972 [main] WARN  nextflow.Session - There's no process matching config selector: bar
+Mar-01 16:43:05.973 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-01 16:43:06.336 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: local
+Mar-01 16:43:06.338 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-01 16:43:06.351 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-01 16:43:06.357 [main] INFO  nextflow.executor.Executor - [warm up] executor > local
+Mar-01 16:43:06.368 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=32; memory=2 TB; capacity=128; pollInterval=100ms; dumpInterval=5m
+Mar-01 16:43:06.376 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Mar-01 16:43:06.378 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Mar-01 16:43:06.383 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Mar-01 16:43:06.431 [main] DEBUG nextflow.Session - >>> barrier register (process: filter)
+Mar-01 16:43:06.436 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > filter -- maxForks: 128
+Mar-01 16:43:06.501 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: local
+Mar-01 16:43:06.501 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-01 16:43:06.502 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-01 16:43:06.503 [main] DEBUG nextflow.Session - >>> barrier register (process: fetchSRA)
+Mar-01 16:43:06.504 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > fetchSRA -- maxForks: 128
+Mar-01 16:43:06.557 [main] DEBUG nextflow.processor.ProcessFactory - << taskConfig executor: local
+Mar-01 16:43:06.558 [main] DEBUG nextflow.processor.ProcessFactory - >> processorType: 'local'
+Mar-01 16:43:06.559 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Mar-01 16:43:06.583 [main] DEBUG nextflow.Session - >>> barrier register (process: seqPurge)
+Mar-01 16:43:06.583 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > seqPurge -- maxForks: 128
+Mar-01 16:43:06.603 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Mar-01 16:43:06.603 [main] DEBUG nextflow.Session - Session await
+Mar-01 16:43:08.172 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:08.265 [Task submitter] INFO  nextflow.Session - [79/3c39d3] Submitted process > filter (SRR5810736_filter)
+Mar-01 16:43:08.557 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 75; name: filter (SRR5810736_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/79/3c39d37eaf13a3879312060e5e9a5a]
+Mar-01 16:43:08.564 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:08.565 [Task submitter] INFO  nextflow.Session - [de/c54619] Submitted process > filter (SRR5810747_filter)
+Mar-01 16:43:08.573 [Task monitor] INFO  nextflow.processor.TaskProcessor - [79/3c39d3] NOTE: Process `filter (SRR5810736_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:08.807 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 86; name: filter (SRR5810747_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/de/c54619563cdfb5b77813e1fce76359]
+Mar-01 16:43:08.809 [Task monitor] INFO  nextflow.processor.TaskProcessor - [de/c54619] NOTE: Process `filter (SRR5810747_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:08.811 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:08.812 [Task submitter] INFO  nextflow.Session - [db/f286ec] Submitted process > filter (SRR5810766_filter)
+Mar-01 16:43:09.045 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 110; name: filter (SRR5810766_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/db/f286eca70db76d0edd7c733c06894d]
+Mar-01 16:43:09.046 [Task monitor] INFO  nextflow.processor.TaskProcessor - [db/f286ec] NOTE: Process `filter (SRR5810766_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:09.050 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:09.051 [Task submitter] INFO  nextflow.Session - [68/5da284] Submitted process > filter (SRR5810760_filter)
+Mar-01 16:43:09.289 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 99; name: filter (SRR5810760_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/68/5da28479b9b39049109aa84ef5aa2d]
+Mar-01 16:43:09.291 [Task monitor] INFO  nextflow.processor.TaskProcessor - [68/5da284] NOTE: Process `filter (SRR5810760_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:09.294 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:09.295 [Task submitter] INFO  nextflow.Session - [73/598e4e] Submitted process > filter (SRR5810753_filter)
+Mar-01 16:43:09.541 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 92; name: filter (SRR5810753_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/73/598e4e1cd3b59ab232940bb3fac9ce]
+Mar-01 16:43:09.543 [Task monitor] INFO  nextflow.processor.TaskProcessor - [73/598e4e] NOTE: Process `filter (SRR5810753_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:09.548 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:09.549 [Task submitter] INFO  nextflow.Session - [30/36f6b5] Submitted process > filter (SRR5810712_filter)
+Mar-01 16:43:09.761 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 51; name: filter (SRR5810712_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/30/36f6b5db300b7a26408057c8721e09]
+Mar-01 16:43:09.763 [Task monitor] INFO  nextflow.processor.TaskProcessor - [30/36f6b5] NOTE: Process `filter (SRR5810712_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:09.766 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:09.766 [Task submitter] INFO  nextflow.Session - [67/20bb53] Submitted process > filter (SRR5810730_filter)
+Mar-01 16:43:10.006 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 69; name: filter (SRR5810730_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/67/20bb5349ea05d81637219b0557e43b]
+Mar-01 16:43:10.007 [Task monitor] INFO  nextflow.processor.TaskProcessor - [67/20bb53] NOTE: Process `filter (SRR5810730_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:10.014 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:10.015 [Task submitter] INFO  nextflow.Session - [d6/d8c677] Submitted process > filter (SRR5810765_filter)
+Mar-01 16:43:10.268 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 104; name: filter (SRR5810765_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/d6/d8c677ea78afd04d18637cf7ff36e0]
+Mar-01 16:43:10.272 [Task monitor] INFO  nextflow.processor.TaskProcessor - [d6/d8c677] NOTE: Process `filter (SRR5810765_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:10.274 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:10.275 [Task submitter] INFO  nextflow.Session - [57/24dab9] Submitted process > filter (SRR5810783_filter)
+Mar-01 16:43:10.544 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 122; name: filter (SRR5810783_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/57/24dab9dd662d59eba01dcdc3dffe50]
+Mar-01 16:43:10.546 [Task monitor] INFO  nextflow.processor.TaskProcessor - [57/24dab9] NOTE: Process `filter (SRR5810783_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:10.547 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:10.547 [Task submitter] INFO  nextflow.Session - [45/4dafbd] Submitted process > filter (SRR5810777_filter)
+Mar-01 16:43:10.803 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 116; name: filter (SRR5810777_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/45/4dafbdffad7fe7f07215ae41a59eec]
+Mar-01 16:43:10.805 [Task monitor] INFO  nextflow.processor.TaskProcessor - [45/4dafbd] NOTE: Process `filter (SRR5810777_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:10.808 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:10.809 [Task submitter] INFO  nextflow.Session - [ec/008747] Submitted process > filter (SRR5810723_filter)
+Mar-01 16:43:11.051 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 61; name: filter (SRR5810723_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ec/0087479beaceb9d74fd84382edffb5]
+Mar-01 16:43:11.052 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ec/008747] NOTE: Process `filter (SRR5810723_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:11.055 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:11.055 [Task submitter] INFO  nextflow.Session - [f6/195cbb] Submitted process > filter (SRR5810778_filter)
+Mar-01 16:43:11.270 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 117; name: filter (SRR5810778_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/f6/195cbb6538961bbc02cbf5fb6ccf22]
+Mar-01 16:43:11.271 [Task monitor] INFO  nextflow.processor.TaskProcessor - [f6/195cbb] NOTE: Process `filter (SRR5810778_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:11.274 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:11.275 [Task submitter] INFO  nextflow.Session - [3d/b3df11] Submitted process > filter (SRR5810789_filter)
+Mar-01 16:43:11.501 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 128; name: filter (SRR5810789_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/3d/b3df115538dab94ce7555f8a875544]
+Mar-01 16:43:11.504 [Task monitor] INFO  nextflow.processor.TaskProcessor - [3d/b3df11] NOTE: Process `filter (SRR5810789_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:11.508 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:11.509 [Task submitter] INFO  nextflow.Session - [ae/2c645b] Submitted process > filter (SRR5810746_filter)
+Mar-01 16:43:11.736 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 85; name: filter (SRR5810746_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ae/2c645b3b0ae3f088737469f5370725]
+Mar-01 16:43:11.738 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ae/2c645b] NOTE: Process `filter (SRR5810746_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:11.742 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:11.744 [Task submitter] INFO  nextflow.Session - [78/d8c99f] Submitted process > filter (SRR5810752_filter)
+Mar-01 16:43:11.970 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 91; name: filter (SRR5810752_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/78/d8c99f843001fe80755ceee2dd2a7c]
+Mar-01 16:43:11.973 [Task monitor] INFO  nextflow.processor.TaskProcessor - [78/d8c99f] NOTE: Process `filter (SRR5810752_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:11.993 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:11.994 [Task submitter] INFO  nextflow.Session - [01/fd3410] Submitted process > filter (SRR5810704_filter)
+Mar-01 16:43:12.223 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 41; name: filter (SRR5810704_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/01/fd341092421202606d1b603010b7e0]
+Mar-01 16:43:12.229 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:12.229 [Task monitor] INFO  nextflow.processor.TaskProcessor - [01/fd3410] NOTE: Process `filter (SRR5810704_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:12.230 [Task submitter] INFO  nextflow.Session - [cd/9ebd62] Submitted process > filter (SRR5810689_filter)
+Mar-01 16:43:12.459 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 28; name: filter (SRR5810689_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/cd/9ebd6200148d2e3b251a1838e82545]
+Mar-01 16:43:12.461 [Task monitor] INFO  nextflow.processor.TaskProcessor - [cd/9ebd62] NOTE: Process `filter (SRR5810689_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:12.464 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:12.465 [Task submitter] INFO  nextflow.Session - [78/06d82f] Submitted process > filter (SRR5810670_filter)
+Mar-01 16:43:12.701 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 9; name: filter (SRR5810670_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/78/06d82f215a2d433f54864371ef7b67]
+Mar-01 16:43:12.703 [Task monitor] INFO  nextflow.processor.TaskProcessor - [78/06d82f] NOTE: Process `filter (SRR5810670_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:12.705 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:12.706 [Task submitter] INFO  nextflow.Session - [48/36e952] Submitted process > filter (SRR5810741_filter)
+Mar-01 16:43:12.945 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 80; name: filter (SRR5810741_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/48/36e9526e2f9acc925f86698a95bcd5]
+Mar-01 16:43:12.947 [Task monitor] INFO  nextflow.processor.TaskProcessor - [48/36e952] NOTE: Process `filter (SRR5810741_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:12.949 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:12.950 [Task submitter] INFO  nextflow.Session - [da/b1e32d] Submitted process > filter (SRR5810713_filter)
+Mar-01 16:43:13.183 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 52; name: filter (SRR5810713_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/da/b1e32d14bc787ba0da45ec913205ed]
+Mar-01 16:43:13.185 [Task monitor] INFO  nextflow.processor.TaskProcessor - [da/b1e32d] NOTE: Process `filter (SRR5810713_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:13.187 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:13.188 [Task submitter] INFO  nextflow.Session - [bc/e20fa5] Submitted process > filter (SRR5810714_filter)
+Mar-01 16:43:13.411 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 53; name: filter (SRR5810714_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/bc/e20fa5140a2fe6eca2ce5d310c4887]
+Mar-01 16:43:13.412 [Task monitor] INFO  nextflow.processor.TaskProcessor - [bc/e20fa5] NOTE: Process `filter (SRR5810714_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:13.417 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:13.418 [Task submitter] INFO  nextflow.Session - [15/3e9a69] Submitted process > filter (SRR5810739_filter)
+Mar-01 16:43:13.643 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 78; name: filter (SRR5810739_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/15/3e9a69dd0509d12c390728f0a98068]
+Mar-01 16:43:13.644 [Task monitor] INFO  nextflow.processor.TaskProcessor - [15/3e9a69] NOTE: Process `filter (SRR5810739_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:13.646 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:13.647 [Task submitter] INFO  nextflow.Session - [26/355b92] Submitted process > filter (SRR5810734_filter)
+Mar-01 16:43:13.870 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 73; name: filter (SRR5810734_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/26/355b921d3045f82c9d623c67ea2397]
+Mar-01 16:43:13.872 [Task monitor] INFO  nextflow.processor.TaskProcessor - [26/355b92] NOTE: Process `filter (SRR5810734_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:13.874 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:13.875 [Task submitter] INFO  nextflow.Session - [ad/b629d1] Submitted process > filter (SRR5810674_filter)
+Mar-01 16:43:14.127 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 13; name: filter (SRR5810674_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ad/b629d112213b5eb8ffa058f472012d]
+Mar-01 16:43:14.128 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ad/b629d1] NOTE: Process `filter (SRR5810674_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:14.130 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:14.130 [Task submitter] INFO  nextflow.Session - [03/2a44b8] Submitted process > filter (SRR5810737_filter)
+Mar-01 16:43:14.372 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 76; name: filter (SRR5810737_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/03/2a44b842b7b76f6439e826ae1cd9f0]
+Mar-01 16:43:14.373 [Task monitor] INFO  nextflow.processor.TaskProcessor - [03/2a44b8] NOTE: Process `filter (SRR5810737_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:14.375 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:14.376 [Task submitter] INFO  nextflow.Session - [68/c8730d] Submitted process > filter (SRR5810699_filter)
+Mar-01 16:43:14.609 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 38; name: filter (SRR5810699_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/68/c8730da0bf2ea12ce751e861e33622]
+Mar-01 16:43:14.610 [Task monitor] INFO  nextflow.processor.TaskProcessor - [68/c8730d] NOTE: Process `filter (SRR5810699_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:14.611 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:14.612 [Task submitter] INFO  nextflow.Session - [16/d33de1] Submitted process > filter (SRR5810757_filter)
+Mar-01 16:43:14.844 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 96; name: filter (SRR5810757_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/16/d33de1242328376f2aa79287713721]
+Mar-01 16:43:14.846 [Task monitor] INFO  nextflow.processor.TaskProcessor - [16/d33de1] NOTE: Process `filter (SRR5810757_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:14.848 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:14.849 [Task submitter] INFO  nextflow.Session - [4b/ecf202] Submitted process > filter (SRR5810671_filter)
+Mar-01 16:43:15.091 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 10; name: filter (SRR5810671_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/4b/ecf202e09d8c23d1f8da58595b97f7]
+Mar-01 16:43:15.093 [Task monitor] INFO  nextflow.processor.TaskProcessor - [4b/ecf202] NOTE: Process `filter (SRR5810671_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:15.095 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:15.096 [Task submitter] INFO  nextflow.Session - [2d/b76b3a] Submitted process > filter (SRR5810707_filter)
+Mar-01 16:43:15.329 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 46; name: filter (SRR5810707_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/2d/b76b3a371091b1bd74ae49cf75ee7e]
+Mar-01 16:43:15.330 [Task monitor] INFO  nextflow.processor.TaskProcessor - [2d/b76b3a] NOTE: Process `filter (SRR5810707_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:15.332 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:15.333 [Task submitter] INFO  nextflow.Session - [2e/11a866] Submitted process > filter (SRR5810751_filter)
+Mar-01 16:43:15.571 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 90; name: filter (SRR5810751_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/2e/11a866a608c007ac42bb8303844f02]
+Mar-01 16:43:15.573 [Task monitor] INFO  nextflow.processor.TaskProcessor - [2e/11a866] NOTE: Process `filter (SRR5810751_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:15.574 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:15.575 [Task submitter] INFO  nextflow.Session - [56/6ccfc0] Submitted process > filter (SRR5810785_filter)
+Mar-01 16:43:15.812 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 124; name: filter (SRR5810785_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/56/6ccfc0926b5736049b521d63282164]
+Mar-01 16:43:15.813 [Task monitor] INFO  nextflow.processor.TaskProcessor - [56/6ccfc0] NOTE: Process `filter (SRR5810785_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:15.815 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:15.815 [Task submitter] INFO  nextflow.Session - [0c/557515] Submitted process > filter (SRR5810769_filter)
+Mar-01 16:43:16.052 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 107; name: filter (SRR5810769_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/0c/557515bfe9f82cafcd5c3de8a0cc54]
+Mar-01 16:43:16.054 [Task monitor] INFO  nextflow.processor.TaskProcessor - [0c/557515] NOTE: Process `filter (SRR5810769_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:16.054 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:16.055 [Task submitter] INFO  nextflow.Session - [71/41f2f0] Submitted process > filter (SRR5810721_filter)
+Mar-01 16:43:16.300 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 62; name: filter (SRR5810721_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/71/41f2f0103012d7fab18b2409692a07]
+Mar-01 16:43:16.301 [Task monitor] INFO  nextflow.processor.TaskProcessor - [71/41f2f0] NOTE: Process `filter (SRR5810721_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:16.303 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:16.303 [Task submitter] INFO  nextflow.Session - [b2/d3d0e5] Submitted process > filter (SRR5810744_filter)
+Mar-01 16:43:16.552 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 83; name: filter (SRR5810744_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/b2/d3d0e517bf911f7564f265d15ef621]
+Mar-01 16:43:16.554 [Task monitor] INFO  nextflow.processor.TaskProcessor - [b2/d3d0e5] NOTE: Process `filter (SRR5810744_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:16.556 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:16.557 [Task submitter] INFO  nextflow.Session - [ff/cdefc4] Submitted process > filter (SRR5810781_filter)
+Mar-01 16:43:16.806 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 120; name: filter (SRR5810781_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ff/cdefc441ef621ba059035d9f0b429a]
+Mar-01 16:43:16.807 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ff/cdefc4] NOTE: Process `filter (SRR5810781_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:16.809 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:16.809 [Task submitter] INFO  nextflow.Session - [ca/a00653] Submitted process > filter (SRR5810756_filter)
+Mar-01 16:43:17.052 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 95; name: filter (SRR5810756_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ca/a00653dc9f0619e9777b8930a02a6c]
+Mar-01 16:43:17.053 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ca/a00653] NOTE: Process `filter (SRR5810756_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:17.056 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:17.056 [Task submitter] INFO  nextflow.Session - [ee/1e26f7] Submitted process > filter (SRR5810715_filter)
+Mar-01 16:43:17.290 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 54; name: filter (SRR5810715_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ee/1e26f767934a9b8877f1f0ca307c45]
+Mar-01 16:43:17.292 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ee/1e26f7] NOTE: Process `filter (SRR5810715_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:17.293 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:17.294 [Task submitter] INFO  nextflow.Session - [ac/c05224] Submitted process > filter (SRR5810672_filter)
+Mar-01 16:43:17.536 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 11; name: filter (SRR5810672_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ac/c0522405e7d5ee453c12b79cc2d528]
+Mar-01 16:43:17.537 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ac/c05224] NOTE: Process `filter (SRR5810672_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:17.538 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:17.539 [Task submitter] INFO  nextflow.Session - [00/1a0361] Submitted process > filter (SRR5810768_filter)
+Mar-01 16:43:17.774 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 106; name: filter (SRR5810768_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/00/1a03613a8ba885d23d0b3c4913c082]
+Mar-01 16:43:17.777 [Task monitor] INFO  nextflow.processor.TaskProcessor - [00/1a0361] NOTE: Process `filter (SRR5810768_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:17.777 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:17.778 [Task submitter] INFO  nextflow.Session - [57/b3135b] Submitted process > filter (SRR5810718_filter)
+Mar-01 16:43:18.018 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 57; name: filter (SRR5810718_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/57/b3135bbf7878c9a4e2d54b787c54ed]
+Mar-01 16:43:18.019 [Task monitor] INFO  nextflow.processor.TaskProcessor - [57/b3135b] NOTE: Process `filter (SRR5810718_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:18.021 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:18.022 [Task submitter] INFO  nextflow.Session - [fa/2ff385] Submitted process > filter (SRR5810729_filter)
+Mar-01 16:43:18.266 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 68; name: filter (SRR5810729_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/fa/2ff3850d4092a5999ce86fa652f6f6]
+Mar-01 16:43:18.268 [Task monitor] INFO  nextflow.processor.TaskProcessor - [fa/2ff385] NOTE: Process `filter (SRR5810729_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:18.270 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:18.271 [Task submitter] INFO  nextflow.Session - [25/6aacb9] Submitted process > filter (SRR5810742_filter)
+Mar-01 16:43:18.505 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 82; name: filter (SRR5810742_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/25/6aacb91fb18bfab39f5174914c396d]
+Mar-01 16:43:18.506 [Task monitor] INFO  nextflow.processor.TaskProcessor - [25/6aacb9] NOTE: Process `filter (SRR5810742_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:18.508 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:18.509 [Task submitter] INFO  nextflow.Session - [31/21912c] Submitted process > filter (SRR5810727_filter)
+Mar-01 16:43:18.733 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 66; name: filter (SRR5810727_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/31/21912cab9bb10a5a24c94470b369f1]
+Mar-01 16:43:18.735 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:18.735 [Task monitor] INFO  nextflow.processor.TaskProcessor - [31/21912c] NOTE: Process `filter (SRR5810727_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:18.736 [Task submitter] INFO  nextflow.Session - [fc/0b5e94] Submitted process > filter (SRR5810677_filter)
+Mar-01 16:43:18.987 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 16; name: filter (SRR5810677_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/fc/0b5e94768c59335ad1f66b4a667c46]
+Mar-01 16:43:18.989 [Task monitor] INFO  nextflow.processor.TaskProcessor - [fc/0b5e94] NOTE: Process `filter (SRR5810677_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:18.990 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:18.992 [Task submitter] INFO  nextflow.Session - [ab/291a22] Submitted process > filter (SRR5810697_filter)
+Mar-01 16:43:19.207 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 36; name: filter (SRR5810697_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ab/291a223d164b8e53c5e69e936b660c]
+Mar-01 16:43:19.208 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ab/291a22] NOTE: Process `filter (SRR5810697_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:19.210 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:19.211 [Task submitter] INFO  nextflow.Session - [d3/b39f38] Submitted process > filter (SRR5810692_filter)
+Mar-01 16:43:19.434 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 31; name: filter (SRR5810692_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/d3/b39f38c0fcfec540a572bc6bc194ef]
+Mar-01 16:43:19.435 [Task monitor] INFO  nextflow.processor.TaskProcessor - [d3/b39f38] NOTE: Process `filter (SRR5810692_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:19.436 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:19.436 [Task submitter] INFO  nextflow.Session - [de/9c3f69] Submitted process > filter (SRR5810680_filter)
+Mar-01 16:43:19.675 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 19; name: filter (SRR5810680_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/de/9c3f69d6af778ed723b17db0142c74]
+Mar-01 16:43:19.676 [Task monitor] INFO  nextflow.processor.TaskProcessor - [de/9c3f69] NOTE: Process `filter (SRR5810680_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:19.679 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:19.679 [Task submitter] INFO  nextflow.Session - [59/e70362] Submitted process > filter (SRR5810724_filter)
+Mar-01 16:43:19.916 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 63; name: filter (SRR5810724_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/59/e70362e65053a864ac8352a9841d3f]
+Mar-01 16:43:19.918 [Task monitor] INFO  nextflow.processor.TaskProcessor - [59/e70362] NOTE: Process `filter (SRR5810724_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:19.919 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:19.920 [Task submitter] INFO  nextflow.Session - [f0/785d91] Submitted process > filter (SRR6506832_filter)
+Mar-01 16:43:20.152 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: filter (SRR6506832_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/f0/785d91072fef613f1d14378d5d0ff4]
+Mar-01 16:43:20.153 [Task monitor] INFO  nextflow.processor.TaskProcessor - [f0/785d91] NOTE: Process `filter (SRR6506832_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:20.155 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:20.156 [Task submitter] INFO  nextflow.Session - [f7/330773] Submitted process > filter (SRR5810703_filter)
+Mar-01 16:43:20.412 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 40; name: filter (SRR5810703_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/f7/330773adde0ae8035bfca8beacb474]
+Mar-01 16:43:20.413 [Task monitor] INFO  nextflow.processor.TaskProcessor - [f7/330773] NOTE: Process `filter (SRR5810703_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:20.415 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:20.416 [Task submitter] INFO  nextflow.Session - [51/abf44f] Submitted process > filter (SRR6506830_filter)
+Mar-01 16:43:20.645 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: filter (SRR6506830_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/51/abf44f94e77b01b98d12016c2d1b57]
+Mar-01 16:43:20.647 [Task monitor] INFO  nextflow.processor.TaskProcessor - [51/abf44f] NOTE: Process `filter (SRR6506830_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:20.649 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:20.650 [Task submitter] INFO  nextflow.Session - [32/645ebb] Submitted process > filter (SRR5810745_filter)
+Mar-01 16:43:20.874 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 84; name: filter (SRR5810745_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/32/645ebb2000268cf4c5ea9e44cf7ec2]
+Mar-01 16:43:20.875 [Task monitor] INFO  nextflow.processor.TaskProcessor - [32/645ebb] NOTE: Process `filter (SRR5810745_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:20.877 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:20.878 [Task submitter] INFO  nextflow.Session - [c7/3a4763] Submitted process > filter (SRR5810720_filter)
+Mar-01 16:43:21.114 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 59; name: filter (SRR5810720_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/c7/3a4763ee9895af12539881f41ff420]
+Mar-01 16:43:21.116 [Task monitor] INFO  nextflow.processor.TaskProcessor - [c7/3a4763] NOTE: Process `filter (SRR5810720_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:21.118 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:21.119 [Task submitter] INFO  nextflow.Session - [4f/c5e8d0] Submitted process > filter (SRR5810759_filter)
+Mar-01 16:43:21.358 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 98; name: filter (SRR5810759_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/4f/c5e8d0073eda9d95a586fa40cc8853]
+Mar-01 16:43:21.360 [Task monitor] INFO  nextflow.processor.TaskProcessor - [4f/c5e8d0] NOTE: Process `filter (SRR5810759_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:21.362 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:21.363 [Task submitter] INFO  nextflow.Session - [9f/a31243] Submitted process > filter (SRR5810701_filter)
+Mar-01 16:43:21.589 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 43; name: filter (SRR5810701_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/9f/a312430570aa07b29b583b7fc6a5b6]
+Mar-01 16:43:21.591 [Task monitor] INFO  nextflow.processor.TaskProcessor - [9f/a31243] NOTE: Process `filter (SRR5810701_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:21.593 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:21.594 [Task submitter] INFO  nextflow.Session - [23/39199d] Submitted process > filter (SRR5810695_filter)
+Mar-01 16:43:21.846 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 34; name: filter (SRR5810695_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/23/39199dcc0a906c8121db64886a6254]
+Mar-01 16:43:21.848 [Task monitor] INFO  nextflow.processor.TaskProcessor - [23/39199d] NOTE: Process `filter (SRR5810695_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:21.849 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:21.849 [Task submitter] INFO  nextflow.Session - [ec/b91938] Submitted process > filter (SRR5810717_filter)
+Mar-01 16:43:22.072 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 56; name: filter (SRR5810717_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ec/b91938436b684655d989577009996a]
+Mar-01 16:43:22.074 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ec/b91938] NOTE: Process `filter (SRR5810717_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:22.076 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:22.076 [Task submitter] INFO  nextflow.Session - [b2/6209bb] Submitted process > filter (SRR5810764_filter)
+Mar-01 16:43:22.312 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 103; name: filter (SRR5810764_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/b2/6209bb877fe969fe093c85299e0d38]
+Mar-01 16:43:22.313 [Task monitor] INFO  nextflow.processor.TaskProcessor - [b2/6209bb] NOTE: Process `filter (SRR5810764_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:22.315 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:22.315 [Task submitter] INFO  nextflow.Session - [6d/504d2d] Submitted process > filter (SRR5810763_filter)
+Mar-01 16:43:22.545 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 102; name: filter (SRR5810763_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/6d/504d2df95de1ceabec06ca19bc8d0c]
+Mar-01 16:43:22.547 [Task monitor] INFO  nextflow.processor.TaskProcessor - [6d/504d2d] NOTE: Process `filter (SRR5810763_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:22.549 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:22.550 [Task submitter] INFO  nextflow.Session - [1f/cc2039] Submitted process > filter (SRR5810694_filter)
+Mar-01 16:43:22.772 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 33; name: filter (SRR5810694_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/1f/cc2039eb77962f5611b8a781cd979c]
+Mar-01 16:43:22.773 [Task monitor] INFO  nextflow.processor.TaskProcessor - [1f/cc2039] NOTE: Process `filter (SRR5810694_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:22.775 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:22.775 [Task submitter] INFO  nextflow.Session - [d0/013e5f] Submitted process > filter (SRR5810798_filter)
+Mar-01 16:43:23.000 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 137; name: filter (SRR5810798_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/d0/013e5f69124876dc7d1ba642355b7c]
+Mar-01 16:43:23.001 [Task monitor] INFO  nextflow.processor.TaskProcessor - [d0/013e5f] NOTE: Process `filter (SRR5810798_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:23.002 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:23.002 [Task submitter] INFO  nextflow.Session - [97/7ab19e] Submitted process > filter (SRR5810794_filter)
+Mar-01 16:43:23.241 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 133; name: filter (SRR5810794_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/97/7ab19e04c3c602757f7d00ddcf042a]
+Mar-01 16:43:23.242 [Task monitor] INFO  nextflow.processor.TaskProcessor - [97/7ab19e] NOTE: Process `filter (SRR5810794_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:23.244 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:23.245 [Task submitter] INFO  nextflow.Session - [a6/cc4da9] Submitted process > filter (SRR5810797_filter)
+Mar-01 16:43:23.471 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 136; name: filter (SRR5810797_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/a6/cc4da988ec5dd6b5ecdac15bde293b]
+Mar-01 16:43:23.472 [Task monitor] INFO  nextflow.processor.TaskProcessor - [a6/cc4da9] NOTE: Process `filter (SRR5810797_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:23.476 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:23.476 [Task submitter] INFO  nextflow.Session - [88/631230] Submitted process > filter (SRR5810795_filter)
+Mar-01 16:43:23.713 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 134; name: filter (SRR5810795_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/88/6312301b1a5917ddc43a799b603f0d]
+Mar-01 16:43:23.715 [Task monitor] INFO  nextflow.processor.TaskProcessor - [88/631230] NOTE: Process `filter (SRR5810795_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:23.716 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:23.716 [Task submitter] INFO  nextflow.Session - [19/b5f53c] Submitted process > filter (SRR5810796_filter)
+Mar-01 16:43:23.951 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 135; name: filter (SRR5810796_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/19/b5f53c0173bf30553c823f6cf08ff2]
+Mar-01 16:43:23.952 [Task monitor] INFO  nextflow.processor.TaskProcessor - [19/b5f53c] NOTE: Process `filter (SRR5810796_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:23.954 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:23.954 [Task submitter] INFO  nextflow.Session - [2d/03169f] Submitted process > filter (SRR5810792_filter)
+Mar-01 16:43:24.193 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 131; name: filter (SRR5810792_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/2d/03169f9dc1f12655fd0efffe05fb33]
+Mar-01 16:43:24.194 [Task monitor] INFO  nextflow.processor.TaskProcessor - [2d/03169f] NOTE: Process `filter (SRR5810792_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:24.196 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:24.196 [Task submitter] INFO  nextflow.Session - [53/52182e] Submitted process > filter (SRR5810790_filter)
+Mar-01 16:43:24.430 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 129; name: filter (SRR5810790_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/53/52182eb5c81b09736f95ed7156ddc2]
+Mar-01 16:43:24.431 [Task monitor] INFO  nextflow.processor.TaskProcessor - [53/52182e] NOTE: Process `filter (SRR5810790_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:24.432 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:24.432 [Task submitter] INFO  nextflow.Session - [a9/772ef5] Submitted process > filter (SRR5810800_filter)
+Mar-01 16:43:24.669 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 139; name: filter (SRR5810800_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/a9/772ef59de528ac2f180966a0e6de2b]
+Mar-01 16:43:24.670 [Task monitor] INFO  nextflow.processor.TaskProcessor - [a9/772ef5] NOTE: Process `filter (SRR5810800_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:24.671 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:24.672 [Task submitter] INFO  nextflow.Session - [63/05cf30] Submitted process > filter (SRR5810803_filter)
+Mar-01 16:43:24.890 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 142; name: filter (SRR5810803_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/63/05cf30419463047eecea2c944dbe9a]
+Mar-01 16:43:24.891 [Task monitor] INFO  nextflow.processor.TaskProcessor - [63/05cf30] NOTE: Process `filter (SRR5810803_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:24.892 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:24.892 [Task submitter] INFO  nextflow.Session - [56/c4fbb5] Submitted process > filter (SRR5810804_filter)
+Mar-01 16:43:25.123 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 143; name: filter (SRR5810804_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/56/c4fbb5aa3ef51faba99f5cceb2b517]
+Mar-01 16:43:25.124 [Task monitor] INFO  nextflow.processor.TaskProcessor - [56/c4fbb5] NOTE: Process `filter (SRR5810804_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:25.126 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:25.126 [Task submitter] INFO  nextflow.Session - [1f/c7408a] Submitted process > filter (SRR5810799_filter)
+Mar-01 16:43:25.363 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 138; name: filter (SRR5810799_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/1f/c7408a174f3f7d0bacdea815ba9dc8]
+Mar-01 16:43:25.364 [Task monitor] INFO  nextflow.processor.TaskProcessor - [1f/c7408a] NOTE: Process `filter (SRR5810799_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:25.365 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:25.365 [Task submitter] INFO  nextflow.Session - [fa/3e0669] Submitted process > filter (SRR5810693_filter)
+Mar-01 16:43:25.602 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 32; name: filter (SRR5810693_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/fa/3e06695cca2de47cc1f75a9fb23b16]
+Mar-01 16:43:25.603 [Task monitor] INFO  nextflow.processor.TaskProcessor - [fa/3e0669] NOTE: Process `filter (SRR5810693_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:25.604 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:25.605 [Task submitter] INFO  nextflow.Session - [96/801b64] Submitted process > filter (SRR5810801_filter)
+Mar-01 16:43:25.844 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 140; name: filter (SRR5810801_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/96/801b6437f4b9f766e5fe95fa8b4e08]
+Mar-01 16:43:25.845 [Task monitor] INFO  nextflow.processor.TaskProcessor - [96/801b64] NOTE: Process `filter (SRR5810801_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:25.847 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:25.847 [Task submitter] INFO  nextflow.Session - [35/fb0e9f] Submitted process > filter (SRR5810791_filter)
+Mar-01 16:43:26.077 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 130; name: filter (SRR5810791_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/35/fb0e9f847522f9ea9472d0b6719129]
+Mar-01 16:43:26.078 [Task monitor] INFO  nextflow.processor.TaskProcessor - [35/fb0e9f] NOTE: Process `filter (SRR5810791_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:26.080 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:26.080 [Task submitter] INFO  nextflow.Session - [ee/736895] Submitted process > filter (SRR5810684_filter)
+Mar-01 16:43:26.293 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 23; name: filter (SRR5810684_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ee/736895499ef75667ae59769214821c]
+Mar-01 16:43:26.294 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ee/736895] NOTE: Process `filter (SRR5810684_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:26.295 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:26.295 [Task submitter] INFO  nextflow.Session - [4e/0f3eff] Submitted process > filter (SRR5810805_filter)
+Mar-01 16:43:26.541 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 144; name: filter (SRR5810805_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/4e/0f3eff2bf3f1999dda1605d4e61810]
+Mar-01 16:43:26.542 [Task monitor] INFO  nextflow.processor.TaskProcessor - [4e/0f3eff] NOTE: Process `filter (SRR5810805_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:26.544 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:26.544 [Task submitter] INFO  nextflow.Session - [d8/98cc78] Submitted process > filter (SRR6506833_filter)
+Mar-01 16:43:26.781 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 7; name: filter (SRR6506833_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/d8/98cc78c911a195e1d9d1da92fcc32d]
+Mar-01 16:43:26.782 [Task monitor] INFO  nextflow.processor.TaskProcessor - [d8/98cc78] NOTE: Process `filter (SRR6506833_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:26.785 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:26.785 [Task submitter] INFO  nextflow.Session - [57/7fa4a6] Submitted process > filter (SRR5810802_filter)
+Mar-01 16:43:27.019 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 141; name: filter (SRR5810802_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/57/7fa4a6fd88dd287c498258d19c90d0]
+Mar-01 16:43:27.020 [Task monitor] INFO  nextflow.processor.TaskProcessor - [57/7fa4a6] NOTE: Process `filter (SRR5810802_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:27.022 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:27.022 [Task submitter] INFO  nextflow.Session - [8e/648184] Submitted process > filter (SRR5810749_filter)
+Mar-01 16:43:27.257 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 88; name: filter (SRR5810749_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/8e/64818437cacd1424161715e2f5b65b]
+Mar-01 16:43:27.258 [Task monitor] INFO  nextflow.processor.TaskProcessor - [8e/648184] NOTE: Process `filter (SRR5810749_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:27.260 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:27.261 [Task submitter] INFO  nextflow.Session - [67/d50ce7] Submitted process > filter (SRR5810807_filter)
+Mar-01 16:43:27.496 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 146; name: filter (SRR5810807_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/67/d50ce724e9ab6bcf2fea5ed0b9858f]
+Mar-01 16:43:27.497 [Task monitor] INFO  nextflow.processor.TaskProcessor - [67/d50ce7] NOTE: Process `filter (SRR5810807_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:27.499 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:27.499 [Task submitter] INFO  nextflow.Session - [5d/aedf11] Submitted process > filter (SRR5810728_filter)
+Mar-01 16:43:27.712 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 67; name: filter (SRR5810728_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/5d/aedf11fb56414f8ef32384dc62058d]
+Mar-01 16:43:27.713 [Task monitor] INFO  nextflow.processor.TaskProcessor - [5d/aedf11] NOTE: Process `filter (SRR5810728_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:27.715 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:27.715 [Task submitter] INFO  nextflow.Session - [f0/0d569b] Submitted process > filter (SRR5810793_filter)
+Mar-01 16:43:27.946 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 132; name: filter (SRR5810793_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/f0/0d569b9a6461007af0ef23f327986c]
+Mar-01 16:43:27.947 [Task monitor] INFO  nextflow.processor.TaskProcessor - [f0/0d569b] NOTE: Process `filter (SRR5810793_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:27.948 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:27.948 [Task submitter] INFO  nextflow.Session - [ed/ffc447] Submitted process > filter (SRR5810809_filter)
+Mar-01 16:43:28.205 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 147; name: filter (SRR5810809_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/ed/ffc44795170f3eea8c1172de59c791]
+Mar-01 16:43:28.206 [Task monitor] INFO  nextflow.processor.TaskProcessor - [ed/ffc447] NOTE: Process `filter (SRR5810809_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:28.207 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:28.207 [Task submitter] INFO  nextflow.Session - [cf/a9bc72] Submitted process > filter (SRR5810698_filter)
+Mar-01 16:43:28.433 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 37; name: filter (SRR5810698_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/cf/a9bc72c12e4c6d2ba988ef2e169b3c]
+Mar-01 16:43:28.433 [Task monitor] INFO  nextflow.processor.TaskProcessor - [cf/a9bc72] NOTE: Process `filter (SRR5810698_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:28.436 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:28.436 [Task submitter] INFO  nextflow.Session - [44/ce71f7] Submitted process > filter (SRR5810788_filter)
+Mar-01 16:43:28.666 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 127; name: filter (SRR5810788_filter); status: COMPLETED; exit: 126; error: -; workDir: /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/44/ce71f72991f39b441cd624c6626f19]
+Mar-01 16:43:28.667 [Task monitor] INFO  nextflow.processor.TaskProcessor - [44/ce71f7] NOTE: Process `filter (SRR5810788_filter)` terminated with an error exit status (126) -- Execution is retried (1)
+Mar-01 16:43:28.669 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-01 16:43:28.669 [Task submitter] INFO  nextflow.Session - [7f/5a0f88] Submitted process > filter (SRR5810812_filter)
+Mar-01 16:43:28.734 [SIGINT handler] DEBUG nextflow.Session - Session aborted -- Cause: SIGINT
+Mar-01 16:43:28.755 [SIGINT handler] DEBUG nextflow.Session - The following nodes are still active:
+[process] fetchSRA
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: id
+  port 1: (cntrl) -     ; channel: $
+
+[process] seqPurge
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: fileId
+  port 1: (cntrl) -     ; channel: $
+
+Mar-01 16:43:28.757 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local)
+Mar-01 16:43:28.760 [main] DEBUG nextflow.Session - Session await > all process finished
+Mar-01 16:43:28.762 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-01 16:43:28.773 [main] WARN  n.processor.TaskPollingMonitor - Killing pending tasks (1)
+Mar-01 16:43:28.791 [main] DEBUG nextflow.trace.StatsObserver - Workflow completed > WorkflowStats[succeedCount=0; failedCount=86; ignoredCount=0; cachedCount=0; succeedDuration=0ms; failedDuration=6m 20s; cachedDuration=0ms]
+Mar-01 16:43:28.791 [main] DEBUG nextflow.trace.TraceFileObserver - Flow completing -- flushing trace file
+Mar-01 16:43:28.798 [main] DEBUG nextflow.trace.ReportObserver - Flow completing -- rendering html report
+Mar-01 16:43:28.913 [main] DEBUG nextflow.trace.ReportObserver - Execution report summary data:
+  {"filter":{"cpu":null,"mem":null,"time":{"mean":139.79,"min":116,"q1":132,"q2":139,"q3":145,"max":179,"minLabel":"filter (SRR5810684_filter)","maxLabel":"filter (SRR5810736_filter)","q1Label":"filter (SRR5810791_filter)","q2Label":"filter (SRR5810749_filter)","q3Label":"filter (SRR5810756_filter)"},"reads":null,"writes":null,"cpuUsage":null,"memUsage":null,"timeUsage":null}}
+Mar-01 16:43:28.987 [SIGINT handler] INFO  nextflow.Session - Adieu

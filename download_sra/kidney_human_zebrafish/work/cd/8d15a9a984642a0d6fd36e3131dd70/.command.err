@@ -1,0 +1,60 @@
+Unable to find image 'pbelmann/sra-download:latest' locally
+latest: Pulling from pbelmann/sra-download
+04cf3f0e25b6: Pulling fs layer
+d5b45e963ba0: Pulling fs layer
+a5c78fda4e14: Pulling fs layer
+193d4969ca79: Pulling fs layer
+d709551f9630: Pulling fs layer
+96a44827fb11: Pulling fs layer
+6b2c678388cf: Pulling fs layer
+ded8042f22ea: Pulling fs layer
+16ecb32adf06: Pulling fs layer
+39856a24a2b2: Pulling fs layer
+8b2e38bea7b4: Pulling fs layer
+c3f826d7786e: Pulling fs layer
+d709551f9630: Waiting
+193d4969ca79: Waiting
+96a44827fb11: Waiting
+39856a24a2b2: Waiting
+6b2c678388cf: Waiting
+8b2e38bea7b4: Waiting
+ded8042f22ea: Waiting
+c3f826d7786e: Waiting
+16ecb32adf06: Waiting
+d5b45e963ba0: Verifying Checksum
+d5b45e963ba0: Download complete
+a5c78fda4e14: Download complete
+d709551f9630: Verifying Checksum
+193d4969ca79: Verifying Checksum
+193d4969ca79: Download complete
+d709551f9630: Download complete
+04cf3f0e25b6: Verifying Checksum
+04cf3f0e25b6: Download complete
+96a44827fb11: Verifying Checksum
+96a44827fb11: Download complete
+04cf3f0e25b6: Pull complete
+d5b45e963ba0: Pull complete
+a5c78fda4e14: Pull complete
+193d4969ca79: Pull complete
+d709551f9630: Pull complete
+96a44827fb11: Pull complete
+ded8042f22ea: Verifying Checksum
+ded8042f22ea: Download complete
+16ecb32adf06: Verifying Checksum
+16ecb32adf06: Download complete
+8b2e38bea7b4: Verifying Checksum
+8b2e38bea7b4: Download complete
+6b2c678388cf: Verifying Checksum
+6b2c678388cf: Download complete
+c3f826d7786e: Verifying Checksum
+c3f826d7786e: Download complete
+6b2c678388cf: Pull complete
+ded8042f22ea: Pull complete
+16ecb32adf06: Pull complete
+39856a24a2b2: Verifying Checksum
+39856a24a2b2: Download complete
+39856a24a2b2: Pull complete
+8b2e38bea7b4: Pull complete
+c3f826d7786e: Pull complete
+Digest: sha256:90ccae39a390ec55a70025cfa7a01167224885d0eb8c6101bf2f59e39cb56035
+Status: Downloaded newer image for pbelmann/sra-download:latest

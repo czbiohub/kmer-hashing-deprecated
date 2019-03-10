@@ -1,0 +1,5 @@
+2019-03-07T08:38:23 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-07T08:38:23 fastq-dump.2.8.0 err: connection failed while opening file within cryptographic module - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra47/SRR/003958/SRR4053209'
+2019-03-07T08:39:20 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-07T08:49:21 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
+2019-03-07T09:24:57 fastq-dump.2.8.0 sys: timeout exhausted while reading file within network system module - mbedtls_ssl_read returned -76 ( NET - Reading information from the socket failed )
