@@ -1,3 +1,11 @@
+# Nextflow files
+.git/
+.nextflow*
+work/
+
+# IntelliJ files
+.idea*
+
 # Mac OS files
 .DS_Store
 
