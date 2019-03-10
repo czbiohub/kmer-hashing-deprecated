@@ -1,0 +1,1 @@
+2019-03-07T07:27:32 fastq-dump.2.8.0 err: timeout exhausted while creating file within network system module - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra43/SRR/003957/SRR4052908'

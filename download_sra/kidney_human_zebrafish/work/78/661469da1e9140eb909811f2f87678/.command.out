@@ -1,0 +1,117 @@
+Reads (forward + reverse): 2229476
+
+Reads trimmed by insert match: 552
+Reads trimmed by adapter match: 34
+Reads trimmed by quality: 136375
+Reads trimmed by N stretches: 182
+Trimmed reads: 586 of 2229476 (0.03%)
+Removed reads: 718 of 2229476 (0.03%)
+Removed bases: 0.65%
+
+Forward adapter sequence (given)    : AGATCGGAAGAGCACACGTCTGAACTCCAGTCACGAGTTA
+Forward adapter sequence (consensus): CTGTCTCTT
+Reverse adapter sequence (given)    : AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTC
+Reverse adapter sequence (consensus): NNN
+
+Read length distribution after trimming:
+   0: 222
+   1: 0
+   2: 0
+   3: 2
+   4: 0
+   5: 4
+   6: 3
+   7: 31
+   8: 11
+   9: 7
+  10: 27
+  11: 4
+  12: 19
+  13: 105
+  14: 283
+  15: 6
+  16: 200
+  17: 121
+  18: 37
+  19: 375
+  20: 81
+  21: 19
+  22: 5
+  23: 7
+  24: 14
+  25: 11
+  26: 13
+  27: 18
+  28: 17
+  29: 23
+  30: 37
+  31: 41
+  32: 81
+  33: 71
+  34: 96
+  35: 167
+  36: 149
+  37: 143
+  38: 138
+  39: 283
+  40: 165
+  41: 255
+  42: 212
+  43: 477
+  44: 496
+  45: 233
+  46: 233
+  47: 238
+  48: 230
+  49: 285
+  50: 279
+  51: 257
+  52: 366
+  53: 287
+  54: 368
+  55: 292
+  56: 421
+  57: 476
+  58: 371
+  59: 469
+  60: 432
+  61: 477
+  62: 513
+  63: 537
+  64: 573
+  65: 560
+  66: 569
+  67: 605
+  68: 678
+  69: 662
+  70: 756
+  71: 737
+  72: 863
+  73: 835
+  74: 895
+  75: 901
+  76: 932
+  77: 887
+  78: 1005
+  79: 1061
+  80: 1132
+  81: 1221
+  82: 1294
+  83: 1397
+  84: 1483
+  85: 1549
+  86: 1710
+  87: 1800
+  88: 1979
+  89: 2231
+  90: 2749
+  91: 2693
+  92: 3022
+  93: 3527
+  94: 3840
+  95: 4698
+  96: 5020
+  97: 6646
+  98: 11768
+  99: 53259
+ 100: 2092699

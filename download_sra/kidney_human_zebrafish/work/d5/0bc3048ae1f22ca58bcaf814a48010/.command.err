@@ -1,0 +1,4 @@
+2019-03-07T12:13:17 fastq-dump.2.8.0 err: timeout exhausted while creating file within network system module - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra36/SRR/002894/SRR2964300'
+2019-03-07T12:13:53 fastq-dump.2.8.0 sys: connection failed while opening file within cryptographic module - mbedtls_ssl_handshake returned -76 ( NET - Reading information from the socket failed )
+2019-03-07T12:13:53 fastq-dump.2.8.0 err: no error - error with http open 'https://sra-download.ncbi.nlm.nih.gov/traces/sra36/SRR/002894/SRR2964300'
+2019-03-07T12:13:53 fastq-dump.2.8.0 err: connection failed while opening file within cryptographic module - failed to open 'SRR2964300'

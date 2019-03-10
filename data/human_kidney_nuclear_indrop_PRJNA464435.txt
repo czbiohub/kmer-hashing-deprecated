@@ -1,0 +1,2 @@
+Assay_Type	AvgSpotLen	BioProject	BioSample	Center_Name	Consent	DATASTORE_filetype	DATASTORE_provider	Experiment	InsertSize	Instrument	LibraryLayout	LibrarySelection	LibrarySource	LoadDate	MBases	MBytes	Organism	Platform	ReleaseDate	Run	SRA_Sample	SRA_Study	Sample_Name	age	platform	source_name	tissue
+RNA-Seq	100	PRJNA464435	SAMN09088275	GEO	public	sra	ncbi	SRX4051918	0	Illumina HiSeq 2500	PAIRED	cDNA	TRANSCRIPTOMIC	2018-05-11	12328	8235	Homo sapiens	ILLUMINA	2018-06-19	SRR7130925	SRS3268953	SRP144908	GSM3135714	70 years	inDrops	Human kidney	Human kidney

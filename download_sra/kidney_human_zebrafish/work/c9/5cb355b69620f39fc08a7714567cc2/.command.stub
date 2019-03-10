@@ -1,0 +1,109 @@
+#!/bin/bash
+set -e
+set -u
+NXF_DEBUG=${NXF_DEBUG:=0}; [[ $NXF_DEBUG > 2 ]] && set -x
+
+set -o pipefail
+prev_total=0
+declare -a prev_time
+mem_tot=$(< /proc/meminfo grep MemTotal | awk '{print $2}')
+num_cpus=$(< /proc/cpuinfo grep '^processor' -c)
+
+nxf_pcpu() {
+    local pid=$1
+    local proc_time=$(2> /dev/null < /proc/$pid/stat awk '{sum=$14+$15; printf "%.0f",sum}' || echo -n 0)
+    local cpu_usage=$(echo -n $proc_time ${prev_time[pid]:-0} $total_time $prev_total $num_cpus | awk '{ pct=($1-$2)/($3-$4)*$5 *100; printf "%.1f", pct }' )
+    prev_time[pid]=$proc_time
+    nxf_pcpu_ret=$cpu_usage
+}
+
+nxf_tree() {
+    declare -a ALL_CHILD
+    while read P PP;do
+        ALL_CHILD[$PP]+=" $P"
+    done < <(ps -e -o pid= -o ppid=)
+
+    stat() {
+        nxf_pcpu $1 
+        local x_pid=$1
+        local x_stat=$(2> /dev/null < /proc/$1/stat awk '{print $3}' || echo -n X)
+        local x_pcpu=$nxf_pcpu_ret
+
+        local x_vsz=$(2> /dev/null < /proc/$1/stat awk '{printf "%.0f", $23/1024}' || echo -n 0)
+        local x_rss=$(2> /dev/null < /proc/$1/status grep VmRSS | awk '{print $2}' || echo -n 0)
+        local x_pmem=$(echo $x_rss | awk -v mem_tot=$mem_tot '{printf "%.1f", $1/mem_tot*100}')
+
+        local x_io=$(2> /dev/null < /proc/$1/io sed 's/^.*:\s*//' | tr '\n' ' ' || echo -n 0)
+        local x_vm=$(2> /dev/null < /proc/$1/status egrep 'VmPeak|VmHWM' | sed 's/^.*:\s*//' | sed 's/[\sa-zA-Z]*$//' | tr '\n' ' ' || echo -n 0)
+
+        stat_ret+="$x_pid $x_stat $x_pcpu $x_pmem $x_vsz $x_rss"
+        if [[ $x_vm ]]; then stat_ret+=" $x_vm"; else stat_ret+=" 0 0"; fi
+        if [[ $x_io ]]; then stat_ret+=" $x_io"; fi
+        stat_ret+='\n'
+    }
+
+    walk() {
+        stat $1 
+        for i in ${ALL_CHILD[$1]:=}; do walk $i; done
+    }
+
+    stat_ret=''
+    total_time=$(grep '^cpu ' /proc/stat |awk '{sum=$2+$3+$4+$5+$6+$7+$8+$9+$10; printf "%.0f",sum}')
+    walk $1
+    prev_total=$total_time
+    nxf_tree_ret=$stat_ret  
+}
+
+nxf_pstat() {
+    nxf_tree $1
+    if [[ "$nxf_tree_ret" ]]; then
+      nxf_pstat_ret=$(printf "$nxf_tree_ret" | awk '{ t3+=($3*10); t4+=($4*10); t5+=$5; t6+=$6; t7+=$7; t8+=$8; t9+=$9; t10+=$10; t11+=$11; t12+=$12; t13+=$13; t14+=$14 } END { printf "%d 0 %.0f %.0f %.0f %.0f %.0f %.0f %.0f %.0f %.0f %.0f %.0f %.0f\n", NR,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14 }')
+    else
+      nxf_pstat_ret=''  
+    fi
+}
+
+nxf_sleep() {
+  if [[ $1 < 0 ]]; then sleep 5;
+  elif [[ $1 < 10 ]]; then sleep 0.1 2>/dev/null || sleep 1;
+  elif [[ $1 < 130 ]]; then sleep 1;
+  else sleep 5; fi
+}
+
+nxf_date() {
+    local ts=$(date +%s%3N); [[ $ts == *3N ]] && date +%s000 || echo $ts
+}
+
+nxf_trace() {
+  local pid=$1; local trg=$2;
+  local count=0;
+  declare -a max=(); for i in {0..13}; do max[i]=0; done
+  while [[ -d /proc/$pid ]]; do
+    nxf_pstat $pid
+    if [[ "$nxf_pstat_ret" ]]; then
+    IFS=' ' read -a val <<< "$nxf_pstat_ret"; unset IFS
+    for i in {0..13}; do
+      [ ${val[i]} -gt ${max[i]} ] && max[i]=${val[i]}
+    done
+    echo "pid state %cpu %mem vmem rss peak_vmem peak_rss rchar wchar syscr syscw read_bytes write_bytes" > $trg
+    echo "${max[@]}" >> $trg
+    fi
+    nxf_sleep $count
+    count=$((count+1))
+  done
+} 
+
+
+trap 'exit ${ret:=$?}' EXIT
+touch .command.trace
+start_millis=$(nxf_date)
+(
+/bin/bash /home/olga/code/kmer-hashing/download_sra/kidney_human_zebrafish/work/c9/5cb355b69620f39fc08a7714567cc2/.command.sh
+) &
+pid=$!
+nxf_trace "$pid" .command.trace &
+mon=$!
+wait $pid || ret=$?
+end_millis=$(nxf_date)
+wait $mon
+echo $((end_millis-start_millis)) >> .command.trace

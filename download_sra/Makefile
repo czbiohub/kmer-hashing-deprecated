@@ -1,0 +1,2 @@
+nextflow:
+	nextflow run  pbelmann/sra-download  --cache  /home/olga/scratch-pure/nextflow-cache/  --output /home/olga/scratch-pure/sra-download/ --input /home/olga/code/kmer-hashing/data/200_download_species_data/human_zebrafish_kidney.tsv -with-trace -with-timeline -with-docker pbelmann/sra-download
