@@ -9,7 +9,7 @@ USER root
 RUN useradd -ms /bin/bash main
 
 
-ENV PACKAGES zlib1g git g++ make ca-certificates gcc zlib1g-dev libc6-dev
+ENV PACKAGES zlib1g git g++ make ca-certificates gcc zlib1g-dev libc6-dev procps
 
 ### don't modify things below here for version updates etc.
 
@@ -44,8 +44,5 @@ RUN cd /home && \
 RUN which -a python3
 RUN python3 --version
 RUN sourmash info
-RUN sourmash compute --help
-RUN sourmash compare --help
-RUN sourmash index --help
 
 USER main

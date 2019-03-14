@@ -3,7 +3,9 @@ all: clean environment.yml environment_no_versions.yml
 clean:
 	rm environment.yml
 
-docker:
+docker: docker_build docker_push
+
+docker_build:
 	docker build -t czbiohub/kmer-hashing .
 
 docker_push:
