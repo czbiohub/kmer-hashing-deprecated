@@ -76,7 +76,7 @@ def draw_graph(G, label_col='cell_ontology_class', edge_color='black', legend=Tr
     labels = [d[label_col] for v, d in G.nodes(data=True)]
     
     if 'pos' not in kwargs:
-        kwargs['pos'] = nx.spring_layout(G)
+        kwargs['pos'] = nx.spring_layout(G, seed=0)
     nx.draw(G, node_color=colors, alpha=0.5, **kwargs)
     
     if legend:
